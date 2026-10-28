@@ -60,6 +60,9 @@ body{margin:0;height:100%;background:var(--paper);color:var(--ink);
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
 .mono{font-family:"Roboto Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;letter-spacing:var(--mono-ls)}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+html{touch-action:manipulation}
+button,[role="button"],[data-fcflip],[data-line],[data-qstart],summary,.il{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+button *,summary *{pointer-events:none}button [data-g],button [data-item],button [data-line]{pointer-events:auto}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .app{display:flex;flex-direction:column;height:100%;max-width:760px;margin:0 auto}
 
@@ -461,7 +464,7 @@ mark{background:transparent;color:var(--red);font-weight:500}
 .rec .add{flex:none;width:38px;height:38px;display:grid;place-items:center;border:1.5px solid var(--ink)}
 .rec .add[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .rec .add svg{width:18px;height:18px}
-.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--dark-chip);color:var(--dark-chip-ink);padding:10px 16px;font-size:14px;z-index:60;max-width:90vw;opacity:0;transition:opacity .25s}
+.toast{pointer-events:none;position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--dark-chip);color:var(--dark-chip-ink);padding:10px 16px;font-size:14px;z-index:60;max-width:90vw;opacity:0;transition:opacity .25s}
 .toast.on{opacity:1}
 .cl-due{display:inline-block;background:var(--red);color:#fff;font-family:"Roboto Mono",monospace;font-size:11px;padding:1px 6px;margin-left:6px;vertical-align:2px;letter-spacing:var(--mono-ls)}
 .privacy{margin:14px 20px 0;padding:12px 14px;border:1px solid var(--line);font-size:13px;color:var(--muted)}
@@ -706,7 +709,11 @@ a.btn{text-decoration:none}
 .vcard summary svg{width:16px;height:16px;transition:transform .2s}.vcard[open] summary svg{transform:rotate(45deg)}
 .vf{display:block;margin:0 0 10px}.vf span{display:block;font-size:12px;letter-spacing:.04em;color:var(--muted);margin-bottom:4px}
 .vf textarea,.vf select,.vf input,.vsel{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--chip);border:0;border-radius:var(--rm);padding:10px 12px;-webkit-appearance:none;appearance:none;resize:vertical}
-.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px;align-items:end}.vgrid .vf{min-width:0}
+.vstl{margin:0 0 12px}.vstl>span{display:block;font-size:12px;letter-spacing:.04em;color:var(--muted);margin-bottom:6px}
+.vstl>div{display:flex;flex-wrap:wrap;gap:6px}
+.vstl button{padding:8px 12px;font-size:14px;line-height:1.2;border-radius:999px;background:var(--chip);color:var(--chip-ink);border:1.5px solid transparent;text-align:left}
+.vstl button[aria-pressed="true"]{background:var(--red);color:#fff}
 .vchk{display:flex;gap:10px;align-items:center;font-size:14px;padding:0 0 14px}.vchk input{width:20px;height:20px;accent-color:var(--red)}
 .vsec{margin:0 20px 10px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r)}
 .vh{margin:0 0 8px;font-weight:600}
@@ -731,8 +738,8 @@ a.btn{text-decoration:none}
 .colc{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:16px;border:1px solid var(--line);text-align:left}
 .colc.done{background:var(--hl);border-color:transparent}.colc .cr{position:relative;display:grid;place-items:center}.colc .cr b{position:absolute;font-size:12px;font-family:"Roboto Mono",monospace}
 .colc .cn{font-weight:600}.colc small{font-size:11.5px;color:var(--muted)}
-.fcst{display:flex;gap:8px;padding:4px 20px 10px}.fcst span{flex:1;padding:10px;border-radius:12px;background:var(--chip);font-size:12.5px;color:var(--muted)}.fcst b{display:block;font-family:"Roboto Mono",monospace;font-size:20px;color:var(--ink);font-weight:400}
-.fc{margin:6px 20px 0;perspective:1200px;cursor:pointer}.fcin{position:relative;min-height:280px;transition:transform .5s;transform-style:preserve-3d}.fc.flip .fcin{transform:rotateY(180deg)}
+.fcst{display:flex;gap:6px;padding:4px 20px 6px}.fcst span{flex:1;min-width:0;padding:10px 8px;border-radius:12px;background:var(--chip);font-size:12.5px;color:var(--muted)}.fcst b{display:block;font-family:"Roboto Mono",monospace;font-size:20px;color:var(--ink);font-weight:400}
+.fc{margin:6px 20px 0;perspective:1200px;cursor:pointer}.fcin{position:relative;min-height:280px;transition:transform .5s;transform-style:preserve-3d}.fc.flip .fcin{transform:rotateY(180deg)}.fc:not(.flip) .fcb,.fc.flip .fcf{pointer-events:none;visibility:hidden;transition:visibility 0s .25s}.fc .fcf,.fc .fcb{transition:visibility 0s .25s}
 .fcf,.fcb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px}
 .fcf{background:var(--dark-chip);color:var(--dark-chip-ink)}.fcb{background:var(--hl);color:var(--hl-ink);transform:rotateY(180deg)}
 .fcf .fk,.fcb .fk{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#ff8a80}.fcb .fk{color:var(--hl-ink);opacity:.7}
@@ -756,7 +763,83 @@ a.btn{text-decoration:none}
 .errlink{display:block;margin:14px auto 0;font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .fsz{display:flex;gap:8px;padding:4px 20px 8px}.fsz button{flex:1;padding:10px 6px;border-radius:12px;border:1.5px solid var(--line);font-size:13.5px}.fsz button[aria-pressed="true"]{border-color:var(--ink);background:var(--dark-chip);color:var(--dark-chip-ink)}
 .advc svg,.season svg:last-child{width:20px;height:20px;flex:none}
+/* ===== Оформление: переключатели ===== */
+.lkh{margin:0;padding:8px 20px 6px;font-size:13px;color:var(--muted)}.lkh em{font-style:normal;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--red);color:#fff;margin-left:6px;vertical-align:1px}
+.uis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:2px 20px 8px}
+.uis button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:6px;border-radius:18px;border:1.5px solid var(--line);text-align:left}
+.uis button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.uis b{font-weight:500;font-size:14px;padding:4px 4px 0}.uis small{font-size:11.5px;line-height:1.25;color:var(--muted);padding:0 4px 4px}
+.uip{position:relative;display:block;width:100%;height:92px;border-radius:13px;overflow:hidden}
+.uip i{position:absolute;left:9px;right:9px;height:16px;border-radius:5px}.uip i:nth-child(1){top:12px;right:30px}.uip i:nth-child(2){top:34px}.uip i:nth-child(3){top:56px;right:22px}
+.uip u{position:absolute;left:9px;right:9px;bottom:6px;height:9px;border-radius:5px}
+.uip-classic{background:#fff;border:1px solid #e4e4e2}.uip-classic i{background:#f1f1ef;border-radius:2px}.uip-classic i:nth-child(1){background:#ff4438;right:auto;width:16px}.uip-classic u{background:#000;border-radius:0;height:3px;bottom:10px}
+.uip-glass,.uip-aurora{background:var(--pv-bg)}
+.uip-glass{--pv-bg:radial-gradient(70% 60% at 100% 0%,rgba(255,68,56,.75),transparent 70%),radial-gradient(70% 60% at 0% 45%,rgba(255,170,140,.85),transparent 70%),radial-gradient(70% 60% at 90% 100%,rgba(196,186,255,.8),transparent 70%),#f6eeec}
+.uip-aurora{--pv-bg:radial-gradient(70% 60% at 100% 0%,rgba(120,110,255,.75),transparent 70%),radial-gradient(70% 60% at 0% 50%,rgba(80,200,230,.75),transparent 70%),radial-gradient(70% 60% at 90% 100%,rgba(255,120,170,.6),transparent 70%),#eef0f6}
+.uip-glass i,.uip-aurora i,.uip-glass u,.uip-aurora u{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 10px rgba(0,0,0,.06);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.uip-glass u,.uip-aurora u{height:12px;bottom:6px;border-radius:7px}
+
+/* ===== Дизайн «Стекло» / «Аврора» (data-ui на <html>) ===== */
+:root[data-ui]{--g-bg:#f6eeec;--g1:rgba(255,68,56,.48);--g2:rgba(255,168,138,.60);--g3:rgba(196,186,255,.55);--g4:rgba(168,230,208,.50);
+ --glass:rgba(255,255,255,.46);--glass-hi:rgba(255,255,255,.70);--glass-line:rgba(255,255,255,.80);
+ --glass-sh:0 10px 28px rgba(70,25,15,.08);--glass-in:inset 0 1px 0 rgba(255,255,255,.9);
+ --chip:rgba(255,255,255,.62);--soft:rgba(255,255,255,.42);--line:rgba(40,20,20,.09);--hl:rgba(214,240,228,.78);--r:20px;--rm:14px}
+:root[data-ui="aurora"]{--g-bg:#eef0f6;--g1:rgba(120,110,255,.36);--g2:rgba(80,200,230,.40);--g3:rgba(255,120,170,.30);--g4:rgba(150,240,200,.42);--glass-sh:0 10px 28px rgba(30,30,90,.08)}
+@media (prefers-color-scheme: dark){
+ :root[data-ui]:not([data-theme="light"]){--g-bg:#0e0c11;--g1:rgba(255,68,56,.34);--g2:rgba(255,120,60,.16);--g3:rgba(120,90,255,.26);--g4:rgba(0,170,150,.14);
+  --glass:rgba(255,255,255,.065);--glass-hi:rgba(28,24,30,.62);--glass-line:rgba(255,255,255,.11);--glass-sh:0 12px 30px rgba(0,0,0,.4);--glass-in:inset 0 1px 0 rgba(255,255,255,.09);
+  --chip:rgba(255,255,255,.09);--soft:rgba(255,255,255,.05);--line:rgba(255,255,255,.09);--hl:rgba(31,74,58,.62)}
+ :root[data-ui="aurora"]:not([data-theme="light"]){--g-bg:#0b0d14;--g1:rgba(110,90,255,.32);--g2:rgba(0,180,220,.20);--g3:rgba(255,80,150,.18);--g4:rgba(40,220,160,.12);--glass-hi:rgba(22,24,34,.62)}
+}
+:root[data-ui][data-theme="dark"]{--g-bg:#0e0c11;--g1:rgba(255,68,56,.34);--g2:rgba(255,120,60,.16);--g3:rgba(120,90,255,.26);--g4:rgba(0,170,150,.14);
+  --glass:rgba(255,255,255,.065);--glass-hi:rgba(28,24,30,.62);--glass-line:rgba(255,255,255,.11);--glass-sh:0 12px 30px rgba(0,0,0,.4);--glass-in:inset 0 1px 0 rgba(255,255,255,.09);
+  --chip:rgba(255,255,255,.09);--soft:rgba(255,255,255,.05);--line:rgba(255,255,255,.09);--hl:rgba(31,74,58,.62)}
+:root[data-ui="aurora"][data-theme="dark"]{--g-bg:#0b0d14;--g1:rgba(110,90,255,.32);--g2:rgba(0,180,220,.20);--g3:rgba(255,80,150,.18);--g4:rgba(40,220,160,.12);--glass-hi:rgba(22,24,34,.62)}
+
+/* фон: мягкие цветные пятна под стеклом */
+:root[data-ui] body{background:var(--g-bg)}
+:root[data-ui] body::after{content:"";position:fixed;inset:-8%;z-index:-1;pointer-events:none;
+ background:radial-gradient(55% 40% at 100% 0%,var(--g1),transparent 72%),radial-gradient(55% 42% at 0% 32%,var(--g2),transparent 72%),radial-gradient(60% 45% at 100% 72%,var(--g3),transparent 72%),radial-gradient(55% 40% at 5% 100%,var(--g4),transparent 72%)}
+/* закреплённые панели — матовое стекло с размытием */
+:root[data-ui] body::before,:root[data-ui] .top,:root[data-ui] .seg,:root[data-ui] .cseg,:root[data-ui] .rail,:root[data-ui] .sbox,:root[data-ui] .pbar,:root[data-ui] .cmpbar{background:var(--glass-hi);-webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7);border-color:var(--glass-line)}
+:root[data-ui] .tabs{margin:0 12px 8px;padding-bottom:0;border:1px solid var(--glass-line);border-radius:26px;background:var(--glass-hi);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8);box-shadow:var(--glass-sh),var(--glass-in)}
+:root[data-ui] .tabs button[aria-current="page"] i{border-radius:50%}
+/* строки списков — отдельные стеклянные плашки (без размытия: так быстрее на длинных списках) */
+:root[data-ui] .row,:root[data-ui] .qcard,:root[data-ui] .prow,:root[data-ui] .card{width:calc(100% - 24px);margin:0 12px 8px;border:1px solid var(--glass-line);border-radius:18px;background:var(--glass);box-shadow:var(--glass-in)}
+:root[data-ui] .trainer{margin:0 12px 10px;border:1px solid var(--glass-line);border-radius:20px;background:var(--glass);box-shadow:var(--glass-in)}
+:root[data-ui] .grp+.row,:root[data-ui] .grp+.qcard,:root[data-ui] .grp+.prow,:root[data-ui] .grp+.card{margin-top:6px}
+/* крупные плитки и карточки */
+:root[data-ui] .acad button,:root[data-ui] .hcat button,:root[data-ui] .uis button{background:var(--glass);border:1px solid var(--glass-line);box-shadow:var(--glass-sh),var(--glass-in);-webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6)}
+:root[data-ui] .uis button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),var(--glass-sh)}
+:root[data-ui] .vcard,:root[data-ui] .semc,:root[data-ui] .qday,:root[data-ui] .qa,:root[data-ui] .fcst span,:root[data-ui] .qopt,:root[data-ui] .ocard.alt{background:var(--glass);border:1px solid var(--glass-line);box-shadow:var(--glass-in)}
+:root[data-ui] .ocard{border:1px solid var(--glass-line);border-radius:20px;box-shadow:var(--glass-sh),var(--glass-in)}
+:root[data-ui] .fsz button{background:var(--glass);border-color:var(--glass-line)}:root[data-ui] .fsz button[aria-pressed="true"]{background:var(--dark-chip);border-color:var(--dark-chip)}
+:root[data-ui] .qhero{border-radius:22px;background:linear-gradient(135deg,#ff6a5c,#ff4438 55%,#e8342a);box-shadow:0 14px 30px rgba(255,68,56,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+:root[data-ui] .lvl,:root[data-ui] .tgc{border-radius:20px;box-shadow:var(--glass-sh)}
+:root[data-ui] .fcf,:root[data-ui] .fcb{box-shadow:var(--glass-sh),inset 0 1px 0 rgba(255,255,255,.18)}
+:root[data-ui] .sbox input,:root[data-ui] .gsearch input,:root[data-ui] .field input,:root[data-ui] .field select,:root[data-ui] .field textarea{border-radius:14px;border:1px solid var(--glass-line)}
+:root[data-ui] .btn{border-radius:14px}
+:root[data-ui] .fmtm{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+:root[data-ui] .fmtc{background:var(--glass-hi);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(30px) saturate(1.8);backdrop-filter:blur(30px) saturate(1.8)}
+@media (prefers-color-scheme: dark){:root[data-ui]:not([data-theme="light"]) .fmtc{background:rgba(24,22,28,.86)}}
+:root[data-ui][data-theme="dark"] .fmtc{background:rgba(24,22,28,.86)}
+@media (prefers-reduced-transparency: reduce){:root[data-ui]{--glass:var(--soft)}}
 </style>
+<script>
+(function(){var r=document.documentElement,mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+ function get(k,d){try{var v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v;}catch(e){return d;}}
+ function apply(t,u){if(t==='light'||t==='dark')r.setAttribute('data-theme',t);else r.removeAttribute('data-theme');
+  if(u&&u!=='classic')r.setAttribute('data-ui',u);else r.removeAttribute('data-ui');
+  var d=t==='dark'||(t!=='light'&&!!(mq&&mq.matches));
+  var c=(u&&u!=='classic')?(d?'#141217':(u==='aurora'?'#f1f2f8':'#f8f1ef')):(d?'#121212':'#ffffff');
+  var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',c);
+  window.__klappLookBar={c:c,d:d};
+  if(window.__klappBars&&!document.getElementById('intro'))window.__klappBars(c,d);}
+ window.__klappApplyLook=function(t,u){window.__klappLookTU=[t,u];apply(t,u);};
+ window.__klappApplyLook(get('klapp-theme','auto'),get('klapp-ui','classic'));
+ if(mq&&mq.addEventListener)mq.addEventListener('change',function(){var a=window.__klappLookTU;apply(a[0],a[1]);});
+})();
+</script>
 </head>
 <body>
 <div id="intro" aria-hidden="true"><div class="stage">
@@ -768,7 +851,7 @@ a.btn{text-decoration:none}
 (function(){
   var el=document.getElementById('intro'),seen=false;
   try{var td=new Date().toISOString().slice(0,10);seen=sessionStorage.getItem('klapp-intro')==='1'||localStorage.getItem('klapp-intro-day')===td;sessionStorage.setItem('klapp-intro','1');localStorage.setItem('klapp-intro-day',td);}catch(e){}
-  function bars(){try{var dark=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;window.__klappBars&&window.__klappBars(dark?'#121212':'#ffffff',dark);}catch(e){}}
+  function bars(){try{var lb=window.__klappLookBar,dark=lb?lb.d:(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);window.__klappBars&&window.__klappBars(lb?lb.c:(dark?'#121212':'#ffffff'),dark);}catch(e){}}
   window.__klappIntroBars=bars;
   function done(){if(!el||el.classList.contains('out'))return;el.classList.add('out');bars();setTimeout(function(){el&&el.parentNode&&el.parentNode.removeChild(el);},700);}
   if(seen){el.parentNode.removeChild(el);el=null;setTimeout(bars,50);return;}
@@ -864,6 +947,9 @@ const I={
  go:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>',
  gloss:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="4.5"/><circle cx="16" cy="15.5" r="3.5"/><path d="M12.3 12.2l1.4 1.4"/></svg>',
  tgm:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.3L2.9 11.5c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.7-2.5 4.8 3.5c.7.5 1.6.1 1.8-.7l3.2-15.2c.2-1-.8-1.8-1.7-1.4zM9.6 14.4l8.6-7.6-6.9 8.8-.3 3-1.4-4.2z"/></svg>',
+ team:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="16.5" cy="9" r="2.6"/><path d="M15.6 14.1c2.6-.1 4.4 1.6 4.9 4.9"/></svg>',
+ cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="6.5" width="12.5" height="14.5" rx="2"/><path d="M8 3.5h10a2 2 0 0 1 2 2V17"/></svg>',
+ edu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.6V16c1.5 1.4 3.4 2 5.5 2s4-.6 5.5-2v-4.4M21.5 9.5V15"/></svg>',
  test:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="4" width="14" height="17"/><path d="M9 3h6v3H9zM8.5 11.5l1.5 1.5 3-3M8.5 17h7"/></svg>',
  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 11l8-6.5 8 6.5V20h-5v-5.5H9V20H4z" stroke-linejoin="round"/></svg>',
  cab:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="15"/><path d="M9 3v4M15 3v4M4 10h16"/><circle cx="12" cy="15" r="1.6" fill="currentColor"/></svg>',
@@ -1181,7 +1267,8 @@ VIEWS.saved=function(){
 
 VIEWS.brand=function(s){
   setTop('',false);
-  const mode=['brand','edu','author'].includes(s.mode)?s.mode:'brand';
+  const mode=['brand','edu','team','author'].includes(s.mode)?s.mode:'brand';
+  const lk=k=>s.embed?`data-am="${k}"`:`data-bmode="${k}"`;
   const E=D.edu||{dirs:[],sem:[],tr:[]};
   let body='';
   if(mode==='brand') body=`
@@ -1220,10 +1307,7 @@ VIEWS.brand=function(s){
   <a class="tgc" href="${TG}" target="_blank" rel="noopener">${I.tgm}<span><b>Сообщество специалистов KLAPP</b><span>Telegram: новости, протоколы, вопросы коллегам</span></span><i>→</i></a>`;
   else if(mode==='edu') body=`
   <section class="sec"><p class="big" style="font-size:20px">Студия KLAPP · Москва · 2026–2027</p><p>20 семинаров в пяти направлениях. «Старт» — обязательный вход, дальше специалист выбирает темы под свою практику. Сквозной принцип: процедура в кабинете + домашний уход из той же линии.</p></section>
-  <div class="grp">Наши тренеры</div>
-  ${E.tr.map(t=>`<div class="trainer"><img src="${D.img.trainers[t.id]}" alt="${esc(t.n)}" loading="lazy"><div class="tb"><h3>${esc(t.n)}</h3><p class="tr-r">${esc(t.r)}</p>
-    <div class="tcard"><div><small>Стаж с KLAPP</small><b>${esc(t.y)}</b></div><div><small>Любимый препарат</small><b>${esc(t.fav)}</b></div><div><small>Девиз</small><b>«${esc(t.m)}»</b></div></div>
-    <p>${esc(t.d)}</p><p class="tr-t"><span>Любимый семинар</span>${esc(t.topics)}</p></div></div>`).join('')}
+
   ${E.dirs.map((dd,i)=>`<div class="grp">0${i+1} · ${esc(dd.n)}</div><p class="snote" style="padding:0 20px 6px">${esc(dd.d)}. Для кого: ${esc(dd.who.toLowerCase())}.</p>`+E.sem.filter(x=>x.d===i+1).map(x=>`<details class="semc"><summary><div><b>${esc(x.t)}${x.b?` <em class="${x.b==='NEW'?'nw':'up'}">${x.b}</em>`:''}</b><span>${esc(x.s)}</span></div>${I.plus}</summary>
      <div class="semb"><p class="sublbl">Для кого</p><ul class="bul">${x.who.map(w=>`<li>${esc(w)}</li>`).join('')}</ul>
      <p class="sublbl">Программа</p>${x.prog.map((p,j)=>`<div class="semp"><span>${String(j+1).padStart(2,'0')}</span><div><b>${esc(p[0])}</b><small>${esc(p[1])}</small></div></div>`).join('')}
@@ -1232,7 +1316,15 @@ VIEWS.brand=function(s){
   <div class="grp">Как попасть на семинар</div>
   ${[['Выберите тему','Начните со «Старта», дальше — темы под вашу практику'],['Узнайте даты','Актуальное расписание — в официальных каналах и у менеджера KLAPP'],['Запишитесь','На сайте KLAPP или у вашего менеджера'],['Приходите','Москва, Огородный проезд, 16/1, стр. 4, офис 1201']].map((x,i)=>`<div class="step" style="padding:12px 20px"><div class="n">${i+1}</div><div><h3>${x[0]}</h3><p>${x[1]}</p></div></div>`).join('')}
   <div class="cbtns" style="padding:8px 20px 4px"><a class="btn red" href="https://klapprussia.ru/studiya-klapp/calendar/" target="_blank" rel="noopener">Расписание и запись на сайте</a></div>
-  <p class="snote" style="padding:6px 20px 0">В студии: демонстрации процедур, постановка руки в парах, дегустация препаратов и живое общение с тренером.</p>`;
+  <p class="snote" style="padding:6px 20px 0">В студии: демонстрации процедур, постановка руки в парах, дегустация препаратов и живое общение с тренером.</p>
+  <button class="ocard alt" ${lk('team')} style="margin-top:16px">${I.team}<span class="tx"><b>Кто ведёт семинары</b><span>${E.tr.length} ${plural(E.tr.length,'тренер','тренера','тренеров')} студии KLAPP</span></span>${I.go}</button>`;
+  else if(mode==='team') body=`
+  <section class="sec"><p class="big" style="font-size:20px">Тренеры студии KLAPP</p><p>Ведут семинары студии KLAPP в Москве: показывают процедуры, ставят руку и разбирают препараты вместе со специалистами.</p></section>
+  ${E.tr.map(t=>`<div class="trainer"><img src="${D.img.trainers[t.id]}" alt="${esc(t.n)}" loading="lazy"><div class="tb"><h3>${esc(t.n)}</h3><p class="tr-r">${esc(t.r)}</p>
+    <div class="tcard"><div><small>Стаж с KLAPP</small><b>${esc(t.y)}</b></div><div><small>Любимый препарат</small><b>${esc(t.fav)}</b></div><div><small>Девиз</small><b>«${esc(t.m)}»</b></div></div>
+    <p>${esc(t.d)}</p><p class="tr-t"><span>Любимый семинар</span>${esc(t.topics)}</p></div></div>`).join('')}
+  <button class="ocard alt" ${lk('edu')} style="margin-top:16px">${I.edu}<span class="tx"><b>Программа семинаров</b><span>${E.sem.length} ${plural(E.sem.length,'семинар','семинара','семинаров')} в ${E.dirs.length} направлениях</span></span>${I.go}</button>
+  <div class="cbtns" style="padding:4px 20px 4px"><a class="btn red" href="https://klapprussia.ru/studiya-klapp/calendar/" target="_blank" rel="noopener">Расписание и запись на сайте</a></div>`;
   else body=`<section class="author">
    <p class="kick">От автора</p>
    <p>Идея этого приложения появилась в 2018 году. Хотелось, чтобы у косметолога под рукой была не стопка каталогов и презентаций, а один понятный инструмент: открыл — и видишь линию, препарат, состав, протокол.</p>
@@ -1241,8 +1333,8 @@ VIEWS.brand=function(s){
    <p>Спасибо, что работаете с KLAPP и делаете свою работу хорошо.</p>
    <img class="sign" src="${D.img.sign}" alt="Подпись автора"><p class="who">Сергей Грудняк<br><span>главный тренер KLAPP Skin Care Science</span></p></section>`;
   if(s.embed) return body+(mode==='brand'?'<p class="foot">made in Germany</p>':'');
-  return `<section class="intro"><h1>${mode==='brand'?'О бренде':mode==='edu'?'Обучение':'&nbsp;'}</h1></section>
-   <div class="seg" role="tablist">${[['brand','Бренд'],['edu','Обучение'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-bmode="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>${body}
+  return `<section class="intro"><h1>${mode==='brand'?'О бренде':mode==='edu'?'Обучение':mode==='team'?'Тренеры':'&nbsp;'}</h1></section>
+   <div class="seg" role="tablist">${[['brand','Бренд'],['edu','Обучение'],['team','Тренеры'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-bmode="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>${body}
    ${mode==='brand'?'<p class="foot">made in Germany</p>':''}`;
 };
 
@@ -1445,7 +1537,7 @@ function cardSections(d){
    ${ANAM.map(([k,l])=>`<label class="vf"><span>${l}</span><textarea data-vc="anam|${k}" rows="2">${esc(d.anam[k]||'')}</textarea></label>`).join('')}
    <label class="vchk"><input type="checkbox" data-vc="anam|preg" ${d.anam.preg?'checked':''}> Беременность или грудное вскармливание</label></details>
   <details class="vcard" ${filled(d.stl)?'open':''}><summary>Status localis${filled(d.stl)?' · '+filled(d.stl):''}${I.plus}</summary>
-   <div class="vgrid">${STL.map(([k,l,opts])=>`<label class="vf"><span>${l}</span><select data-vc="stl|${k}"><option value="">—</option>${opts.map(o=>`<option ${d.stl[k]===o?'selected':''}>${o}</option>`).join('')}</select></label>`).join('')}</div>
+   ${STL.map(([k,l,opts])=>`<div class="vstl" role="group" aria-label="${l}"><span>${l}</span><div>${opts.map(o=>`<button type="button" data-stl="${k}|${esc(o)}" aria-pressed="${d.stl[k]===o}">${o}</button>`).join('')}</div></div>`).join('')}
    <label class="vf"><span>Описание</span><textarea data-vc="stl|txt" rows="3" placeholder="Локализация и характер изменений">${esc(d.stl.txt||'')}</textarea></label></details>
   <details class="vcard" ${filled(d.diag)?'open':''}><summary>Данные диагностики${filled(d.diag)?' · '+filled(d.diag):''}${I.plus}</summary>
    <div class="vgrid">${DIAG.map(([k,l])=>`<label class="vf"><span>${l}</span><input inputmode="decimal" data-vc="diag|${k}" value="${esc(d.diag[k]||'')}"></label>`).join('')}</div>
@@ -1550,6 +1642,9 @@ function cabClick(d,b){
   if(d.oproc&&VDRAFT){const i=VDRAFT.other.indexOf(d.oproc);if(i>=0)VDRAFT.other.splice(i,1);else VDRAFT.other.push(d.oproc);b.setAttribute('aria-pressed',i<0);buzz(6);return true;}
   if('vproto' in d&&VDRAFT){VDRAFT.waitProto=1;PD=null;go({tab:'cab',view:'proto'});return true;}
   if(d.vstep&&VDRAFT){VDRAFT.step=+d.vstep;render(true);return true;}
+  if(d.stl&&VDRAFT){const i=d.stl.indexOf('|'),k=d.stl.slice(0,i),v=d.stl.slice(i+1),on=VDRAFT.stl[k]===v; VDRAFT.stl[k]=on?'':v; buzz(6);
+    b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',!on&&x===b));
+    const sm=b.closest('details').querySelector('summary'), n=Object.values(VDRAFT.stl).filter(v=>v&&String(v).trim()).length; sm.firstChild.nodeValue='Status localis'+(n?' · '+n:''); return true;}
   if(d.sym){const x=d.sym, i=VDRAFT.sym.indexOf(x); if(i>=0) VDRAFT.sym.splice(i,1); else VDRAFT.sym.push(x); b.setAttribute('aria-pressed',i<0); buzz(6); const rc=$('#recs'); if(rc) rc.innerHTML=recsHTML(cById(VDRAFT.cid)); return true;}
   if(d.assign){const [cid,item]=d.assign.split('|'); const c=cById(cid); if(!c) return true;
     if(inPlan(c,item)){go({tab:'cab',view:'cplan',cid,pid:c.plans.find(p=>p.item===item&&p.status==='active').id});return true;}
@@ -1603,9 +1698,20 @@ const uniq=a=>[...new Set(a)];
 const cut=(t,n)=>{t=String(t);return t.length>n?t.slice(0,n-1).replace(/[\s,;.]+\S*$/,'')+'…':t;};
 const PNAME=p=>`«${p.name.replace(/^«|»$/g,'')}» (${p._l.name})`;
 const ALLP=ITEMS.filter(i=>i._f!=='kit'), KITS=ITEMS.filter(i=>i._f==='kit');
+/* «утечка»: слово из названия в вопросе повторяется в ответе — такой вопрос слишком очевиден */
+const LKSTOP=new Set('препарат кожи кожа кожу лица лицо глаз век день ночь линия набор комплекс care skin line pure cream serum mask complex'.split(' '));
+const LKTR=[[/^retin/,'ретин'],[/^hyalu/,'гиалу'],[/^colla/,'колла'],[/^vitam/,'витам'],[/^niaci/,'ниаци'],[/^pepti/,'пепти'],[/^elast/,'эласт'],[/^immun/,'иммун'],[/^acne/,'акне'],[/^lift/,'лифти'],[/^caviar/,'икра'],[/^икр/,'икра'],[/^aloe/,'алоэ'],[/^energ/,'энерг'],[/^colla/,'колла'],[/^cell/,'клетк'],[/^клеточ/,'клетк'],[/^гиалуро/,'гиалу'],[/^увлаж/,'увлаж'],[/^влаж/,'увлаж']];
+const lkWords=t=>{const s=new Set();norm(t).split(/[^a-zа-я0-9]+/).forEach(w=>{if(w.length<4||LKSTOP.has(w))return;let st=w.slice(0,5);for(const [r,v] of LKTR) if(r.test(w)){st=v;break;}s.add(st);});return s;};
+const leakSet=(subj,t)=>{const a=subj instanceof Set?subj:lkWords(subj);return new Set([...lkWords(t)].filter(x=>a.has(x)));};
+const hasAll=(t,L)=>{const w=lkWords(t);for(const x of L) if(!w.has(x)) return false;return true;};
+const leaks=(subj,t)=>{if(!subj)return false;const a=subj instanceof Set?subj:lkWords(subj);if(!a.size)return false;for(const x of lkWords(t)) if(a.has(x)) return true;return false;};
+let MK_SUBJ=null;
 function mk(q,correct,distr,explain,ref,type){
   distr=uniq(distr.filter(d=>d&&d!==correct)); if(distr.length<3||!correct) return null;
-  const opts=shuffle([correct].concat(pickN(distr,3)));
+  let pick=pickN(distr,3);
+  if(MK_SUBJ&&leaks(MK_SUBJ,correct)){ /* допустимо, только если все неверные варианты «подсказывают» так же */
+    const L=leakSet(MK_SUBJ,correct), lk=distr.filter(d=>hasAll(d,L)); if(lk.length<3) return null; pick=pickN(lk,3);}
+  const opts=shuffle([correct].concat(pick));
   return {q,opts,c:opts.indexOf(correct),ex:explain||'',ref:ref||'',t:type};
 }
 function cardGs(p){const s=new Set();(p.actives||[]).forEach(a=>{if(a.x)return;(a.g||[]).forEach(g=>{s.add(g);(gById[g]&&gById[g].comp||[]).forEach(c=>s.add(c));});});return s;}
@@ -1626,41 +1732,47 @@ const OPP={dry:['oily','comed','acne'],oily:['dry','atopic','eyes','eyewr','neck
 const present=p=>{const s=cardGs(p);(p.gi||[]).forEach(g=>s.add(g));return s;};
 const clash=(x,pr)=>pr.has(x.id)||(x.comp||[]).some(c=>pr.has(c))||GL.some(par=>(par.comp||[]).includes(x.id)&&pr.has(par.id));
 const Q={
-  active:p=>{const gs=cardGs(p); const own=(p.actives||[]).filter(a=>!a.x&&a.g&&a.g.length===1&&gById[a.g[0]]); if(!own.length) return null;
+  active:p=>{const gs=cardGs(p); const own=(p.actives||[]).filter(a=>!a.x&&a.g&&a.g.length===1&&gById[a.g[0]]&&!leaks(MK_SUBJ,gById[a.g[0]].n)); if(!own.length) return null;
     const a=own[rnd(own.length)], g=gById[a.g[0]], inci=new Set(p.gi||[]);
     const pr=present(p); const d=GL.filter(x=>x.id!==g.id&&!clash(x,pr)&&!x.base&&(x.c===g.c||Math.random()<.3)).map(x=>x.n);
     return mk(`Какой актив входит в состав препарата ${PNAME(p)}?`,g.n,d,`${g.n}: ${a.t||firstSent(g.d)}`,p._id,'active');},
-  actfn:p=>{const own=(p.actives||[]).filter(a=>!a.x&&a.t&&a.t.length>8&&fams(a.t).size); if(!own.length) return null; const a=own[rnd(own.length)], mine=new Set((a.g||[]));
+  actfn:p=>{const own=(p.actives||[]).filter(a=>!a.x&&a.t&&a.t.length>8&&fams(a.t).size&&!leaks(MK_SUBJ,a.t)&&!leaks(a.n,a.t)); if(!own.length) return null; const a=own[rnd(own.length)], mine=new Set((a.g||[]));
     const tgt=[a.t].concat((a.g||[]).map(g=>gById[g]?gById[g].d:''));
     const d=famPick(tgt,ALLP.flatMap(x=>(x.actives||[]).filter(y=>y.t&&y.t.length>8&&!(y.g||[]).some(g=>mine.has(g))).map(y=>y.t))); if(!d) return null;
     return mk(`Какую роль играет «${a.n}» в препарате ${PNAME(p)}?`,a.t,d,`${a.n} — ${a.t.charAt(0).toLowerCase()+a.t.slice(1)}.`,p._id,'actfn');},
-  effect:p=>{const ef=(p.effects||[]).filter(e=>e.length>4&&fams(e).size); if(!ef.length) return null; const e=ef[rnd(ef.length)];
+  effect:p=>{const ef=(p.effects||[]).filter(e=>e.length>4&&fams(e).size&&!leaks(MK_SUBJ,e)); if(!ef.length) return null; const e=ef[rnd(ef.length)];
     const d=famPick((p.effects||[]).concat([p.desc||'',p.ideal||'']).concat((p.actives||[]).map(x=>x.t||'')).concat([...cardGs(p)].map(g=>gById[g]?firstSent(gById[g].d):'')),ALLP.filter(x=>x._l!==p._l).flatMap(x=>(x.effects||[]))); if(!d) return null;
     return mk(`Какой эффект даёт ${PNAME(p)}?`,e,d,`Эффекты: ${ef.join(', ').toLowerCase()}.`,p._id,'effect');},
   ideal:p=>{if(!p.ideal||p.ideal.length<10) return null; const d=famPick([p.ideal,p.desc||''].concat(p.effects||[]),ALLP.filter(x=>x.ideal&&x._l!==p._l).map(x=>cut(x.ideal,95))); if(!d) return null;
     return mk(`Для какого клиента идеален ${PNAME(p)}?`,cut(p.ideal,95),d,`Идеальный клиент: ${p.ideal}`,p._id,'ideal');},
-  hasActive:g=>{if(g.base) return null; const key=[...g._direct].map(id=>itemById[id]).filter(x=>x&&x._f!=='kit'); if(!key.length) return null; const p=key[rnd(key.length)];
+  hasActive:g=>{if(g.base) return null; const key=[...g._direct].map(id=>itemById[id]).filter(x=>x&&x._f!=='kit'&&!leaks(MK_SUBJ,PNAME(x))); if(!key.length) return null; const p=key[rnd(key.length)];
     const d=ALLP.filter(x=>!g._key.has(x._id)&&!g._inci.has(x._id)&&!clash(g,present(x))).map(PNAME);
     return mk(`В каком препарате ${g.n} — ключевой актив?`,PNAME(p),d,`${g.n}: ${firstSent(g.d)}`,p._id,'hasActive');},
-  gfn:g=>{if(!g.d) return null; const st=stems(g.d.slice(0,80)); const d=GL.filter(x=>x.id!==g.id&&x.c!==g.c&&x.d&&!overlap(stems(x.d.slice(0,80)),st)).map(x=>firstSent(x.d));
-    return mk(`Что верно об активе «${g.n}»?`,firstSent(g.d),d,g.d,'','gfn');},
-  complex:g=>{const own=new Set(g.comp); const c=gById[g.comp[rnd(g.comp.length)]]; if(!c) return null;
+  gfn:g=>{if(!g.d) return null; const st=stems(g.d.slice(0,80)), ans=firstSent(g.d);
+    /* если в описании повторяется название (масло, водоросль…) — берём неверные варианты, где то же слово тоже есть */
+    const AL=leakSet(MK_SUBJ,ans); const d=AL.size?GL.filter(x=>x.id!==g.id&&x.d&&hasAll(firstSent(x.d),AL)&&!leaks(MK_SUBJ,x.n)&&!overlap(stems(x.d.slice(0,80)),new Set([...st].filter(w=>!MK_SUBJ.has(w))))).map(x=>firstSent(x.d))
+      :GL.filter(x=>x.id!==g.id&&x.c!==g.c&&x.d&&!overlap(stems(x.d.slice(0,80)),st)).map(x=>firstSent(x.d));
+    return mk(`Что верно об активе «${g.n.replace(/^«|»$/g,'')}»?`,ans,d,g.d,'','gfn');},
+  complex:g=>{const own=new Set(g.comp); const cc=g.comp.filter(id=>gById[id]&&!leaks(MK_SUBJ,gById[id].n)); if(!cc.length) return null; const c=gById[cc[rnd(cc.length)]];
     return mk(`Что входит в состав комплекса ${g.n}?`,c.n,GL.filter(x=>!own.has(x.id)&&x.id!==g.id&&!x.base&&!(x.comp||[]).length).map(x=>x.n),cut(g.d,180),'','complex');},
-  symptom:sy=>{const recs=new Set(sy.r); const ok=sy.r.map(a=>homeByArt[a]).filter(Boolean); const opp=OPP[sy.id]; if(!ok.length||!opp) return null;
+  symptom:sy=>{const recs=new Set(sy.r); const ok=sy.r.map(a=>homeByArt[a]).filter(x=>x&&!leaks(MK_SUBJ,PNAME(x))); const opp=OPP[sy.id]; if(!ok.length||!opp) return null;
     const p=ok[rnd(ok.length)]; const d=uniq(opp.flatMap(o=>(symById[o]||{r:[]}).r)).filter(a=>!recs.has(a)).map(a=>homeByArt[a]).filter(x=>x&&x._l!==p._l).map(PNAME);
     return mk(`Что из домашнего ухода подойдёт клиенту, у которого «${sy.n.toLowerCase()}»?`,PNAME(p),d,`${p.name}: ${firstSent(p.desc)}`,p._id,'symptom');},
   task:L=>{const d=famPick([L.task,L.tagline||''],LINES.filter(x=>x!==L).map(x=>x.task)); return d?mk(`Какую задачу решает линия ${L.name}?`,L.task,d,`${L.full}: ${L.tagline||L.task}`,'','task'):null;},
   kitActive:k=>{const own=new Set(); k.steps.forEach(st=>st.actives.forEach(a=>(a.g||[]).forEach(g=>{own.add(g);(gById[g]&&gById[g].comp||[]).forEach(c=>own.add(c));}))); (k.gi||[]).forEach(g=>own.add(g));
-    const cand=[...own].filter(g=>gById[g]&&!gById[g].base&&k.steps.some(st=>st.actives.some(a=>(a.g||[]).includes(g)))); if(!cand.length) return null; const g=gById[cand[rnd(cand.length)]];
+    const cand=[...own].filter(g=>gById[g]&&!gById[g].base&&k.steps.some(st=>st.actives.some(a=>(a.g||[]).includes(g)))&&!leaks(MK_SUBJ,gById[g].n)); if(!cand.length) return null; const g=gById[cand[rnd(cand.length)]];
     return mk(`Какой актив работает в процедуре ${k._l.name} «${k.sub}»?`,g.n,GL.filter(x=>!clash(x,own)&&!x.base).map(x=>x.n),`${g.n}: ${firstSent(g.d)}`,k._id,'kitActive');},
-  kitIdeal:k=>{if(!k.ideal||!k.ideal.length) return null; const c=k.ideal[rnd(k.ideal.length)]; const d=famPick(k.ideal.concat([k.intro||'',k.tags||'',k.sub]).concat(k.bullets||[]),KITS.filter(x=>x!==k).flatMap(x=>x.ideal||[])); if(!d) return null;
+  kitIdeal:k=>{const ki=(k.ideal||[]).filter(x=>!leaks(MK_SUBJ,x)); if(!ki.length) return null; const c=ki[rnd(ki.length)]; const d=famPick(k.ideal.concat([k.intro||'',k.tags||'',k.sub]).concat(k.bullets||[]),KITS.filter(x=>x!==k).flatMap(x=>x.ideal||[])); if(!d) return null;
     return mk(`Для какого клиента подходит процедура ${k._l.name} «${k.sub}»?`,c,d,`Идеальный клиент: ${k.ideal.join('; ').toLowerCase()}.`,k._id,'kitIdeal');},
-  kitEffect:k=>{const ef=(k.bullets||[]).filter(x=>fams(x).size); if(!ef.length) return null; const e=ef[rnd(ef.length)];
+  kitEffect:k=>{const ef=(k.bullets||[]).filter(x=>fams(x).size&&!leaks(MK_SUBJ,x)); if(!ef.length) return null; const e=ef[rnd(ef.length)];
     const d=famPick((k.bullets||[]).concat([k.intro||'',k.tags||'',k.sub,k.feature||'']).concat(k.ideal||[]),KITS.filter(x=>x!==k).flatMap(x=>x.bullets||[])); if(!d) return null;
     return mk(`Какой эффект даёт процедура ${k._l.name} «${k.sub}»?`,e,d,`Эффекты процедуры: ${k.bullets.map(x=>x.replace(/[.;]$/,'')).join('; ').toLowerCase()}.`,k._id,'kitEffect');}
 };
+const SUBJ={active:p=>p.name+' '+p._l.name,actfn:p=>p.name+' '+p._l.name,effect:p=>p.name+' '+p._l.name,ideal:p=>p.name+' '+p._l.name,
+  hasActive:g=>g.n,gfn:g=>g.n,complex:g=>g.n,symptom:sy=>sy.n,task:L=>L.name+' '+(L.full||''),kitActive:k=>k.sub+' '+k._l.name,kitIdeal:k=>k.sub+' '+k._l.name,kitEffect:k=>k.sub+' '+k._l.name};
+const QQ=(fn,x)=>{MK_SUBJ=lkWords(SUBJ[fn](x));try{return Q[fn](x);}finally{MK_SUBJ=null;}};
 function poolFor(scope){
-  const P=[]; const add=(fn,x,w)=>{for(let i=0;i<(w||1);i++)P.push(()=>Q[fn](x));};
+  const P=[]; const add=(fn,x,w)=>{for(let i=0;i<(w||1);i++)P.push(()=>QQ(fn,x));};
   const prodQs=(p,set)=>set.forEach(t=>add(t,p));
   const gOfItems=items=>{const s=new Set();items.forEach(p=>cardGs(p).forEach(g=>s.add(g)));return [...s].map(g=>gById[g]).filter(g=>g&&!g.base);};
   if(scope.startsWith('line:')){const L=byId[scope.slice(5)];
@@ -2439,10 +2551,11 @@ VIEWS.home=function(){
    <div class="grp">Каталог</div>
    <div class="hcat"><button data-tab="catalog"><b>${LINES.length}</b><span>линий от A до X</span></button><button data-cs2="act"><b>${GL.length}</b><span>активов в энциклопедии</span></button><button data-cs2="inci"><b>${COMPS.length}</b><span>компонентов INCI</span></button></div>
    <div class="grp">Академия</div>
-   <div class="acad">${[['tests','Тесты',bg!==null?'Большой тест: '+bg+'%':'Проверьте знание ассортимента',I.test],['honors','Доска почёта',honors().list.length?honors().list.length+' '+plural(honors().list.length,'награда','награды','наград'):'Медали, кубки, короны',I.star],['edu','Обучение','Семинары и тренеры студии',I.brand],['brand','О бренде','История, философия, контакты',I.gloss]].map(([k,t,sub,ic])=>`<button data-am2="${k}">${ic}<b>${t}</b><span>${esc(sub)}</span></button>`).join('')}</div>
+   <div class="acad">${[['tests','Тесты',bg!==null?'Большой тест: '+bg+'%':'Проверьте знание ассортимента',I.test],['cards','Карточки',(()=>{try{const n=fcQueue().length;return n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'На сегодня всё повторено';}catch(e){return 'Интервальное повторение';}})(),I.cards],['honors','Доска почёта',honors().list.length?honors().list.length+' '+plural(honors().list.length,'награда','награды','наград'):'Медали, кубки, короны',I.star],['edu','Обучение',((D.edu||{}).sem||[]).length+' семинаров студии KLAPP',I.edu],['team','Тренеры','Кто ведёт семинары',I.team],['brand','О бренде','История, философия, контакты',I.gloss]].map(([k,t,sub,ic])=>`<button data-am2="${k}">${ic}<b>${t}</b><span>${esc(sub)}</span></button>`).join('')}</div>
    ${tgLine()}
+   ${lookHTML()}
    ${fontHTML()}
-   <p class="foot">KLAPP Гид · версия 3.4</p>`;
+   <p class="foot">KLAPP Гид · версия 3.5</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -2464,7 +2577,8 @@ VIEWS.academy=function(s){
   if(am==='tests') body=VIEWS.tests(s); else if(am==='honors') body=VIEWS.honors(s); else if(am==='cards') body=VIEWS.cards(s); else if(am==='coll') body=VIEWS.coll(s); else body=VIEWS.brand(Object.assign({},s,{mode:am,embed:1}));
   if(['tests','cards','coll','honors'].includes(am)) body=levelHTML()+body;
   setTop('Академия',true);
-  const segs=`<div class="seg ns aseg" role="tablist">${[['tests','Тесты'],['cards','Карточки'],['coll','Коллекция'],['honors','Награды'],['edu','Обучение'],['brand','Бренд'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${am===k}" data-am="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>`;
+  setTimeout(()=>{const sg=document.querySelector('.aseg'),a=sg&&sg.querySelector('[aria-selected="true"]');if(a)sg.scrollLeft=Math.max(0,a.offsetLeft-(sg.clientWidth-a.offsetWidth)/2);},0);
+  const segs=`<div class="seg ns aseg" role="tablist">${[['tests','Тесты'],['cards','Карточки'],['coll','Коллекция'],['honors','Награды'],['edu','Обучение'],['team','Тренеры'],['brand','Бренд'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${am===k}" data-am="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>`;
   return segs+body;
 };
 /* назначить клиенту из карточки */
@@ -2541,19 +2655,21 @@ function fcDeck(){if(fcDeck.d)return fcDeck.d;const D2=[];
 function fcQueue(){const t=todayS();const due=fcDeck().filter(c=>FC.next[c.id]&&FC.next[c.id]<=t);
   const newToday=FC.newDay[t]||0;const fresh=fcDeck().filter(c=>!FC.next[c.id]).slice(0,Math.max(0,10-newToday));return due.concat(fresh);}
 let FCS=null;
-VIEWS.cards=function(){const q=fcQueue();const learned=Object.keys(FC.box).filter(k=>FC.box[k]>=3).length;
+VIEWS.cards=function(){const q=fcQueue();const learned=Object.keys(FC.box).filter(k=>FC.box[k]>=3).length, inwork=Object.keys(FC.box).filter(k=>FC.box[k]>0&&FC.box[k]<3).length;
   if(!FCS||FCS.date!==todayS()) FCS={date:todayS(),i:0,flip:false,q:q.map(c=>c.id)};
   const deck=fcDeck(), byId={}; deck.forEach(c=>byId[c.id]=c);
   const cur=FCS.q.slice(FCS.i).map(id=>byId[id]).find(Boolean);
   const head=`<section class="intro" style="padding-bottom:6px"><h1>Карточки</h1><p>Интервальное повторение: приложение само решает, что показать сегодня, а что — через несколько дней. Каждый день — до 10 новых карточек и все, которые пора повторить.</p></section>
-   <div class="fcst"><span><b>${Math.max(0,FCS.q.length-FCS.i)}</b> на сегодня</span><span><b>${learned}</b> выучено</span><span><b>${deck.length}</b> всего</span></div>`;
-  if(!cur) return head+`<p class="empty">На сегодня всё — возвращайтесь завтра. Новые карточки и повторения появятся сами.</p>`;
+   <div class="fcst"><span><b>${Math.max(0,FCS.q.length-FCS.i)}</b> на сегодня</span><span><b>${inwork}</b> в изучении</span><span><b>${learned}</b> выучено</span><span><b>${deck.length}</b> всего</span></div>`;
+  const help=`<details class="qdl fchelp"><summary>Когда карточка считается выученной${I.plus}</summary><p class="snote" style="padding:0 20px 12px">Просмотреть карточку мало — после ответа нажмите «Помню» или «Не помню». Карточка становится <b>выученной</b>, когда вы <b>трижды подряд</b> вспомнили её: сегодня, на следующий день и ещё через 3 дня. До этого она числится «в изучении» и возвращается на повтор сама. «Не помню» отправляет карточку на повтор завтра и начинает отсчёт заново. Выученные карточки тоже возвращаются — через 7, 14 и 30 дней, чтобы знание закрепилось.</p></details>`;
+  if(!cur) return head+`<p class="empty">На сегодня всё — возвращайтесь завтра. Новые карточки и повторения появятся сами.</p>`+help;
   return head+`<div class="fc ${FCS.flip?'flip':''}" data-fcflip><div class="fcin"><div class="fcf"><span class="fk">${esc(cur.k)}</span><p>${nice(cur.f)}</p><small>Нажмите, чтобы увидеть ответ</small></div>
    <div class="fcb"><span class="fk">Ответ</span><p>${nice(cur.b)}</p>${cur.g?`<button class="fm" data-g="${cur.g}">Статья →</button>`:cur.item?`<button class="fm" data-item="${esc(cur.item)}">Карточка →</button>`:cur.line?`<button class="fm" data-line="${cur.line}">Линия →</button>`:''}</div></div></div>
-   ${FCS.flip?`<div class="wnav"><button class="btn ghost" data-fcans="0">Не помню</button><button class="btn red" data-fcans="1">Помню</button></div>`:''}`;};
+   ${FCS.flip?`<div class="wnav"><button class="btn ghost" data-fcans="0">Не помню</button><button class="btn red" data-fcans="1">Помню</button></div>`:''}`+help;};
 function fcAnswer(ok){const id=FCS.q[FCS.i];if(!id)return;const t=todayS();const wasNew=!FC.next[id];
   let b=FC.box[id]||0; b=ok?Math.min(5,b+1):1; FC.box[id]=b; FC.next[id]=addD(t,ok?FC_INT[b]:1); FC.reviews=(FC.reviews||0)+1;
-  if(wasNew)FC.newDay[t]=(FC.newDay[t]||0)+1; LSset('klapp-fc',FC); FCS.i++; FCS.flip=false; buzz(ok?12:[30,40,30]); render(false);}
+  if(wasNew)FC.newDay[t]=(FC.newDay[t]||0)+1; LSset('klapp-fc',FC); FCS.i++; FCS.flip=false; buzz(ok?12:[30,40,30]); render(false); {const f=document.querySelector('.fc');if(f)f.scrollIntoView({block:'nearest',behavior:'smooth'});}
+  const dd=FC_INT[b]; toast(!ok?'Повторим завтра':b===3?'Карточка выучена ✓ Повторим через неделю':b>3?'Отлично, следующий повтор через '+dd+' '+plural(dd,'день','дня','дней'):'Ещё '+(3-b)+' '+plural(3-b,'повтор','повтора','повторов')+' до «выучено» · следующий через '+dd+' '+plural(dd,'день','дня','дней'));}
 /* --- сезонные подборки --- */
 const SEASONS=[{m:[9,10,11,12,1,2],t:'Сезон кислот и ретиноидов',d:'Осень и зима — лучшее время для обновления кожи: солнца меньше, и работать с кислотами и ретиноидами безопаснее. Вводите их постепенно, поддерживайте барьер, днём — SPF.',lines:['asapeel','aclassic','retinolmlp','mlpcleansing','immun'],kits:['811','834','C2016']},
  {m:[3,4,5],t:'Сияние, ровный тон и SPF',d:'Весной кожа выходит из зимы тусклой, а солнце становится активнее. Время витамина C, осветляющих активов и ежедневной защиты SPF.',lines:['cpure','vitaminc','skinboost','mlpsunprotection'],kits:['516']},
@@ -2625,7 +2741,7 @@ function errSheet(id){const p=itemById[id];if(!p)return;let m=document.getElemen
   document.body.appendChild(m);}
 function v34Click(d,b){
   if(d.qd!==undefined){const t=todayS();if(DQ.days[t])return true;const q=dayQuestion(t,'qd');const i=+d.qd;DQ.days[t]={a:i,ok:i===q.c};LSset('klapp-daily',DQ);buzz(i===q.c?15:[30,50,30]);render(false);return true;}
-  if(d.fcflip!==undefined&&FCS&&!FCS.flip&&!b.closest('[data-g],[data-item],[data-line]')){FCS.flip=true;render(false);return true;}
+  if(d.fcflip!==undefined&&FCS&&!FCS.flip&&!b.closest('[data-g],[data-item],[data-line]')){FCS.flip=true;render(false);setTimeout(()=>{const w=document.querySelector('.fc~.wnav');if(w)w.scrollIntoView({block:'nearest',behavior:'smooth'});},80);return true;}
   if(d.fcans!==undefined){fcAnswer(d.fcans==='1');return true;}
   if('season' in d){go({view:'season'});return true;}
   if('advent' in d){go({view:'advent'});return true;}
@@ -2635,10 +2751,20 @@ function v34Click(d,b){
   if(d.errp){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);return true;}
   if(d.errsend){const p=itemById[d.errsend];const parts=[...document.querySelectorAll('[data-errp][aria-pressed="true"]')].map(x=>x.dataset.errp);const t=(document.getElementById('errt')||{}).value||'';
     const m=document.getElementById('fmtm');if(m)m.remove();
-    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 3.4`);return true;}
+    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 3.5`);return true;}
   if(d.fs){setFont(+d.fs);render(false);return true;}
+  if(d.thm){setLook(d.thm,null);buzz(8);render(false);return true;}
+  if(d.uiset){setLook(null,d.uiset);buzz(8);render(false);return true;}
   if(runClick(d))return true;
   return false;}
+/* --- тема и дизайн интерфейса --- */
+let TH=LS('klapp-theme','auto'), UIX=LS('klapp-ui','classic');
+function setLook(t,u){if(t)TH=t;if(u)UIX=u;LSset('klapp-theme',TH);LSset('klapp-ui',UIX);window.__klappApplyLook&&window.__klappApplyLook(TH,UIX);}
+const UIS=[['classic','Классика','Белый, строгий'],['glass','Стекло','Тёплые тона KLAPP'],['aurora','Аврора','Холодное сияние']];
+function lookHTML(){return `<div class="grp">Оформление</div><p class="lkh">Тема</p>
+  <div class="fsz">${[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(([v,l])=>`<button data-thm="${v}" aria-pressed="${TH===v}">${l}</button>`).join('')}</div>
+  <p class="lkh">Дизайн <em>эксперимент</em></p>
+  <div class="uis">${UIS.map(([v,l,sb])=>`<button data-uiset="${v}" aria-pressed="${UIX===v}"><span class="uip uip-${v}" aria-hidden="true"><i></i><i></i><i></i><u></u></span><b>${l}</b><small>${sb}</small></button>`).join('')}</div>`;}
 /* --- размер шрифта --- */
 let FS=LS('klapp-fs',1);
 function setFont(v){FS=v;LSset('klapp-fs',v);main.style.zoom=v;}
