@@ -1,5 +1,5 @@
 // KLAPP Гид — офлайн-кэш для установки на iPhone и Android с сайта
-const V='klapp-guide-v' + '3.9';
+const V='klapp-guide-v' + '3.10';
 const FILES=['./','./index.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png'];
 // с 3.9 фото препаратов — отдельные файлы: заранее кладём их в кэш, чтобы всё работало без интернета
 async function precache(){const c=await caches.open(V);await c.addAll(FILES);
