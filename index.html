@@ -997,6 +997,32 @@ html.glowmode .tabs button,:root.glowmode[data-ui] .tabs button{color:rgba(255,2
 .bkcard .bkb{display:flex;gap:8px;margin-top:6px;color:inherit}
 :root[data-ui] .bkcard{background:var(--glass)}
 .bkst{margin:0;padding:0 20px 6px;font-size:14px;font-weight:500}
+/* 3.11 */
+.seg.stk{position:sticky;top:0;z-index:8;background:var(--paper)}
+:root[data-ui] .seg.stk{background:var(--glass-hi);-webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7)}
+#main .rail,#main .sbox{top:var(--segh,0px)}
+#main.sw-l>*:not(.seg){animation:swl .26s ease-out}#main.sw-r>*:not(.seg){animation:swr .26s ease-out}
+@keyframes swl{from{transform:translateX(28px);opacity:.35}to{transform:none;opacity:1}}@keyframes swr{from{transform:translateX(-28px);opacity:.35}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){#main.sw-l>*,#main.sw-r>*{animation:none}}
+.prow.seen{background:color-mix(in srgb,var(--red) 6%,transparent)}
+.prow.seen .pth{position:relative;overflow:visible}
+.prow.seen .pth::after{content:"";position:absolute;right:-5px;top:-5px;width:18px;height:18px;border-radius:50%;background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat;box-shadow:0 0 0 2px var(--paper)}
+.prow.seen:not(:has(.pth)) .tx .nm::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin:0 7px 2px 0;vertical-align:middle}
+.pbar .pb.ic{padding:0;width:42px;justify-content:center}.pbar .ordbtn{white-space:nowrap;padding-left:8px;padding-right:8px}.pbar .ordbox{min-width:96px}.pbar .pb{padding:0 10px}.pbar{gap:6px;padding-left:10px;padding-right:10px}@media (max-width:350px){.pbar .pb span{display:none}.pbar .pb{width:42px;padding:0;justify-content:center}}.pbar .pb.ic span{display:none}
+.lseen{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:12px;font-size:13.5px;color:var(--muted)}.lseen .lsn{font-size:12px}
+.lsr{width:16px;height:16px;border-radius:50%;flex:none;background:conic-gradient(var(--red) calc(var(--p)*1turn),var(--line) 0);-webkit-mask:radial-gradient(circle,transparent 4.5px,#000 5px);mask:radial-gradient(circle,transparent 4.5px,#000 5px)}
+.row.lp{position:relative}
+.row.lp::after{content:"";position:absolute;inset:3px 8px;border-radius:14px;padding:2px;background:conic-gradient(var(--red) calc(var(--p)*1turn),transparent 0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none}
+:root[data-ui] .row.lp::after{inset:0;border-radius:inherit}
+.recpv{border-radius:14px;background:var(--chip);min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:13px;color:var(--muted)}
+.recpv img{display:block;width:100%;max-height:300px;object-fit:contain;object-position:top}
+.fmtc.recs{max-height:92vh;overflow-y:auto}.fmtc.recs textarea{width:100%;resize:vertical;font:inherit}
+.prophoto{display:flex;gap:14px;align-items:flex-start;margin:14px 20px 0}
+.prophoto .pav{width:64px;height:64px;border-radius:50%;flex:none;overflow:hidden;background:var(--chip);display:flex;align-items:center;justify-content:center;color:var(--muted);box-shadow:0 0 0 2px var(--paper),0 0 0 3.5px var(--red)}
+.prophoto .pav img{width:100%;height:100%;object-fit:cover}.prophoto .pav svg{width:30px;height:30px}
+.prophoto .tx{display:flex;flex-direction:column;gap:3px;min-width:0}.prophoto small{font-size:12.5px;color:var(--muted);line-height:1.35}
+.prophoto .pbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.prophoto label.btn{cursor:pointer}
+.gshare{display:inline-flex;align-items:center;gap:8px;margin-top:14px;height:42px;padding:0 16px;border-radius:21px;border:1px solid rgba(230,196,122,.6);color:#F7E7B4;font-size:14px;font-weight:500;background:rgba(255,255,255,.06)}.gshare svg{width:18px;height:18px}
 .signprev{margin:8px 20px 0;padding:12px 14px;border-radius:12px;border:1.5px dashed var(--line);font-size:14px}.signprev small{display:block;font-size:11.5px;color:var(--muted);margin-bottom:3px}
 .lnk{color:var(--red);text-decoration:underline;text-underline-offset:3px;font:inherit;padding:0}
 .seg{overflow-x:auto;scrollbar-width:none}.seg::-webkit-scrollbar{display:none}
@@ -1056,7 +1082,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202610290905',date:'2026-10-29',app:'3.10.2',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"28df08b2f2312a48","pro:172":"d5541992de50f531","pro:173":"91a1a8e5ac9c4943","pro:174":"ecff20f40111b5f8","pro:175":"632172fa1d8e3dcb","pro:176":"cb398dae98736112","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202610290905',date:'2026-10-29',app:'3.11',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"28df08b2f2312a48","pro:172":"d5541992de50f531","pro:173":"91a1a8e5ac9c4943","pro:174":"ecff20f40111b5f8","pro:175":"632172fa1d8e3dcb","pro:176":"cb398dae98736112","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -1157,6 +1183,8 @@ const I={
  cab:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="15"/><path d="M9 3v4M15 3v4M4 10h16"/><circle cx="12" cy="15" r="1.6" fill="currentColor"/></svg>',
  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5h4"/></svg>',
  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6"/></svg>',
+ cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="3.6"/><path d="M5 20c1-3.6 3.8-5.4 7-5.4s6 1.8 7 5.4"/></svg>',
  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12h14"/></svg>'
 };
 const TABS=[['home','Главная',I.home],['catalog','Каталог',I.lines],['pick','Подбор',I.pick],['cab','Кабинет',I.cab],['academy','Академия',I.edu]];
@@ -1181,7 +1209,7 @@ function setTop(title,back,extra){
   const icons=`<div class="icons"><button data-open="search" aria-label="Поиск">${I.search}</button><button data-open="saved" aria-label="Избранное">${I.starT}</button><button data-open="settings" aria-label="Настройки">${I.gear}</button></div>`;
   top.innerHTML=(back?`<button class="back" aria-label="Назад" data-back>${I.back}</button><div class="ttl">${esc(title)}</div>`:`<div class="brand"><b>KLAPP</b><span>skin care science</span></div>`)+(extra||(back?'':icons));
 }
-let GLOW_ON=false;
+let GLOW_ON=false,SWIPE_DIR=0;
 function render(fresh){
   const due=cabDueCount();
   const curTab=TABMAP[state.tab]||state.tab;
@@ -1189,6 +1217,8 @@ function render(fresh){
   if(state.view!=='run'&&typeof RUN!=='undefined'&&RUN){clearInterval(RUN.tm);RUN=null;wakeOff();}
   const key=JSON.stringify(state), same=!fresh&&render._last===key, keepY=main.scrollTop;
   const v=VIEWS[state.view]||VIEWS.lines; GLOW_ON=false; main.innerHTML=v(state); glowMode(GLOW_ON);
+  {const sg=main.querySelector('.seg.stk');main.style.setProperty('--segh',sg?sg.offsetHeight+'px':'0px');
+   main.classList.remove('sw-l','sw-r');if(SWIPE_DIR){void main.offsetWidth;main.classList.add(SWIPE_DIR>0?'sw-l':'sw-r');SWIPE_DIR=0;}}
   main.scrollTop=same?keepY:((!fresh&&scrolls[key])?scrolls[key]:0);
   render._last=key;
   if(state.view==='qres') requestAnimationFrame(animateResult);
@@ -1211,7 +1241,7 @@ VIEWS.lines=function(){
   ${tgLine()}
   <nav class="rail" aria-label="Алфавит">${keys.map(c=>`<button data-jump="${c}">${c}</button>`).join('')}</nav>
   <div class="alpha">${keys.map(c=>`<div class="letter" id="L-${c}"><b>${c}</b><em>${letters[c].length} ${plural(letters[c].length,'линия','линии','линий')}</em></div>`+
-    letters[c].map(L=>`<button class="row" data-line="${L.id}"><span class="tx"><span class="nm">${esc(L.name)}</span><span class="sb">${esc(L.task)}</span></span>${mx(L)}</button>`).join('')).join('')}</div>
+    letters[c].map(L=>{const ids=[...L.pro,...L.home,...L.kits].map(i=>i._id),n=ids.filter(id=>SEEN.has(id)).length,pr=n/(ids.length||1);return `<button class="row${n?' lp':''}${n&&n===ids.length?' lpf':''}" data-line="${L.id}"${n?` style="--p:${pr.toFixed(3)}" aria-label="${esc(L.name)}: просмотрено ${n} из ${ids.length}"`:''}><span class="tx"><span class="nm">${esc(L.name)}</span><span class="sb">${esc(L.task)}</span></span>${mx(L)}</button>`;}).join('')).join('')}</div>
   <p class="foot">данные по материалам KLAPP 2026</p>`;
 };
 function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c;}
@@ -1227,7 +1257,7 @@ VIEWS.line=function(s){
     const steps={}; L.pro.forEach(p=>{(steps[p.step]=steps[p.step]||[]).push(p);});
     body=Object.keys(steps).sort().map(n=>`<div class="grp">${esc(CATNAME(+n))}</div>`+steps[n].map(prow).join('')).join('');
   } else if(cur==='kit'){
-    body=L.kits.map(k=>`<button class="prow" data-item="${esc(k._id)}">${thumb(k._id)}<span class="art">${esc(k.art)}</span><span class="tx"><span class="nm">«${esc(k.sub)}»</span><span class="sb">${esc(k.tags)}</span></span><span class="vol">${esc(k.time)}</span></button>`).join('');
+    body=L.kits.map(k=>`<button class="prow${SEEN.has(k._id)?' seen':''}" data-item="${esc(k._id)}">${thumb(k._id)}<span class="art">${esc(k.art)}</span><span class="tx"><span class="nm">«${esc(k.sub)}»</span><span class="sb">${esc(k.tags)}</span></span><span class="vol">${esc(k.time)}</span></button>`).join('');
   } else {
     body=L.home.map(prow).join('');
   }
@@ -1238,9 +1268,10 @@ VIEWS.line=function(s){
     <p>${nice(L.tagline||L.task)}</p>
     <div class="fmtline">${['pro','kit','home'].map(k=>`<span class="${L.fmt[k]?'':'off'}"><span class="mx"><s class="${k==='home'?'r ':''}${L.fmt[k]?'on':''}"></s></span>${k==='pro'?'Кабинет':k==='kit'?'Процедурный набор':'Домашний уход'}</span>`).join('')}</div>
     ${L.soon?`<div class="notice">${esc(L.soon)}</div>`:''}
+    ${(()=>{const ids=[...L.pro,...L.home,...L.kits].map(i=>i._id),n=ids.filter(id=>SEEN.has(id)).length;return `<p class="lseen"><span class="lsr" style="--p:${(n/(ids.length||1)).toFixed(3)}"></span>${n===ids.length?'Все карточки линии просмотрены':`Просмотрено ${n} из ${ids.length}`}<span class="lsn">· просмотренные отмечены красной галочкой</span></p>`;})()}
     <button class="btn ghost sm" style="margin-top:16px" data-qstart="line:${L.id}">${I.test} Тест по линии${best('line:'+L.id)!==null?' · лучший '+best('line:'+L.id)+'%':''}</button>
   </section>
-  <div class="seg" role="tablist">${tabs.map(k=>`<button role="tab" aria-selected="${k===cur}" data-seg="${k}">${FMT[k]}<sup>${cnt[k]}</sup></button>`).join('')}</div>
+  <div class="seg stk" role="tablist">${tabs.map(k=>`<button role="tab" aria-selected="${k===cur}" data-seg="${k}">${FMT[k]}<sup>${cnt[k]}</sup></button>`).join('')}</div>
   ${body||'<p class="empty">В этой категории препаратов нет.</p>'}`;
 };
 function inciBox(it,label,keys){
@@ -1264,7 +1295,7 @@ function actRow(a){
   return `<div><b>${nice(a.n)}</b>${tag}${a.t?`<span>${nice(a.t)}</span>`:''}${gs.length?`<div class="gchips">${gs.map(g=>`<button data-g="${g}">${esc(gById[g].n)}</button>`).join('')}</div>`:''}</div>`;
 }
 function prow(p){
-  return `<button class="prow" data-item="${esc(p._id)}">${thumb(p._id)}<span class="art">${esc(p.art)}</span><span class="tx"><span class="nm">${nice(p.name)}</span><span class="sb">${nice(p.desc)}</span></span><span class="vol">${esc(p.vol)}</span></button>`;
+  return `<button class="prow${SEEN.has(p._id)?' seen':''}" data-item=""${esc(p._id)}">${thumb(p._id)}<span class="art">${esc(p.art)}</span><span class="tx"><span class="nm">${nice(p.name)}</span><span class="sb">${nice(p.desc)}</span></span><span class="vol">${esc(p.vol)}</span></button>`;
 }
 
 VIEWS.item=function(s){
@@ -1276,7 +1307,7 @@ VIEWS.item=function(s){
   const tw=twin(p); pushRecent(p._id); markSeen(p._id);
   const inC=CMP.includes(p._id);
   const anch=[['a-top','Описание'],p.how?['a-how','Применение']:null,p.org?['a-org','Ощущения']:null,p.actives&&p.actives.length?['a-act','Активы']:null,p.it?['a-inci','Состав']:null].filter(Boolean);
-  const pbar=`<div class="pbar">${ordCtl(p)}<button class="pb ${inC?'on':''}" data-${inC&&CMP.length>=2?'cmpgo':'cmptoggle'}="${esc(p._id)}">⇄ <span>${inC?(CMP.length>=2?'Сравнить · '+CMP.length:'В сравнении'):'Сравнить'}</span></button>${p._f==='home'?`<button class="pb" data-asgo="${esc(p._id)}">${I.cab}<span>Клиенту</span></button>`:''}</div>`;
+  const pbar=`<div class="pbar">${ordCtl(p)}<button class="pb ${inC?'on':''}" data-${inC&&CMP.length>=2?'cmpgo':'cmptoggle'}="${esc(p._id)}">⇄ <span>${inC?(CMP.length>=2?'Сравнить · '+CMP.length:'В сравнении'):'Сравнить'}</span></button>${p._f==='home'?`<button class="pb" data-asgo="${esc(p._id)}">${I.cab}<span>Клиенту</span></button><button class="pb ic" data-recsh="${esc(p._id)}" aria-label="Поделиться: моя рекомендация" title="Поделиться">${I.share}<span>Поделиться</span></button>`:''}</div>`;
   const track=p._f==='pro'?`<div class="track"><s class="on"></s><span>Кабинет · ${esc(CATNAME(p.step))}</span></div>`
     :`<div class="track"><s class="on"></s><span>Домашний уход</span></div>`;
   return `${photo(p._id)}<section class="phead">${track}
@@ -1321,7 +1352,7 @@ function kitView(k){
    :`<div class="notice">Протокол набора с авторской массажной техникой подробно разбирается на семинаре ${esc(L.name)} с постановкой руки.</div>`}
   <div class="notice">В наборе нет препаратов для поверхностного очищения и тонизации — используйте кабинетные MLP Cleansing или Clean & Active. Остатки финишного средства вручите клиенту как знакомство с домашним уходом.</div>
   <div class="sec"><button class="twin" data-line="${L.id}"><span class="tx"><small>Вся линия</small><span class="mono">${esc(L.full)}</span></span>${I.go}</button></div>
-  <div class="pbar">${ordCtl(k)}${k.steps&&k.steps.length?`<button class="pb" data-runk="${esc(k._id)}">▶ <span>Процедура</span></button>`:''}</div>`;
+  <div class="pbar">${ordCtl(k)}${k.steps&&k.steps.length?`<button class="pb" data-runk="${esc(k._id)}">▶ <span>Процедура</span></button>`:''}<button class="pb" data-recsh="${esc(k._id)}" aria-label="Поделиться: моя рекомендация">${I.share}<span>Поделиться</span></button></div>`;
 }
 
 VIEWS.pick=function(s){
@@ -1346,7 +1377,7 @@ VIEWS.pick=function(s){
     body=all.map(k=>`<button class="prow" data-item="${esc(k._id)}">${thumb(k._id)}<span class="art">${esc(k.art)}</span><span class="tx"><span class="nm">${esc(k._l.name)} «${esc(k.sub)}»</span><span class="sb">${esc(k.ideal.slice(0,2).join('; '))}</span></span><span class="vol">${esc(k.time)}</span></button>`).join('');
   }
   return `<section class="intro"><h1>Подбор</h1><p>${mode==='sym'?'Что беспокоит клиента? Отметьте одно или несколько состояний — подберём домашний уход и процедуру в кабинете.':mode==='schemes'?'Готовые схемы домашнего ухода по задаче, типу кожи и возрасту.':mode==='spec'?'Девять задач кожи — и линии домашнего ухода, которые их решают.':mode==='step'?'Кабинетные препараты по категориям — и ваши авторские протоколы.':'Процедурные наборы: всё для одной процедуры в индивидуальной упаковке.'}</p></section>
-   <div class="seg" role="tablist">${[['sym','Состояние'],['spec','Дом'],['step','Кабинет'],['kits','Набор'],['schemes','Схемы']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-mode="${k}">${l}</button>`).join('')}</div>${body}`;
+   <div class="seg stk" role="tablist">${[['sym','Состояние'],['spec','Дом'],['step','Кабинет'],['kits','Набор'],['schemes','Схемы']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-mode="${k}">${l}</button>`).join('')}</div>${body}`;
 };
 VIEWS.spec=function(s){
   const sp=D.specs[s.i]; setTop(sp.n,true);
@@ -1544,7 +1575,7 @@ VIEWS.brand=function(s){
    <img class="sign" src="${D.img.sign}" alt="Подпись автора"><p class="who">Сергей Грудняк<br><span>главный тренер KLAPP Skin Care Science</span></p></section>`;
   if(s.embed) return body+(mode==='brand'?'<p class="foot">made in Germany</p>':'');
   return `<section class="intro"><h1>${mode==='brand'?'О бренде':mode==='edu'?'Обучение':mode==='team'?'Тренеры':'&nbsp;'}</h1></section>
-   <div class="seg" role="tablist">${[['brand','Бренд'],['edu','Обучение'],['team','Тренеры'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-bmode="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>${body}
+   <div class="seg stk" role="tablist">${[['brand','Бренд'],['edu','Обучение'],['team','Тренеры'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${mode===k}" data-bmode="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>${body}
    ${mode==='brand'?'<p class="foot">made in Germany</p>':''}`;
 };
 
@@ -1639,7 +1670,7 @@ VIEWS.cab=function(s){
   <div class="cbtns" style="padding-top:10px"><button class="btn ghost sm" data-pnew2>${I.plus} Составить протокол</button></div>
   <div class="grp">Резервная копия</div>
   <p class="bkst">${esc(bkLine())}</p>
-  <p class="snote" style="padding:0 20px">В копию входят карты клиентов, авторские протоколы, заказ, избранное, результаты тестов, карточки, серия и коллекция. Сохраните её перед сменой телефона или переустановкой приложения — без неё эти данные не восстановить.</p>
+  <p class="snote" style="padding:0 20px">В копию входят карты клиентов, авторские протоколы, заказ, избранное, результаты тестов, карточки, серия и коллекция, а также ваши контакты для клиентов и фото. Сохраните её перед сменой телефона или переустановкой приложения — без неё эти данные не восстановить.</p>
   <div class="cbtns"><button class="btn ghost sm" data-cexport>Сохранить копию</button><label class="btn ghost sm" style="cursor:pointer">Загрузить из файла<input type="file" accept="application/json,.json" data-cimport hidden></label></div>
   <div class="privacy">Перед внесением данных получите согласие клиента на их обработку. Резервный файл содержит персональные данные — не пересылайте его в общие чаты.</div>
   ${cabStoreOk?'':'<div class="warn">Не удалось сохранить данные на устройстве. Проверьте свободную память.</div>'}`;
@@ -1811,7 +1842,7 @@ async function doShare(text){
   try{await navigator.clipboard.writeText(text);toast('Назначение скопировано');}catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Назначение скопировано');}catch(_){}t.remove();}
 }
 async function doExport(){BK.last=Date.now();BK.snooze=0;LSset('klapp-backup',BK);setTimeout(()=>render(false),800);
-  const data=JSON.stringify({app:'klapp-guide',v:2,saved:new Date().toISOString(),clients:CAB.clients,protocols:PROTOS,favorites:favs,tests:QZS,order:ORD,daily:DQ,cards:FC,seen:[...SEEN],advent:ADV},null,1);
+  const data=JSON.stringify({app:'klapp-guide',v:2,saved:new Date().toISOString(),clients:CAB.clients,protocols:PROTOS,favorites:favs,tests:QZS,order:ORD,daily:DQ,cards:FC,seen:[...SEEN],advent:ADV,pro:PRO,prophoto:PROPH||''},null,1);
   const name='klapp-guide-backup-'+todayS()+'.json';
   const cap=await window.__cap;
   if(cap&&cap.FS&&cap.SH){try{const r=await cap.FS.writeFile({path:name,data,directory:'CACHE',encoding:'utf8'});await cap.SH.share({title:'Резервная копия KLAPP Гида',files:[r.uri]});return;}catch(e){console.warn(e);}}
@@ -1826,7 +1857,7 @@ function doImport(file){
       if(np){o.protocols.forEach(p=>{if(!p||!p.id||!Array.isArray(p.steps))return;p.steps.forEach(x=>{if(x.type==='custom')x.step=0;});const i=PROTOS.findIndex(x=>x.id===p.id);if(i>=0)PROTOS[i]=p;else PROTOS.push(p);});prSave();}
       if(Array.isArray(o.favorites)){o.favorites.forEach(id=>{if(itemById[id]&&!favs.includes(id))favs.push(id);});saveFavs();}
       if(o.tests&&Array.isArray(o.tests.att)){const ids=new Set(QZS.att.map(x=>x.id));o.tests.att.forEach(a=>{if(a&&a.id&&!ids.has(a.id))QZS.att.push(a);});QZS.att.sort((a,b)=>a.date<b.date?-1:1);if(!QZS.name&&o.tests.name)QZS.name=o.tests.name;qzSave();}
-      if(o.daily&&o.daily.days){Object.assign(DQ.days,o.daily.days);LSset('klapp-daily',DQ);} if(o.cards&&o.cards.box){FC=o.cards;LSset('klapp-fc',FC);} if(Array.isArray(o.seen)){o.seen.forEach(x=>SEEN.add(x));LSset('klapp-seen',[...SEEN]);} if(o.advent&&o.advent.done){Object.assign(ADV.done,o.advent.done);LSset('klapp-advent-'+advYear(),ADV);}
+      if(o.daily&&o.daily.days){Object.assign(DQ.days,o.daily.days);LSset('klapp-daily',DQ);} if(o.cards&&o.cards.box){FC=o.cards;LSset('klapp-fc',FC);} if(o.pro&&typeof o.pro==='object'){['salon','phone','link'].forEach(k=>{if(typeof o.pro[k]==='string'&&o.pro[k].trim())PRO[k]=o.pro[k];});LSset('klapp-pro',PRO);} if(typeof o.prophoto==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(o.prophoto)&&o.prophoto.length<400000){PROPH=o.prophoto;PROPH_IMG=null;try{localStorage.setItem('klapp-pro-photo',JSON.stringify(PROPH));}catch(e){}} if(Array.isArray(o.seen)){o.seen.forEach(x=>SEEN.add(x));LSset('klapp-seen',[...SEEN]);} if(o.advent&&o.advent.done){Object.assign(ADV.done,o.advent.done);LSset('klapp-advent-'+advYear(),ADV);}
       if(o.order&&Array.isArray(o.order.items)&&!ORD.items.length){ORD=o.order;ORD.items=ORD.items.filter(x=>itemById[x.id]);ordSave();}
       cabSave(); render(true); toast('Копия загружена');
     }catch(e){alert('Это не файл резервной копии KLAPP Гида.');}};
@@ -2098,8 +2129,11 @@ async function resultImage(a){
   x.font='300 190px "Roboto Mono", monospace';x.fillText(a.pct+'%',W/2,785);
   x.font='400 46px Jost, sans-serif';x.fillText(grade(a.pct),W/2,1050);
   x.font='300 36px Jost, sans-serif';x.fillText(`${a.correct} из ${a.total} верно · ${new Date(a.date).toLocaleDateString('ru-RU')}`,W/2,1115);
-  if(QZS.name){x.font='400 40px "Roboto Mono", monospace';x.fillText(cut(QZS.name,32),W/2,1190);}
-  const nd=Object.keys(a.disp||{}).length; if(nd){x.font='400 30px Jost, sans-serif';x.fillText('⚑ Отмечено спорных вопросов: '+nd,W/2,1245);}
+  const PHO=await proPhotoImg();
+  if(QZS.name||PHO){x.font='400 40px "Roboto Mono", monospace';const nm=QZS.name?cut(QZS.name,PHO?26:32):'';const tw=nm?x.measureText(nm).width:0,D=PHO?96:0,G=PHO&&nm?26:0,X0=W/2-(D+G+tw)/2;
+    if(PHO){const cx=X0+D/2,cy=1176;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle='#fff';x.lineWidth=4;x.beginPath();x.arc(cx,cy,D/2+5,0,Math.PI*2);x.stroke();}
+    if(nm){x.textAlign='left';x.fillText(nm,X0+D+G,1190);x.textAlign='center';}}
+  const nd=Object.keys(a.disp||{}).length; if(nd){x.font='400 30px Jost, sans-serif';x.fillText('⚑ Отмечено спорных вопросов: '+nd,W/2,PHO?1262:1245);}
   x.font='300 26px Jost, sans-serif';x.globalAlpha=.8;x.fillText('KLAPP Гид · тест на знание ассортимента',W/2,1295);x.globalAlpha=1;
   return c;
 }
@@ -2416,6 +2450,7 @@ function wrapLines(x,text,maxW){const words=String(text).split(/\s+/);const out=
 /* sheet: {kicker,title,sub,sections:[{h,items:[{t,s,tag}]}],foot} */
 async function drawSheet(sh){
   await fontsReady();
+  const sg=proSign(),PHO=(sh.foot&&sg&&sh.foot.indexOf(sg)===0)?await proPhotoImg():null;
   for(const sec of sh.sections) for(const it of sec.items) if(it.ph&&PH[it.ph]&&!it._ph){try{const im=new Image();im.src=PH[it.ph];await im.decode();it._ph=im;}catch(e){}}
   for(const sec of sh.sections) for(const it of sec.items) if(it.ic&&!it._img){try{const im=new Image();im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(it.ic.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" '));await im.decode();it._img=im;}catch(e){}}
   const W=1080,P=72,IW=W-2*P; const c=document.createElement('canvas'); const x=c.getContext('2d');
@@ -2427,7 +2462,7 @@ async function drawSheet(sh){
   y+=26;
   for(const s of sh.sections){ if(!s.items.length) continue; y+=24; ops.push({k:'line',y}); y+=34; text(s.h.toUpperCase(),'500 26px Jost','#ff4438',40); y+=6;
     s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,'500 34px Jost','#111',44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost','#55554f',38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"','#8a8a85',34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
-  y+=40; ops.push({k:'foot',y}); y+=190;
+  y+=40; ops.push({k:'foot',y}); if(PHO){x.font='300 26px Jost';y+=Math.max(190,80+wrapLines(x,sh.foot||'',IW-170).length*36+70);} else y+=190;
   c.width=W; c.height=Math.max(1350,Math.ceil(y));
   x.fillStyle='#fff'; x.fillRect(0,0,W,c.height);
   for(const o of ops){
@@ -2436,10 +2471,169 @@ async function drawSheet(sh){
     else if(o.k==='t'){x.font=o.f;x.fillStyle=o.c;x.fillText(o.t,o.x,o.y);}
     else if(o.k==='line'){x.fillStyle='#e4e4e2';x.fillRect(P,o.y,IW,2);}
     else if(o.k==='dot'){if(o.ph){const T=o.y-24,S=96;x.fillStyle='#f2f2f0';if(x.roundRect){x.beginPath();x.roundRect(P,T,S,S,16);x.fill();}else x.fillRect(P,T,S,S);const r=Math.min((S-14)/o.ph.width,(S-14)/o.ph.height);const w=o.ph.width*r,h=o.ph.height*r;x.drawImage(o.ph,P+(S-w)/2,T+(S-h)/2,w,h);if(o.n){x.fillStyle='#ff4438';x.font='500 22px Jost';x.fillText(String(o.n),P+6,T+24);}}else if(o.img){x.drawImage(o.img,P,o.y-22,64,64);}else if(o.n){x.fillStyle='#ff4438';x.font='400 30px "Roboto Mono"';x.fillText(String(o.n),P,o.y+10);}else{x.fillStyle='#ff4438';x.beginPath();x.arc(P+12,o.y,7,0,Math.PI*2);x.fill();}}
-    else if(o.k==='foot'){x.fillStyle='#f2f2f0';x.fillRect(0,o.y,W,c.height-o.y);x.fillStyle='#55554f';x.font='300 26px Jost';const f=sh.foot||'';wrapLines(x,f,IW).forEach((l,i)=>x.fillText(l,P,o.y+56+i*36));x.fillStyle='#ff4438';x.font='500 26px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,c.height-48);}
+    else if(o.k==='foot'){x.fillStyle='#f2f2f0';x.fillRect(0,o.y,W,c.height-o.y);let FX=P;
+      if(PHO){const D=128,cx=P+D/2,cy=o.y+40+D/2;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle='#ff4438';x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();FX=P+D+42;}
+      x.fillStyle='#55554f';x.font='300 26px Jost';const f=sh.foot||'';wrapLines(x,f,W-P-FX).forEach((l,i)=>x.fillText(l,FX,o.y+56+i*36));x.fillStyle='#ff4438';x.font='500 26px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,c.height-48);}
   }
   return c;
 }
+
+/* ---------- 3.11: «Моя рекомендация» — фирменная карточка клиенту ---------- */
+/* KLAPP Гид — карточка «Моя рекомендация» (1080 px, высота от 1350, по содержимому).
+   R = {kind:'home'|'pro'|'kit', line, name, sub, vol, art, when, desc, how, nb, effects[], actives[{n,t}],
+        kit:{time,course,freq,intro,bullets[],ideal[]}, img:HTMLImageElement, forName, note,
+        sign:{name,salon,phone,link}} */
+async function drawRec(R){
+  try{await Promise.all(['300 20px Jost','400 20px Jost','500 20px Jost','600 20px Jost','400 20px "Roboto Mono"','400 40px KGlow','400 40px "Great Vibes"'].map(f=>document.fonts.load(f,'Аа Zz 0,81%')));}catch(e){}
+  const RED='#ff4438',INK='#111111',GREY='#5d5d57',MUTE='#8a8a84',PAPER='#f5f4f0',PANEL='#ffffff';
+  const W=1080,P=72,IW=W-2*P;
+  const c=document.createElement('canvas');const x=c.getContext('2d');
+  const LS=v=>{try{x.letterSpacing=v;}catch(e){}};
+  const MONO=s=>`400 ${s}px "Roboto Mono"`;
+  const setF=f=>{x.font=f;LS(/Roboto Mono/.test(f)?(-0.045*parseFloat(f.split(' ')[1]))+'px':'0px');};
+  const wrap=(t,f,w)=>{setF(f);const out=[];String(t||'').split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const cl=t=>String(t||'').replace(/\s+([.,;:!?])/g,'$1').replace(/\s{2,}/g,' ').trim();
+  ['name','sub','desc','how','nb','note','when'].forEach(k=>{if(R[k])R[k]=cl(R[k]);});
+  if(R.effects)R.effects=R.effects.map(cl);if(R.actives)R.actives=R.actives.map(a=>({n:cl(a.n),t:cl(a.t)}));
+  if(R.items)R.items=R.items.map(i=>({t:cl(i.t),v:cl(i.v)}));if(R.arg)R.arg=cl(R.arg);
+  if(R.kit){R.kit.intro=cl(R.kit.intro);R.kit.bullets=(R.kit.bullets||[]).map(cl);R.kit.ideal=(R.kit.ideal||[]).map(cl);}
+  const ops=[];let y=0;
+  const text=(t,f,col,lh,o={})=>{const ls=wrap(t,f,o.w||IW);const n=o.max?Math.min(ls.length,o.max):ls.length;for(let i=0;i<n;i++){let s=ls[i];if(o.max&&i===n-1&&ls.length>n)s=s.replace(/[\s,.;:]*\S*$/,'')+'…';ops.push({k:'t',t:s,f,c:col,x:o.x||P,y:y+lh*0.76,al:o.al});y+=lh;}return n;};
+  const cap=(t)=>{ops.push({k:'cap',t:t.toUpperCase(),y});y+=46;};
+
+  /* ---- шапка ---- */
+  ops.push({k:'hdr'});
+  /* ---- герой ---- */
+  const kit=R.kind==='kit',glow=R.kind==='glow';
+  y=176;
+  if(glow){
+    const BH=440;ops.unshift({k:'glowband',h:BH});
+    const HX=590,HW=W-P-HX,HT=196,HH=500;ops.push({k:'heroph',x:HX,y:HT,w:HW,h:HH,sq:R.box||RED});
+    ops.push({k:'gv',y:300});ops.push({k:'t',t:(R.coll||'').toUpperCase(),f:'500 19px Jost',c:'#E6C47A',x:P,y:356,ls:'3px'});
+    y=BH+44;const LW=HX-P-36;
+    if(R.lab){ops.push({k:'badge',t:R.lab,y,x:P,col:R.box||RED});y+=66;}
+    text(R.name,MONO(R.name.length>22?42:50),INK,R.name.length>22?54:62,{w:LW});
+    y=Math.max(y,HT+HH)+52;
+    if(R.desc){text(R.desc,'300 31px Jost',INK,44);y+=40;R._descIn=1;}
+    if(R.items&&R.items.length){cap('В наборе');R.items.forEach(it=>{const y0=y;ops.push({k:'sq',x:P,y:y0+19});setF(MONO(24));const vw=it.v?x.measureText(it.v).width+30:0;
+      text(it.t,'400 29px Jost',INK,40,{x:P+34,w:IW-34-vw});if(it.v)ops.push({k:'t',t:it.v,f:MONO(24),c:MUTE,x:W-P,y:y0+40*0.76,al:'right'});y+=10;});y+=30;}
+    if(R.arg){cap('Чем хорош');text(R.arg,'400 29px Jost',INK,40);y+=40;}
+  }
+  else if(kit){
+    ops.push({k:'kitph',y,h:330});y+=330+48;
+    text((R.line+' · процедура').toUpperCase(),'500 24px Jost',RED,36);y+=8;
+    text(R.name,MONO(58),INK,68);
+    if(R.sub){y+=4;text(R.sub,'300 34px Jost',GREY,44);}
+    y+=28;ops.push({k:'stats',y,items:[['Время',R.kit.time],['Курс',R.kit.course],['Частота',R.kit.freq]].filter(a=>a[1])});y+=128;
+  }else{
+    const HX=590,HW=W-P-HX,HT=y,HH=560;ops.push({k:'heroph',x:HX,y:HT,w:HW,h:HH});
+    const LW=HX-P-36;
+    text(R.line.toUpperCase(),'500 24px Jost',RED,36,{w:LW});y+=10;
+    text(R.name,MONO(R.name.length>26?44:52),INK,R.name.length>26?56:64,{w:LW});
+    y+=14;text([R.vol,R.art?'арт. '+R.art:''].filter(Boolean).join('  ·  '),MONO(24),MUTE,34,{w:LW});
+    y+=34;
+    const pill=R.kind==='home'?(R.when?'Когда: '+R.when:''):'Процедура в кабинете';
+    if(pill){ops.push({k:'pill',t:pill,y,x:P});y+=64;}
+    if(R.desc&&y+28+wrap(R.desc,'300 27px Jost',LW).length*38<=HT+HH){y+=28;text(R.desc,'300 27px Jost',INK,38,{w:LW});R._descIn=1;}
+    y=Math.max(y,HT+HH)+52;
+  }
+  /* ---- описание ---- */
+  if(R.desc&&!kit&&!R._descIn){text(R.desc,'300 31px Jost',INK,44);y+=40;}
+  if(kit&&(R.kit.intro||R.kit.bullets.length)){if(R.kit.intro){text(R.kit.intro.replace(/:\s*$/,''),'300 31px Jost',INK,44);y+=22;}
+    R.kit.bullets.forEach(b=>{const y0=y;ops.push({k:'sq',x:P,y:y0+19});text(b,'400 29px Jost',INK,40,{x:P+34,w:IW-34});y+=10;});y+=30;}
+  /* ---- что даёт ---- */
+  if(!kit&&R.effects&&R.effects.length){cap('Что даёт');const cw=(IW-32)/2;const eff=R.effects.slice(0,6);
+    for(let i=0;i<eff.length;i+=2){const y0=y;let h=0;[0,1].forEach(j=>{const e=eff[i+j];if(!e)return;y=y0;const cx=P+j*(cw+32);ops.push({k:'sq',x:cx,y:y0+19});text(e,'400 29px Jost',INK,40,{x:cx+34,w:cw-34});h=Math.max(h,y-y0);});y=y0+h+12;}
+    y+=28;}
+  /* ---- для кого (процедура) ---- */
+  if(kit&&R.kit.ideal&&R.kit.ideal.length){cap('Кому подходит');R.kit.ideal.forEach(t=>{ops.push({k:'sq',x:P,y:y+19});text(t,'400 29px Jost',INK,40,{x:P+34,w:IW-34});y+=10;});y+=30;}
+  /* ---- активы ---- */
+  if(R.kind!=='kit'&&R.actives&&R.actives.length){cap('Ключевые активы');R.actives.slice(0,R.kind==='pro'?4:3).forEach(a=>{const y0=y;ops.push({k:'sq',x:P,y:y0+19});
+      setF('500 29px Jost');const nw=x.measureText(a.n+'  ').width;
+      setF('300 29px Jost');const tw=a.t?x.measureText(a.t).width:0;
+      if(a.t&&nw+tw<=IW-34){ops.push({k:'t',t:a.n,f:'500 29px Jost',c:INK,x:P+34,y:y+40*0.76});ops.push({k:'t',t:a.t,f:'300 29px Jost',c:GREY,x:P+34+nw,y:y+40*0.76});y+=40;}
+      else{text(a.n,'500 29px Jost',INK,40,{x:P+34,w:IW-34});if(a.t)text(a.t,'300 27px Jost',GREY,38,{x:P+34,w:IW-34});}
+      y+=10;});y+=30;}
+  /* ---- как применять (дом) ---- */
+  if((R.kind==='home'||R.kind==='glow')&&R.how){const y0=y;y+=36;text('КАК ПРИМЕНЯТЬ','500 22px Jost',RED,34,{x:P+40});y+=6;text(R.how,'400 30px Jost',INK,42,{x:P+40,w:IW-80});
+    if(R.nb){y+=14;text('Важно: '+R.nb,'300 27px Jost',GREY,38,{x:P+40,w:IW-80});}
+    y+=36;ops.unshift({k:'box',y:y0,h:y-y0});y+=40;}
+  /* ---- комментарий косметолога ---- */
+  if(R.note){const y0=y;y+=36;text('ОТ КОСМЕТОЛОГА','500 22px Jost',RED,34,{x:P+40});y+=6;text(R.note,'400 31px Jost',INK,44,{x:P+40,w:IW-60});y+=30;ops.unshift({k:'quote',y:y0,h:y-y0});y+=40;}
+  /* ---- подвал ---- */
+  const s=R.sign||{};const PHO=R.photo||null;const hasSign=!!(s.name||s.salon||s.phone||s.link||PHO);
+  const FH=hasSign?236:150;
+  const H=Math.max(1350,Math.ceil(y+FH+30));c.width=W;c.height=H;
+  /* ---- рисуем ---- */
+  x.fillStyle=PAPER;x.fillRect(0,0,W,H);
+  const rr=(X,Y,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h);};
+  const photo=(X,Y,w,h,pad)=>{const im=R.img;if(!im)return;const k=Math.min((w-2*pad)/im.width,(h-2*pad)/im.height);const iw=im.width*k,ih=im.height*k;
+    x.save();x.shadowColor='rgba(0,0,0,.16)';x.shadowBlur=36;x.shadowOffsetY=18;x.drawImage(im,X+(w-iw)/2,Y+(h-ih)/2,iw,ih);x.restore();};
+  for(const o of ops){
+    if(o.k==='hdr'){const HI=glow?'#fff':INK,HG=glow?'rgba(255,255,255,.72)':GREY;setF('600 54px Jost');x.fillStyle=HI;x.textAlign='left';x.fillText('KLAPP',P,104);setF('400 17px Jost');LS('5px');x.fillStyle=HG;x.fillText('SKIN CARE SCIENCE',P+2,134);
+      x.textAlign='right';setF('500 21px Jost');LS('3px');x.fillStyle=HI;const t='МОЯ РЕКОМЕНДАЦИЯ';x.fillText(t,W-P,96);const tw=x.measureText(t).width;x.fillStyle=RED;x.fillRect(W-P-tw-30,80,16,16);
+      if(R.forName){setF('300 26px Jost');x.fillStyle=HG;x.fillText('для '+R.forName,W-P,132);}x.textAlign='left';LS('0px');}
+    else if(o.k==='glowband'){const g=x.createLinearGradient(0,0,0,o.h);g.addColorStop(0,'#14298C');g.addColorStop(1,'#0B1650');x.fillStyle=g;x.fillRect(0,0,W,o.h);
+      const r1=x.createRadialGradient(W*0.86,-40,10,W*0.86,-40,620);r1.addColorStop(0,'rgba(52,92,232,.85)');r1.addColorStop(1,'rgba(52,92,232,0)');x.fillStyle=r1;x.fillRect(0,0,W,o.h);
+      const r2=x.createRadialGradient(-60,o.h*0.7,10,-60,o.h*0.7,520);r2.addColorStop(0,'rgba(108,58,196,.45)');r2.addColorStop(1,'rgba(108,58,196,0)');x.fillStyle=r2;x.fillRect(0,0,W,o.h);
+      let sd=7;const rnd=()=>(sd=(sd*9301+49297)%233280)/233280;for(let i=0;i<70;i++){const sx=rnd()*W,sy=rnd()*o.h,sr=rnd()*2.2+0.6;x.fillStyle=`rgba(247,231,180,${(0.25+rnd()*0.6).toFixed(2)})`;x.beginPath();x.arc(sx,sy,sr,0,Math.PI*2);x.fill();}}
+    else if(o.k==='gv'){x.font='400 120px KGlow,"Great Vibes"';LS('0px');const g=x.createLinearGradient(P,o.y-90,P+460,o.y);g.addColorStop(0,'#F7E7B4');g.addColorStop(0.5,'#E6C47A');g.addColorStop(1,'#F7E7B4');x.fillStyle=g;x.fillText('Let it glow',P-6,o.y);}
+    else if(o.k==='badge'){setF('500 24px Jost');const w=x.measureText(o.t).width+48;x.fillStyle=o.col;rr(o.x,o.y,w,48,24);x.fill();const hx=String(o.col).replace('#','');let L=0;if(hx.length===6){const f=v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);};L=0.2126*f(parseInt(hx.slice(0,2),16))+0.7152*f(parseInt(hx.slice(2,4),16))+0.0722*f(parseInt(hx.slice(4,6),16));}x.fillStyle=(1.05/(L+0.05))>=((L+0.05)/0.0559)?'#fff':'#111';x.fillText(o.t,o.x+24,o.y+32);}
+    else if(o.k==='heroph'){x.fillStyle=PANEL;x.save();if(glow){x.shadowColor='rgba(7,14,54,.25)';x.shadowBlur=40;x.shadowOffsetY=16;}rr(o.x,o.y,o.w,o.h,40);x.fill();x.restore();photo(o.x,o.y,o.w,o.h,54);}
+    else if(o.k==='kitph'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,40);x.fill();photo(P,o.y,IW,o.h,36);}
+    else if(o.k==='stats'){const n=o.items.length,cw=IW/n;o.items.forEach(([k,v],i)=>{const X=P+i*cw;if(i){x.fillStyle='#dcdbd5';x.fillRect(X,o.y,2,96);}
+      const px=i?X+28:X;setF('500 20px Jost');LS('3px');x.fillStyle=MUTE;x.fillText(k.toUpperCase(),px,o.y+24);setF(MONO(30));x.fillStyle=INK;x.fillText(v,px,o.y+72);});LS('0px');}
+    else if(o.k==='pill'){setF('400 26px Jost');const w=x.measureText(o.t).width+56;x.strokeStyle=INK;x.lineWidth=2;rr(o.x,o.y,w,52,26);x.stroke();x.fillStyle=INK;x.fillText(o.t,o.x+28,o.y+35);}
+    else if(o.k==='cap'){setF('500 22px Jost');LS('3px');x.fillStyle=RED;x.fillText(o.t,P,o.y+24);LS('0px');}
+    else if(o.k==='sq'){x.fillStyle=RED;x.fillRect(o.x,o.y-7,12,12);}
+    else if(o.k==='box'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();}
+    else if(o.k==='quote'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();x.fillStyle=RED;x.fillRect(P,o.y+24,6,o.h-48);}
+    else if(o.k==='t'){setF(o.f);if(o.ls)LS(o.ls);x.fillStyle=o.c;x.textAlign=o.al||'left';x.fillText(o.t,o.x,o.y);x.textAlign='left';LS('0px');}
+  }
+  /* подвал */
+  const FY=H-FH;x.fillStyle=glow?'#0B1650':INK;x.fillRect(0,FY,W,FH);const ACC=glow?'#E6C47A':RED;
+  if(hasSign){let TX=P;
+    if(PHO){const D=136,cx=P+D/2,cy=FY+96;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();
+      x.strokeStyle=ACC;x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();TX=P+D+40;}
+    const TW2=W-P-TX;setF('500 19px Jost');LS('3px');x.fillStyle=ACC;x.fillText('ВАШ КОСМЕТОЛОГ',TX,FY+52);LS('0px');
+    if(s.name||s.salon){setF('500 34px Jost');x.fillStyle='#fff';x.fillText(wrap(s.name||s.salon,'500 34px Jost',TW2)[0],TX,FY+100);}
+    const l2=[s.name?s.salon:'',s.phone,s.link].filter(Boolean).join('  ·  ');setF('300 26px Jost');x.fillStyle='#c9c8c2';
+    const ls=wrap(l2,'300 26px Jost',TW2);ls.slice(0,2).forEach((l,i)=>x.fillText(l,TX,FY+144+i*34));}
+  setF('400 24px Jost');x.fillStyle=ACC;x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,H-44);
+  setF('500 20px Jost');LS('4px');x.fillStyle='#8a8a84';x.textAlign='right';x.fillText('KLAPP',W-P,H-44);x.textAlign='left';LS('0px');
+  return c;
+}
+
+let PROPH=(()=>{try{return JSON.parse(localStorage.getItem('klapp-pro-photo')||'""')||'';}catch(e){return '';}})(),PROPH_IMG=null;
+async function proPhotoImg(){if(!PROPH)return null;if(PROPH_IMG&&PROPH_IMG._src===PROPH)return PROPH_IMG;try{const im=new Image();im.src=PROPH;await im.decode();im._src=PROPH;PROPH_IMG=im;return im;}catch(e){return null;}}
+function proPhotoSet(f){if(!f)return;const u=URL.createObjectURL(f);const im=new Image();
+  im.onload=()=>{const S=Math.min(im.naturalWidth,im.naturalHeight),D=360,c=document.createElement('canvas');c.width=c.height=D;const x=c.getContext('2d');
+    x.drawImage(im,(im.naturalWidth-S)/2,(im.naturalHeight-S)/2,S,S,0,0,D,D);URL.revokeObjectURL(u);
+    try{PROPH=c.toDataURL('image/jpeg',0.86);localStorage.setItem('klapp-pro-photo',JSON.stringify(PROPH));PROPH_IMG=null;render(false);toast('Фото добавлено');}catch(e){toast('Не удалось сохранить фото');}};
+  im.onerror=()=>{URL.revokeObjectURL(u);toast('Не удалось открыть фото');};im.src=u;}
+const recName=p=>p._f==='gift'?p._set.name:p._f==='kit'?'Набор «'+p.sub+'»':p.name;
+function recData(id){const p=itemById[id];if(!p)return null;
+  if(p._f==='gift'){const st=p._set;return {kind:'glow',line:PROMO.name,coll:PROMO.title,name:st.name,lab:st.lab||'',box:st.box||'',art:st.art,desc:st.desc||'',items:(st.items||[]).map(i=>({t:i.t,v:i.v||''})),how:st.use||'',arg:st.arg||''};}
+  if(p._f==='kit')return {kind:'kit',line:p._l.name,name:p.title,sub:p.sub||'',art:p.art,kit:{time:p.time||'',course:p.course||'',freq:p.freq||'',intro:p.intro||'',bullets:p.bullets||[],ideal:p.ideal||[]}};
+  if(p._f==='home')return {kind:'home',line:p._l.name,name:p.name,vol:p.vol||'',art:p.art,when:p.when||'',desc:p.desc||'',how:p.how||'',nb:p.nb||'',effects:p.effects||[],actives:(p.actives||[]).filter(a=>!a.x&&a.n).map(a=>({n:a.n,t:a.t||''}))};
+  return null;}
+async function recCanvas(id,o){await fontsReady();if(id.startsWith('gift:'))glowFont();const R=recData(id);if(!R)return null;
+  if(PH[id]){try{const im=new Image();im.src=PH[id];await im.decode();R.img=im;}catch(e){}}
+  R.sign={name:QZS.name||'',salon:PRO.salon||'',phone:PRO.phone||'',link:PRO.link||''};R.photo=await proPhotoImg();R.forName=(o&&o.forName)||'';R.note=(o&&o.note)||'';
+  return drawRec(R);}
+function recAsk(id){const p=itemById[id];if(!p||!recData(id))return;
+  sheet(`<b>Моя рекомендация</b><p class="snote" style="margin:-6px 0 2px">${esc(recName(p))} — фирменная карточка для клиента.</p>
+  <div class="recpv" id="recpv"><span>Готовлю превью…</span></div>
+  <label class="vf"><span>Кому · по желанию</span><input id="rec-for" placeholder="Например: Марии" autocomplete="off" maxlength="40"></label>
+  <label class="vf"><span>Ваш комментарий · по желанию</span><textarea id="rec-note" rows="3" maxlength="300" placeholder="Например: утром и вечером, через 4 недели — контрольный визит"></textarea></label>
+  ${!proSign()&&!PROPH?'<p class="snote">Подпись и фото для карточки — в Настройках, «Мои контакты для клиентов».</p>':''}
+  <button class="btn red" data-recgo="png|${esc(id)}">Отправить картинкой</button><button class="btn" data-recgo="pdf|${esc(id)}">Отправить PDF</button><button class="cx2" data-fmt="x">Отмена</button>`);
+  const fc=document.querySelector('#fmtm .fmtc');if(fc)fc.classList.add('recs');
+  let t=0;const upd=()=>{clearTimeout(t);t=setTimeout(()=>recPreview(id),450);};['rec-for','rec-note'].forEach(k=>{const el=$('#'+k);if(el)el.addEventListener('input',upd);});recPreview(id);}
+const recOpts=()=>({forName:(($('#rec-for')||{}).value||'').trim(),note:(($('#rec-note')||{}).value||'').trim()});
+async function recPreview(id){const box=$('#recpv');if(!box)return;const c=await recCanvas(id,recOpts());if(!c||!$('#recpv'))return;const u=c.toDataURL('image/jpeg',0.8);$('#recpv').innerHTML=`<img src="${u}" alt="Превью карточки">`;}
+function recGo(v){const [f,id]=v.split('|');const p=itemById[id];if(!p)return;const o=recOpts();
+  SHEET_JOB={title:'Моя рекомендация',file:'KLAPP-rekomendaciya-'+String(p.art||'').replace(/[^\w-]+/g,''),short:recName(p),canvas:()=>recCanvas(id,o)};runFormat(f);}
 function pdfFromCanvas(c){
   const jpg=atob(c.toDataURL('image/jpeg',0.9).split(',')[1]); const W=595, H=Math.round(c.height*595/c.width);
   const enc=s=>{const a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i)&255;return a;};
@@ -2763,7 +2957,7 @@ VIEWS.home=function(){
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Гид · версия 3.10.2</p>`;
+   <p class="foot">KLAPP Гид · версия 3.11</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -2772,7 +2966,7 @@ VIEWS.vpick=function(){setTop('Новый визит',true);
 /* каталог */
 VIEWS.catalog=function(s){
   const cs=s.cs||'lines';
-  const segs=`<div class="seg ns cseg" role="tablist">${[['lines','Линии'],['act','Активы'],['inci','Состав INCI']].map(([k,l])=>`<button role="tab" aria-selected="${cs===k}" data-cs="${k}">${l}</button>`).join('')}</div>`;
+  const segs=`<div class="seg stk cseg" role="tablist">${[['lines','Линии'],['act','Активы'],['inci','Состав INCI']].map(([k,l])=>`<button role="tab" aria-selected="${cs===k}" data-cs="${k}">${l}</button>`).join('')}</div>`;
   let body;
   if(cs==='lines') body=VIEWS.lines(s); else body=VIEWS.gloss(Object.assign({},s,{gt:cs==='inci'?'inci':'act',embed:1}));
   setTop('',false);
@@ -2786,7 +2980,7 @@ VIEWS.academy=function(s){
   if(['tests','cards','coll','honors'].includes(am)) body=levelHTML()+body;
   if(state.tab==='academy') setTop('',false); else setTop('Академия',true);
   setTimeout(()=>{const sg=document.querySelector('.aseg'),a=sg&&sg.querySelector('[aria-selected="true"]');if(a)sg.scrollLeft=Math.max(0,a.offsetLeft-(sg.clientWidth-a.offsetWidth)/2);},0);
-  const segs=`<div class="seg ns aseg" role="tablist">${[['tests','Тесты'],['cards','Карточки'],['coll','Коллекция'],['honors','Награды'],['edu','Обучение'],['team','Тренеры'],['brand','Бренд'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${am===k}" data-am="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>`;
+  const segs=`<div class="seg stk aseg" role="tablist">${[['tests','Тесты'],['cards','Карточки'],['coll','Коллекция'],['honors','Награды'],['edu','Обучение'],['team','Тренеры'],['brand','Бренд'],['author','✦']].map(([k,l])=>`<button role="tab" aria-selected="${am===k}" data-am="${k}" ${k==='author'?'class="egg" aria-label="От автора"':''}>${l}</button>`).join('')}</div>`;
   return segs+body;
 };
 /* назначить клиенту из карточки */
@@ -2959,7 +3153,7 @@ function v34Click(d,b){
   if(d.errp){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);return true;}
   if(d.errsend){const p=itemById[d.errsend];const parts=[...document.querySelectorAll('[data-errp][aria-pressed="true"]')].map(x=>x.dataset.errp);const t=(document.getElementById('errt')||{}).value||'';
     const m=document.getElementById('fmtm');if(m)m.remove();
-    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 3.10.2`);return true;}
+    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 3.11`);return true;}
   if(d.fs){setFont(+d.fs);render(false);return true;}
   if(contentClick(d))return true;
   if(d.thm){setLook(d.thm,null);buzz(8);render(false);return true;}
@@ -3007,7 +3201,7 @@ VIEWS.glow=function(s){
     return `<div class="glowpg gdet" style="--box:${st.box}">${sky}
      <section class="gdhero"><span class="gsnow">${SNOW}</span><div class="gdimg">${PIMG[st.art]?`<img src="${PIMG[st.art]}" alt="${esc(st.name)}">`:''}</div>
       <p class="gk">${gNum(st)} · ${esc(G?G.name:'')}</p><span class="glab">${esc(st.lab)}</span><h1>${nice(st.name)}</h1><p class="gart">Арт. ${esc(st.art)}</p><p class="gdesc">${nice(st.desc)}</p>
-      ${promoOn()?ordCtl(it):''}</section>
+      ${promoOn()?ordCtl(it):''}<button class="gshare" data-recsh="gift:${esc(st.art)}">${I.share}<span>Поделиться с клиентом</span></button></section>
      <div class="gquote">${nice(st.arg)}</div>
      <section class="gsec"><h3>В наборе</h3>${rows}</section>
      <section class="gsec"><h3>Применение</h3><p>${nice(st.use)}</p></section>
@@ -3117,7 +3311,7 @@ function contentClick(d){
   return false;
 }
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='3.10.2'.split('.').slice(0,2).join('.');
+const VERMIN='3.11'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -3125,9 +3319,9 @@ hintWrap('catalog','catalog','Каталог','Линии от A до X, акт�
 hintWrap('pick','pick','Как устроен подбор','Начните с того, что беспокоит клиента: отметьте состояния — получите уход домой и процедуры. Вкладки сверху — подбор по линиям, кабинету, наборам и схемам.');
 hintWrap('order','order','Мой заказ','Добавляйте позиции из карточек, наборов и напоминаний. «Отправить менеджеру» соберёт одно сообщение с артикулами и количеством.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — в Google Диск, iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
+const WHATSNEW={'3.11':[['Моя рекомендация','В карточке домашнего средства, процедурного набора и набора Let it glow — «Поделиться»: фирменная карточка клиенту картинкой или PDF, с вашим комментарием.'],['Ваше фото','В Настройках можно добавить своё фото — оно появится рядом с контактами в рекомендации, шпаргалке и результате теста.'],['Разделы под рукой','Подразделы вверху остаются на месте при прокрутке, а листать их можно свайпом влево и вправо.'],['Что уже смотрели','Просмотренные карточки отмечены красной чертой, а рамка линии в каталоге заполняется по кругу — как циферблат.']],'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — в Google Диск, iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
 function sheet(html){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';m.innerHTML=`<div class="fmtc" role="dialog">${html}</div>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-sheetx]'))m.remove();});return m;}
-function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Гид · версия 3.10.2</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Гид · версия 3.11</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB=[
  {ic:'brand',t:'KLAPP Гид',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -3157,18 +3351,18 @@ VIEWS.settings=function(){setTop('Настройки',true);
   <div class="grp">Помощь</div>
   <button class="row" data-open="help"><span class="tx"><span class="nm">Как пользоваться</span><span class="sb">Короткие ответы на частые вопросы</span></span>${I.go}</button>
   <button class="row" data-onb><span class="tx"><span class="nm">Знакомство с приложением</span><span class="sb">Четыре экрана о главном</span></span>${I.go}</button>
-  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 3.10.2</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
+  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 3.11</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
   <button class="row" data-hreset><span class="tx"><span class="nm">Вернуть подсказки</span><span class="sb">Снова показать объяснения в разделах</span></span>${I.go}</button>
   <div class="grp">Сообщество и бренд</div>${tgLine()}
   <button class="row" data-am2="brand"><span class="tx"><span class="nm">О бренде KLAPP</span><span class="sb">История, философия, контакты</span></span>${I.go}</button>
-  <p class="foot">KLAPP Гид · версия 3.10.2 · Beauty Alliance</p>`;};
+  <p class="foot">KLAPP Гид · версия 3.11 · Beauty Alliance</p>`;};
 const HELP=[
  ['Как завести клиента и провести визит','Кабинет → «Новый клиент» → имя и тип кожи → «Сохранить». В карте клиента — «Визит и диагностика»: три шага — состояние кожи, процедура, домашний уход. Обязательно только состояние кожи, остальное по желанию.'],
  ['Как приложение напоминает о докупке','Назначение знает норму расхода средства и считает, когда оно закончится. За несколько дней до конца клиент появится в списке «Пора напомнить» в Кабинете, а в приложении на телефоне придёт уведомление в 10:00.'],
  ['Как отправить заказ менеджеру','Нажмите «В заказ» в карточке препарата, наборе или напоминании. Откройте «Мой заказ» (на главной или в Кабинете), поправьте количество, добавьте комментарий и нажмите «Отправить менеджеру» — выберите мессенджер.'],
  ['Как подобрать уход клиенту','Вкладка «Подбор»: выберите, что подбираете, — домашний уход, процедуру, набор или схему. Внизу — подбор по состоянию кожи. В визите рекомендации подбираются сами по отмеченным состояниям.'],
  ['Как отправить клиенту шпаргалку','В карте клиента — «Шпаргалка по уходу клиенту». Выберите картинку или PDF и мессенджер. В шпаргалке — фото средств, артикулы и когда наносить.'],
- ['Как перенести данные на новый телефон','Кабинет → «Резервная копия» → «Сохранить копию». На новом телефоне — «Восстановить из копии». В копию входят клиенты, протоколы, заказ и результаты обучения.'],
+ ['Как перенести данные на новый телефон','Кабинет → «Резервная копия» → «Сохранить копию». На новом телефоне — «Восстановить из копии». В копию входят клиенты, протоколы, заказ, результаты обучения, ваши контакты для клиентов и фото.'],
  ['Как обновляется база препаратов','Если есть интернет, приложение само проверяет обновления и показывает на главной «Обновление базы готово». Проверить вручную — в Настройках → «Проверить обновления».'],
  ['Как растут уровень и награды','Опыт дают тесты, вопрос дня, карточки и открытые линии. Медали — за тесты по линиям, кубки — за категории, корона — за большой тест. Всё видно в «Академии» → «Награды».'],
  ['Как установить на iPhone','Откройте сайт приложения в Safari → «Поделиться» → «На экран „Домой“». Приложение откроется как обычное и будет работать без интернета.']];
@@ -3210,9 +3404,11 @@ function settings39(){const ch=MGR.ch;const ph=ch==='tg'?'@username в Telegram'
   <label class="vf" style="padding:0 20px"><span>Салон или кабинет</span><input id="pro-salon" value="${esc(PRO.salon||'')}" placeholder="Например, Студия «Лаванда»"></label>
   <div class="vgrid" style="padding:0 20px"><label class="vf"><span>Телефон</span><input id="pro-phone" value="${esc(PRO.phone||'')}" placeholder="+7 …" inputmode="tel"></label><label class="vf"><span>Соцсети или сайт</span><input id="pro-link" value="${esc(PRO.link||'')}" placeholder="@lavanda"></label></div>
   <div class="signprev"><small>Так подпись увидят клиенты</small><span id="signprev">${esc(proSign()||'Заполните имя и контакты')}</span></div>
-  <div class="grp">Резервная копия</div><p class="snote" style="padding:0 20px">${esc(bkLine())}. В копию входят клиенты, протоколы, заказ и обучение.</p>
+  <div class="prophoto"><span class="pav">${PROPH?`<img src="${PROPH}" alt="Ваше фото">`:I.cam}</span><span class="tx"><b>Ваше фото</b><small>По желанию. Появится внизу «Моей рекомендации», шпаргалки клиенту и результата теста — рядом с контактами.</small><span class="pbtns"><label class="btn ghost sm">${PROPH?'Заменить':'Добавить фото'}<input type="file" accept="image/*" id="pro-photo-in" hidden></label>${PROPH?'<button class="btn ghost sm" data-prophdel>Убрать</button>':''}</span></span></div>
+  <div class="grp">Резервная копия</div><p class="snote" style="padding:0 20px">${esc(bkLine())}. В копию входят клиенты, протоколы, заказ, обучение, ваши контакты и фото.</p>
   <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button></div>`;}
 document.addEventListener('change',e=>{const t=e.target;if(!t||!t.id)return;
+  if(t.id==='pro-photo-in'){proPhotoSet(t.files&&t.files[0]);t.value='';return;}
   if(t.id.startsWith('mgr-')){MGR[t.id.slice(4)]=t.value.trim();LSset('klapp-mgr',MGR);if(t.id==='mgr-ch')render(false);else toast('Менеджер сохранён');}
   if(t.id.startsWith('pro-')){PRO[t.id.slice(4)]=t.value.trim();LSset('klapp-pro',PRO);const p=$('#signprev');if(p)p.textContent=proSign()||'Заполните имя и контакты';toast('Сохранено');}});
 function v39Click(d,b){
@@ -3234,6 +3430,13 @@ function setFont(v){FS=v;LSset('klapp-fs',v);main.style.zoom=v;}
 function fontHTML(){return `<div class="grp">Размер текста</div><div class="fsz">${[[1,'Обычный'],[1.12,'Крупный'],[1.25,'Очень крупный']].map(([v,l])=>`<button data-fs="${v}" aria-pressed="${FS===v}">${l}</button>`).join('')}</div>`;}
 
 /* ---------- events ---------- */
+/* 3.11: свайп влево/вправо — соседний подраздел закреплённой полосы */
+(function(){let sx=0,sy=0,st=0,ok=false;
+  const blocked=el=>{for(;el&&el!==main;el=el.parentElement){if(el.matches&&el.matches('input,textarea,select,[contenteditable],.noswipe,canvas,.seg'))return true;const cs=getComputedStyle(el);if((cs.overflowX==='auto'||cs.overflowX==='scroll')&&el.scrollWidth>el.clientWidth+2)return true;}return false;};
+  main.addEventListener('touchstart',e=>{ok=false;if(e.touches.length!==1)return;const t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now();ok=sx>24&&sx<innerWidth-24&&!!main.querySelector('.seg.stk')&&!blocked(e.target);},{passive:true});
+  main.addEventListener('touchend',e=>{if(!ok)return;ok=false;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)<64||Math.abs(dx)<Math.abs(dy)*1.8||Date.now()-st>800)return;
+    const sg=main.querySelector('.seg.stk');if(!sg)return;const bs=[...sg.querySelectorAll('button[role="tab"]')].filter(b=>!b.classList.contains('egg'));const i=bs.findIndex(b=>b.getAttribute('aria-selected')==='true');const nb=bs[i+(dx<0?1:-1)];if(i<0||!nb)return;
+    SWIPE_DIR=dx<0?1:-1;nb.click();if(nb.scrollIntoView)nb.scrollIntoView({block:'nearest',inline:'center'});},{passive:true});})();
 document.addEventListener('click',e=>{
   const b=e.target.closest('button,[data-line],.il[data-c],[data-qstart],[data-fcflip]'); if(!b) return;
   const d=b.dataset;
@@ -3241,6 +3444,9 @@ document.addEventListener('click',e=>{
   if(d.open){go({view:d.open});return;}
   if(cabClick(d,b)) return;
   if(d.fmt){runFormat(d.fmt);return;}
+  if(d.recsh){recAsk(d.recsh);return;}
+  if(d.recgo){recGo(d.recgo);return;}
+  if('prophdel' in d){PROPH='';PROPH_IMG=null;try{localStorage.removeItem('klapp-pro-photo');}catch(e){}render(false);toast('Фото убрано');return;}
   if('hopen' in d){go({view:'honors'});return;}
   if('hsend' in d){askFormat(honorsJob());return;}
   if(d.celreplay){celebrate(d.celreplay);return;}
