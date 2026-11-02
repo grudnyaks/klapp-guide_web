@@ -17,7 +17,7 @@
    Скачанная обязана подтвердить нормальный запуск (__otaOk) за 12 с, иначе — пометка «плохая» и мгновенный возврат на встроенную.
    Жёсткий сбой без подтверждения: после 2 попыток версия помечается плохой. Новый APK сам отменяет скачанное (Capacitor сбрасывает путь). */
 (function(){var W=window,ls,ss;try{ls=W.localStorage;ss=W.sessionStorage;}catch(e){return;}
- var BV='4.8.2',K='klapp-ota';
+ var BV='4.8.3',K='klapp-ota';
  function cmp(a,b){a=String(a).split('.').map(Number);b=String(b).split('.').map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var x=a[i]||0,y=b[i]||0;if(x!==y)return x>y?1:-1;}return 0;}
  function get(){try{return JSON.parse(ls.getItem(K)||'null');}catch(e){return null;}}
  function put(o){try{ls.setItem(K,JSON.stringify(o));}catch(e){}}
@@ -1142,6 +1142,7 @@ html.gm-on body{overflow:hidden}
 /* «Золотой Герхард» */
 .celeb.cel-au{background:radial-gradient(circle at 50% 40%,#4a3608,#120d03 70%)}
 .awt.sec.gold{background:linear-gradient(160deg,#3a2a06,#b8861b)}
+.gm-sv{margin:8px 0 0;font-size:13px;color:#8a8a84}
 /* 4.7: новые дизайны на основе «Стекла» (data-ui). Префикс dz- для новых элементов.
    «Облако» — PANTONE 11-4201 Cloud Dancer (цвет года 2026) + пудровые пастели его палитры;
    «Бирюза» — Transformative Teal (цвет 2026 года по WGSN × Coloro);
@@ -1200,6 +1201,14 @@ html.gm-on body{overflow:hidden}
 .st-xpr div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
 .st-xpr b{font-family:"Roboto Mono",monospace;font-weight:400;font-size:13px;letter-spacing:var(--mono-ls);white-space:nowrap}
 .st-note{margin:12px 0 14px;font-size:13px;line-height:1.45;color:var(--muted);text-align:left}
+/* 4.8.3: только вертикально. Android/iOS-приложение закреплено в портрете (манифест, Info.plist); на сайте и в старом APK —
+   при повороте телефона показываем просьбу повернуть обратно (планшеты и компьютеры не трогаем: высота > 500 px) */
+.rot-ask{display:none}
+@media (orientation:landscape) and (max-height:500px){
+ .rot-ask{display:flex;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:var(--paper);color:var(--ink);text-align:center;padding:24px}
+ .rot-ask svg{width:56px;height:56px;color:var(--red)}
+ .rot-ask b{font-weight:500;font-size:18px}.rot-ask span{font-size:14px;color:var(--muted)}
+}
 </style>
 <script>
 (function(){var r=document.documentElement,mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
@@ -1247,6 +1256,7 @@ html.gm-on body{overflow:hidden}
   <header class="top" id="top"></header>
   <main id="main" tabindex="-1"></main>
   <nav class="tabs" id="tabs" aria-label="Разделы"></nav>
+  <div class="rot-ask" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg><b>Поверните телефон вертикально</b><span>KLAPP Гид работает в вертикальном режиме</span></div>
 </div>
 <script>
 /* Capacitor: в приложении подключаем ядро плагинов; в браузере — ничего */
@@ -1264,7 +1274,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611010610',date:'2026-11-01',app:'4.8.2',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"28df08b2f2312a48","pro:172":"d5541992de50f531","pro:173":"91a1a8e5ac9c4943","pro:174":"ecff20f40111b5f8","pro:175":"632172fa1d8e3dcb","pro:176":"cb398dae98736112","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611010610',date:'2026-11-01',app:'4.8.3',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"28df08b2f2312a48","pro:172":"d5541992de50f531","pro:173":"91a1a8e5ac9c4943","pro:174":"ecff20f40111b5f8","pro:175":"632172fa1d8e3dcb","pro:176":"cb398dae98736112","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -2727,7 +2737,16 @@ async function drawSheet(sh){
   y+=26;
   for(const s of sh.sections){ if(!s.items.length) continue; y+=24; ops.push({k:'line',y}); y+=34; text(s.h.toUpperCase(),'500 26px Jost','#ff4438',40); y+=6;
     s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,'500 34px Jost','#111',44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost','#55554f',38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"','#8a8a85',34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
-  y+=40; ops.push({k:'foot',y}); if(PHO){x.font='300 26px Jost';y+=Math.max(190,80+wrapLines(x,sh.foot||'',IW-170).length*36+70);} else y+=190;
+  /* 4.8.3: подвал — как у «Моей рекомендации»: чёрная полоса, фото в красном кольце, «Ваш косметолог», имя, контакты, приписка */
+  const F=(()=>{const sg=proSign(),f=sh.foot||'',has=!!(sg&&f.indexOf(sg)===0),note=has?f.slice(sg.length).replace(/^[.\s]+/,''):f;
+    const D=136,TX=P+(PHO?D+40:0),TW=W-P-TX,L=[];let ty=0;
+    if(has){ty+=52;L.push({t:'ВАШ КОСМЕТОЛОГ',f:'500 19px Jost',c:'#ff4438',y:ty,ls:'3px'});
+      const name=(QZS.name||PRO.salon||'').trim();if(name){ty+=48;x.font='500 34px Jost';L.push({t:wrapLines(x,name,TW)[0],f:'500 34px Jost',c:'#fff',y:ty});}
+      const l2=[QZS.name?PRO.salon:'',PRO.phone,PRO.link].map(v=>(v||'').trim()).filter(Boolean).join('  ·  ');
+      x.font='300 26px Jost';wrapLines(x,l2,TW).slice(0,2).forEach(l=>{ty+=(L.length===1?48:40);L.push({t:l,f:'300 26px Jost',c:'#c9c8c2',y:ty});});}
+    if(note){x.font='300 24px Jost';wrapLines(x,note,TW).forEach((l,i)=>{ty+=i?32:(has?44:56);L.push({t:l,f:'300 24px Jost',c:'#a5a49e',y:ty});});}
+    const h=Math.max(ty,PHO?40+D:0)+110;return {L,TX,D,h};})();
+  y+=40; ops.push({k:'foot',y}); y+=F.h;
   c.width=W; c.height=Math.max(1350,Math.ceil(y));
   x.fillStyle='#fff'; x.fillRect(0,0,W,c.height);
   for(const o of ops){
@@ -2736,9 +2755,11 @@ async function drawSheet(sh){
     else if(o.k==='t'){x.font=o.f;x.fillStyle=o.c;x.fillText(o.t,o.x,o.y);}
     else if(o.k==='line'){x.fillStyle='#e4e4e2';x.fillRect(P,o.y,IW,2);}
     else if(o.k==='dot'){if(o.ph){const T=o.y-24,S=96;x.fillStyle='#f2f2f0';if(x.roundRect){x.beginPath();x.roundRect(P,T,S,S,16);x.fill();}else x.fillRect(P,T,S,S);const r=Math.min((S-14)/o.ph.width,(S-14)/o.ph.height);const w=o.ph.width*r,h=o.ph.height*r;x.drawImage(o.ph,P+(S-w)/2,T+(S-h)/2,w,h);if(o.n){x.fillStyle='#ff4438';x.font='500 22px Jost';x.fillText(String(o.n),P+6,T+24);}}else if(o.img){x.drawImage(o.img,P,o.y-22,64,64);}else if(o.n){x.fillStyle='#ff4438';x.font='400 30px "Roboto Mono"';x.fillText(String(o.n),P,o.y+10);}else{x.fillStyle='#ff4438';x.beginPath();x.arc(P+12,o.y,7,0,Math.PI*2);x.fill();}}
-    else if(o.k==='foot'){x.fillStyle='#f2f2f0';x.fillRect(0,o.y,W,c.height-o.y);let FX=P;
-      if(PHO){const D=128,cx=P+D/2,cy=o.y+40+D/2;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle='#ff4438';x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();FX=P+D+42;}
-      x.fillStyle='#55554f';x.font='300 26px Jost';const f=sh.foot||'';wrapLines(x,f,W-P-FX).forEach((l,i)=>x.fillText(l,FX,o.y+56+i*36));x.fillStyle='#ff4438';x.font='500 26px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,c.height-48);}
+    else if(o.k==='foot'){x.fillStyle='#111111';x.fillRect(0,o.y,W,c.height-o.y);
+      if(PHO){const cx=P+F.D/2,cy=o.y+40+F.D/2;x.save();x.beginPath();x.arc(cx,cy,F.D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(F.D/PHO.width,F.D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle='#ff4438';x.lineWidth=3;x.beginPath();x.arc(cx,cy,F.D/2+6,0,Math.PI*2);x.stroke();}
+      F.L.forEach(l=>{x.font=l.f;x.fillStyle=l.c;try{x.letterSpacing=l.ls||'0px';}catch(e){}x.fillText(l.t,F.TX,o.y+l.y);});try{x.letterSpacing='0px';}catch(e){}
+      x.fillStyle='#ff4438';x.font='400 24px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,c.height-44);
+      x.fillStyle='#8a8a84';x.font='500 20px Jost';x.textAlign='right';try{x.letterSpacing='4px';}catch(e){}x.fillText('KLAPP',W-P,c.height-44);x.textAlign='left';try{x.letterSpacing='0px';}catch(e){}}
   }
   return c;
 }
@@ -3226,7 +3247,7 @@ VIEWS.home=function(){
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Гид · версия 4.8.2</p>`;
+   <p class="foot">KLAPP Гид · версия 4.8.3</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -3443,7 +3464,7 @@ function v34Click(d,b){
   if(d.errp){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);return true;}
   if(d.errsend){const p=itemById[d.errsend];const parts=[...document.querySelectorAll('[data-errp][aria-pressed="true"]')].map(x=>x.dataset.errp);const t=(document.getElementById('errt')||{}).value||'';
     const m=document.getElementById('fmtm');if(m)m.remove();
-    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 4.8.2`);return true;}
+    doShare(`KLAPP Гид · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 4.8.3`);return true;}
   if(d.fs){setFont(+d.fs);render(false);return true;}
   if(contentClick(d))return true;
   if(d.thm){setLook(d.thm,null);buzz(8);render(false);return true;}
@@ -3571,7 +3592,7 @@ function gmOpen(){
   const fly=[];for(let k=0;k<24;k++){const lv=k%GM_CHAIN.length,id=GM_CHAIN[lv];if(!PH[id])continue;const a=(k*137.5)%360*Math.PI/180,d=38+((k*53)%26);
     fly.push(`<img class="gm-fly" src="${PH[id]}" alt="" style="--dx:${(Math.cos(a)*d).toFixed(1)}vmax;--dy:${(Math.sin(a)*d).toFixed(1)}vmax;--dl:${(k*55)}ms;--rt:${((k*47)%30)-15}deg">`);}
   el.innerHTML=`<div class="gm-warp">${fly.join('')}</div>
-   <div class="gm-title"><p class="gm-k">Секретная игра</p><h2>Путь к Exo|Gen</h2><p class="gm-d">Соединяйте два одинаковых препарата — получится следующий. Пятнадцать ступеней: от Clean & Active до Exo|Gen.</p>${QZS.gm.best?`<p class="gm-rec">Ваш рекорд: <b>${QZS.gm.best}</b></p>`:''}<button class="btn red" data-gmplay>Играть</button><button class="gm-lnk" data-gmchain>Посмотреть цепочку</button><button class="gm-lnk" data-gmx>Выйти</button></div>
+   <div class="gm-title"><p class="gm-k">Секретная игра</p><h2>Путь к Exo|Gen</h2><p class="gm-d">Соединяйте два одинаковых препарата — получится следующий. Пятнадцать ступеней: от Clean & Active до Exo|Gen.</p>${QZS.gm.best?`<p class="gm-rec">Ваш рекорд: <b>${QZS.gm.best}</b></p>`:''}${QZS.gm.save?`<button class="btn red" data-gmcont>Продолжить</button><button class="btn" data-gmplay>Новая игра</button><p class="gm-sv">Сохранена партия · счёт ${QZS.gm.save.score}</p>`:'<button class="btn red" data-gmplay>Играть</button>'}<button class="gm-lnk" data-gmchain>Посмотреть цепочку</button><button class="gm-lnk" data-gmx>Выйти</button></div>
    <div class="gm-game" hidden>
     <div class="gm-bar"><button class="gm-ic" data-gmx aria-label="Закрыть">✕</button><div class="gm-sc"><small>Счёт</small><b id="gm-s">0</b></div><div class="gm-sc"><small>Рекорд</small><b id="gm-b">${QZS.gm.best||0}</b></div><div class="gm-nx"><small>Дальше</small><canvas id="gm-n" width="72" height="72"></canvas></div><button class="gm-ic" data-gmmute aria-label="Звук">${QZS.gm.mute?'🔇':'🔊'}</button></div>
     <div class="gm-box"><canvas id="gm-c"></canvas><div class="gm-msg" id="gm-m" aria-live="polite"></div></div>
@@ -3581,9 +3602,14 @@ function gmOpen(){
   try{history.pushState(Object.assign({},state,{gmo:1}),'');}catch(e){}
   setTimeout(()=>{if(el.isConnected)el.classList.replace('gm-intro','gm-menu');},2000);
 }
-function gmClose(){const el=document.getElementById('gm');if(!el)return;gmStop();el.classList.add('gm-out');document.documentElement.classList.remove('gm-on');setTimeout(()=>el.remove(),300);}
+/* 4.8.3: партия сохраняется — при выходе, сворачивании приложения и раз в 5 секунд; после «Игра окончена» сохранение удаляется */
+function gmSave(){if(!GM||GM.ended||!GM.bodies.length)return;
+  QZS.gm.save={v:1,score:GM.score,cur:GM.cur,next:GM.next,t:Date.now(),b:GM.bodies.filter(b=>!b.dead).map(b=>[b.lv,+(b.x/GM.W).toFixed(4),+(b.y/GM.H).toFixed(4),+(b.a||0).toFixed(2)])};qzSave();}
+setInterval(()=>{if(GM&&!GM.paused&&!GM.ended)gmSave();},5000);
+window.addEventListener('pagehide',gmSave);
+function gmClose(){const el=document.getElementById('gm');if(!el)return;gmSave();gmStop();el.classList.add('gm-out');document.documentElement.classList.remove('gm-on');setTimeout(()=>el.remove(),300);}
 window.addEventListener('popstate',e=>{if(document.getElementById('gm')&&!(e.state&&e.state.gmo))gmClose();});
-document.addEventListener('visibilitychange',()=>{if(GM)GM.paused=document.hidden;if(GM&&!document.hidden)GM.last=performance.now();});
+document.addEventListener('visibilitychange',()=>{if(GM&&document.hidden)gmSave();if(GM)GM.paused=document.hidden;if(GM&&!document.hidden)GM.last=performance.now();});
 
 function gmChainSheet(){
   const open=Math.max(QZS.gm.seen,GM_SPAWN-1);
@@ -3593,7 +3619,7 @@ function gmChainSheet(){
 }
 
 /* ---------- игра ---------- */
-function gmStart(){
+function gmStart(resume){
   const el=document.getElementById('gm');if(!el)return;
   el.classList.remove('gm-menu','gm-intro');el.querySelector('.gm-title').hidden=true;el.querySelector('.gm-game').hidden=false;
   const cv=document.getElementById('gm-c'),box=cv.parentElement;
@@ -3602,8 +3628,11 @@ function gmStart(){
   const R=lv=>W*.052*Math.pow(1.142,lv);
   const top=R(GM_SPAWN-1)*2+14;
   GM={cv,ctx:cv.getContext('2d'),W,H,dpr,R,top,acc:0,bodies:[],score:0,aim:W/2,cur:gmRand(),next:gmRand(),cool:0,over:0,ended:false,paused:false,last:performance.now(),fx:[],seen:QZS.gm.seen,goldNow:false,uid:0,raf:0};
-  QZS.gm.plays=(QZS.gm.plays||0)+1;qzSave();
-  gmNext();gmScore();
+  const sv=resume&&QZS.gm.save;
+  if(sv){GM.score=sv.score||0;GM.cur=sv.cur;GM.next=sv.next;
+    (sv.b||[]).forEach(([lv,xn,yn,a])=>{const r=R(lv),x=Math.max(r,Math.min(W-r,xn*W)),y=Math.max(top+r,Math.min(H-r,yn*H));GM.bodies.push({id:++GM.uid,x,y,px:x,py:y,r,rc:r,lv,age:2,pop:1,a:a||0,w:0});});}
+  else{QZS.gm.save=null;QZS.gm.plays=(QZS.gm.plays||0)+1;}
+  qzSave();gmNext();gmScore();
   const pos=e=>{const r=cv.getBoundingClientRect();return e.clientX-r.left;};
   cv.onpointerdown=e=>{if(GM.ended)return;cv.setPointerCapture&&cv.setPointerCapture(e.pointerId);GM.aim=pos(e);GM.down=true;};
   cv.onpointermove=e=>{if(GM.down||e.pointerType==='mouse')GM.aim=pos(e);};
@@ -3704,7 +3733,7 @@ function gmGold(){
   else gmMsg('Снова <b>Exo|Gen</b> — путь пройден ещё раз!',true);
 }
 function gmEnd(){
-  if(!GM||GM.ended)return;GM.ended=true;const rec=GM.score>(QZS.gm.best||0);if(rec){QZS.gm.best=GM.score;qzSave();}
+  if(!GM||GM.ended)return;GM.ended=true;QZS.gm.save=null;qzSave();const rec=GM.score>(QZS.gm.best||0);if(rec){QZS.gm.best=GM.score;qzSave();}
   const m=document.createElement('div');m.className='gm-end';
   m.innerHTML=`<p class="gm-k">Игра окончена</p><h3>${GM.score}</h3><p>${rec&&GM.score?'Новый рекорд!':'Рекорд: '+(QZS.gm.best||0)}</p><p class="gm-d">Дальше всего: ${esc(gmLine(GM.seen))}</p><button class="btn red" data-gmagain>Ещё раз</button><button class="gm-lnk" data-gmx>Выйти</button>`;
   document.querySelector('.gm-box').appendChild(m);buzz(30);
@@ -3721,8 +3750,9 @@ function gmDraw(){
   for(const f of g.fx){const k=f.t/f.d;x.save();x.globalAlpha=1-k;x.strokeStyle=f.c;x.lineWidth=3*(1-k)+1;x.beginPath();x.arc(f.x,f.y,f.r*(.8+.5*k),0,Math.PI*2);x.stroke();x.restore();}
 }
 function gmClick(d){
-  if('gmplay' in d){gmStart();return true;}
-  if('gmagain' in d){const e=document.querySelector('.gm-end');if(e)e.remove();gmStop();gmStart();return true;}
+  if('gmplay' in d){gmStart(false);return true;}
+  if('gmcont' in d){gmStart(true);return true;}
+  if('gmagain' in d){const e=document.querySelector('.gm-end');if(e)e.remove();gmStop();gmStart(false);return true;}
   if('gmx' in d){if(history.state&&history.state.gmo)history.back();else gmClose();return true;}
   if('gmmute' in d){QZS.gm.mute=!QZS.gm.mute;qzSave();const b=document.querySelector('[data-gmmute]');if(b)b.textContent=QZS.gm.mute?'🔇':'🔊';return true;}
   if('gmchain' in d){if(GM)GM.paused=true;gmChainSheet();return true;}
@@ -3808,7 +3838,7 @@ let OTA_BUSY=false;
 const otaRoot=()=>{const c=cUrl();return c?c.replace(/content\/?$/,''):'';};
 const otaGet=()=>{try{return JSON.parse(localStorage.getItem('klapp-ota')||'null');}catch(e){return null;}};
 const otaPut=o=>{try{localStorage.setItem('klapp-ota',JSON.stringify(o));}catch(e){}};
-const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.8.2';}catch(e){return '4.8.2';}};
+const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.8.3';}catch(e){return '4.8.3';}};
 async function otaVerify(text,sigB64){
   const key=await crypto.subtle.importKey('jwk',OTA_PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
   const sig=Uint8Array.from(atob(sigB64),c=>c.charCodeAt(0));
@@ -3826,7 +3856,7 @@ async function codeCheck(manual){
     const r=await fetch(root+'code/manifest.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('manifest '+r.status);
     const m=await r.json();LSset('klapp-code-check',Date.now());
     if(!m||!m.ver||!m.file||!m.sha256||!m.sig)throw new Error('manifest');
-    if(verCmp(m.ver,'4.8.2')<=0){if(manual)toast('Код приложения — последней версии');return;}
+    if(verCmp(m.ver,'4.8.3')<=0){if(manual)toast('Код приложения — последней версии');return;}
     if(m.apk_min&&verCmp(apkVer(),m.apk_min)<0){if(manual)toast('Для версии '+m.ver+' нужен новый APK — попросите его у менеджера');return;}
     const o=otaGet();
     if(o&&o.ver===m.ver){if(o.state==='bad'){if(manual)toast('Версия '+m.ver+' не запустилась на этом телефоне — ждём исправления');return;}otaBanner(m.ver);return;}
@@ -3852,7 +3882,7 @@ async function codeCheck(manual){
 }
 if(window.androidBridge){setTimeout(()=>codeCheck(false),15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')codeCheck(false);});}
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='4.8.2'.split('.').slice(0,2).join('.');
+const VERMIN='4.8.3'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -3860,9 +3890,9 @@ hintWrap('catalog','catalog','Каталог','Линии от A до X, акт�
 hintWrap('pick','pick','Как устроен подбор','Начните с того, что беспокоит клиента: отметьте состояния — получите уход домой и процедуры. Вкладки сверху — подбор по линиям, кабинету, наборам и схемам.');
 hintWrap('order','order','Мой заказ','Добавляйте позиции из карточек, наборов и напоминаний. «Отправить менеджеру» соберёт одно сообщение с артикулами и количеством.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'4.8':[['Новый статус специалиста','Статус — на экране «Награды» в Академии. С ростом меняется его материал: жемчуг, розовое золото, платина, золото и чёрное золото у Амбассадора. Нажмите на него — откроется «Как растёт статус».'],['Статус стал ценнее','Новые пороги: Специалист — 400 XP, Эксперт — 1 200, Мастер — 3 000, Амбассадор KLAPP — 5 000. За каждый тест засчитывается лучший результат — пройти заново стоит, чтобы его улучшить.'],['Тесты удобнее','После ответа экран сам докручивается до кнопки «Следующий вопрос». Интерфейс стал легче — без постоянных анимаций при прокрутке.'],['Тема «Как в системе»','На Android теперь следует тёмной теме телефона — в новой версии приложения (APK).']],'4.7':[['Новые дизайны','«Облако» — в цвете года Pantone 2026, мягкий тёплый белый с пудровыми пастелями. «Бирюза» — главный цветовой тренд 2026 года. Настройки → Оформление.'],['Своя гамма','Выберите цвет — фон и стекло подстроятся под него, фирменный красный KLAPP останется. Пока это эксперимент.'],['«Стекло» и «Аврора»','Больше не эксперимент — полноценные дизайны приложения.']],'4.6':[['В Гиде появился секрет','Подсказка: ищите там, где начинается история бренда. И не торопитесь — секрет любит тех, кто задерживается.']],'4.3':[['Быстрый повторный визит','В карте клиента — «Повторить прошлый визит»: всё заполнено как в прошлый раз, меняете только то, что поменялось. Полминуты вместо нескольких минут.'],['Карта клиента — главное сверху','Последний визит, номер процедуры в курсе, что назначено домой и когда закончится, аллергии и противопоказания — на одном экране.'],['Пора пригласить','Если клиент проходит курс процедурного набора, приложение само посчитает дату следующей процедуры, напомнит утром и подготовит текст приглашения.']],'4.2':[['Обновления без переустановки','С этой версии приложение на Android обновляется по сети. Когда выйдет новая версия, появится плашка «Обновление загружено — Перезапустить». Устанавливать APK заново почти никогда не понадобится.'],['Надёжно','Каждое обновление подписано и проверяется на телефоне. Если новая версия вдруг не запустится, приложение само вернётся к предыдущей.']],'4.0':[['Процедура Cell Pro','У наборов Balancing, Firming и Lifting появился режим процедуры: пилинг, авторский массаж 30 минут, маска и крем — с таймерами.'],['Тесты точнее','Вопросы переписаны без ошибок в падежах, ответы про активы — без обрывков фраз.'],['Поиск','Пустой поиск снова аккуратный: подсказки переносятся и не уезжают за край.'],['Надёжнее обновления','Каждая версия теперь проходит автоматические проверки перед выпуском — меньше сюрпризов после обновления.']],'3.11':[['Моя рекомендация','В карточке домашнего средства, процедурного набора и набора Let it glow — «Поделиться»: фирменная карточка клиенту картинкой или PDF, с вашим комментарием.'],['Ваше фото','В Настройках можно добавить своё фото — оно появится рядом с контактами в рекомендации, шпаргалке и результате теста.'],['Разделы под рукой','Подразделы вверху остаются на месте при прокрутке, а листать их можно свайпом влево и вправо.'],['Что уже смотрели','Просмотренные карточки отмечены красной чертой, а рамка линии в каталоге заполняется по кругу — как циферблат.']],'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — в Google Диск, iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
+const WHATSNEW={'4.8':[['Новый статус специалиста','Статус — на экране «Награды» в Академии. С ростом меняется его материал: жемчуг, розовое золото, платина, золото и чёрное золото у Амбассадора. Нажмите на него — откроется «Как растёт статус».'],['Статус стал ценнее','Новые пороги: Специалист — 400 XP, Эксперт — 1 200, Мастер — 3 000, Амбассадор KLAPP — 5 000. За каждый тест засчитывается лучший результат — пройти заново стоит, чтобы его улучшить.'],['Тесты удобнее','После ответа экран сам докручивается до кнопки «Следующий вопрос». Интерфейс стал легче — без постоянных анимаций при прокрутке.'],['Тема «Как в системе»','На Android теперь следует тёмной теме телефона — в новой версии приложения (APK).'],['Шпаргалка клиенту — красивее','Внизу шпаргалки и итогов визита — фирменная плашка на чёрном фоне: ваше фото, имя и контакты, как в «Моей рекомендации».']],'4.7':[['Новые дизайны','«Облако» — в цвете года Pantone 2026, мягкий тёплый белый с пудровыми пастелями. «Бирюза» — главный цветовой тренд 2026 года. Настройки → Оформление.'],['Своя гамма','Выберите цвет — фон и стекло подстроятся под него, фирменный красный KLAPP останется. Пока это эксперимент.'],['«Стекло» и «Аврора»','Больше не эксперимент — полноценные дизайны приложения.']],'4.6':[['В Гиде появился секрет','Подсказка: ищите там, где начинается история бренда. И не торопитесь — секрет любит тех, кто задерживается.']],'4.3':[['Быстрый повторный визит','В карте клиента — «Повторить прошлый визит»: всё заполнено как в прошлый раз, меняете только то, что поменялось. Полминуты вместо нескольких минут.'],['Карта клиента — главное сверху','Последний визит, номер процедуры в курсе, что назначено домой и когда закончится, аллергии и противопоказания — на одном экране.'],['Пора пригласить','Если клиент проходит курс процедурного набора, приложение само посчитает дату следующей процедуры, напомнит утром и подготовит текст приглашения.']],'4.2':[['Обновления без переустановки','С этой версии приложение на Android обновляется по сети. Когда выйдет новая версия, появится плашка «Обновление загружено — Перезапустить». Устанавливать APK заново почти никогда не понадобится.'],['Надёжно','Каждое обновление подписано и проверяется на телефоне. Если новая версия вдруг не запустится, приложение само вернётся к предыдущей.']],'4.0':[['Процедура Cell Pro','У наборов Balancing, Firming и Lifting появился режим процедуры: пилинг, авторский массаж 30 минут, маска и крем — с таймерами.'],['Тесты точнее','Вопросы переписаны без ошибок в падежах, ответы про активы — без обрывков фраз.'],['Поиск','Пустой поиск снова аккуратный: подсказки переносятся и не уезжают за край.'],['Надёжнее обновления','Каждая версия теперь проходит автоматические проверки перед выпуском — меньше сюрпризов после обновления.']],'3.11':[['Моя рекомендация','В карточке домашнего средства, процедурного набора и набора Let it glow — «Поделиться»: фирменная карточка клиенту картинкой или PDF, с вашим комментарием.'],['Ваше фото','В Настройках можно добавить своё фото — оно появится рядом с контактами в рекомендации, шпаргалке и результате теста.'],['Разделы под рукой','Подразделы вверху остаются на месте при прокрутке, а листать их можно свайпом влево и вправо.'],['Что уже смотрели','Просмотренные карточки отмечены красной чертой, а рамка линии в каталоге заполняется по кругу — как циферблат.']],'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — в Google Диск, iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
 function sheet(html){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';m.innerHTML=`<div class="fmtc" role="dialog">${html}</div>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-sheetx]'))m.remove();});return m;}
-function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Гид · версия 4.8.2</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Гид · версия 4.8.3</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB=[
  {ic:'brand',t:'KLAPP Гид',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -3885,18 +3915,18 @@ function firstRun(){const used=CAB.clients.length||QZS.att.length||RECENT.length
   if(!LS('klapp-onb','')){if(used){LSset('klapp-onb',VERMIN);}else{onbShow();return;}}
   if(LS('klapp-seen-ver','')!==VERMIN){LSset('klapp-seen-ver',VERMIN);if(used)whatsNew();}}
 VIEWS.settings=function(){setTop('Настройки',true);
-  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Гид · версия 4.8.2${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
+  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Гид · версия 4.8.3${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
   <div class="grp">Профиль</div><label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">Имя появится в заказе менеджеру и на доске почёта.</p>
   ${settings39()}
   ${lookHTML()}${fontHTML()}${contentHTML()}
   <div class="grp">Помощь</div>
   <button class="row" data-open="help"><span class="tx"><span class="nm">Как пользоваться</span><span class="sb">Короткие ответы на частые вопросы</span></span>${I.go}</button>
   <button class="row" data-onb><span class="tx"><span class="nm">Знакомство с приложением</span><span class="sb">Четыре экрана о главном</span></span>${I.go}</button>
-  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.8.2</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
+  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.8.3</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
   <button class="row" data-hreset><span class="tx"><span class="nm">Вернуть подсказки</span><span class="sb">Снова показать объяснения в разделах</span></span>${I.go}</button>
   <div class="grp">Сообщество и бренд</div>${tgLine()}
   <button class="row" data-am2="brand"><span class="tx"><span class="nm">О бренде KLAPP</span><span class="sb">История, философия, контакты</span></span>${I.go}</button>
-  <p class="foot">KLAPP Гид · версия 4.8.2 · Beauty Alliance</p>`;};
+  <p class="foot">KLAPP Гид · версия 4.8.3 · Beauty Alliance</p>`;};
 const HELP=[
  ['Как завести клиента и провести визит','Кабинет → «Новый клиент» → имя и тип кожи → «Сохранить». В карте клиента — «Визит и диагностика»: три шага — состояние кожи, процедура, домашний уход. Обязательно только состояние кожи, остальное по желанию.'],
  ['Как приложение напоминает о докупке','Назначение знает норму расхода средства и считает, когда оно закончится. За несколько дней до конца клиент появится в списке «Пора напомнить» в Кабинете, а в приложении на телефоне придёт уведомление в 10:00.'],
@@ -4048,7 +4078,7 @@ setTimeout(loadPhotos,40);
 /* 3.11.4: плашка «Вышла новая версия» для сайта (window.klappNewVer — для проверок) */
 window.klappNewVer=function(){newVerBanner();};
 function newVerBanner(){if(document.getElementById('nvb'))return;
-  var cur='4.8.2';
+  var cur='4.8.3';
   function show(v){if(v&&v===cur)return;var b=document.createElement('div');b.id='nvb';b.className='nvb';b.setAttribute('role','status');
     b.innerHTML='<span class="tx"><b>Вышла новая версия'+(v?' '+v:'')+'</b><small>Обновление займёт секунду</small></span><button type="button" class="nvbgo">Обновить</button><button type="button" class="nvbx" aria-label="Позже">×</button>';
     b.querySelector('.nvbgo').onclick=function(){location.reload();};b.querySelector('.nvbx').onclick=function(){b.remove();};document.body.appendChild(b);}
