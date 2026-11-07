@@ -17,7 +17,7 @@
    Скачанная обязана подтвердить нормальный запуск (__otaOk) за 12 с, иначе — пометка «плохая» и мгновенный возврат на встроенную.
    Жёсткий сбой без подтверждения: после 2 попыток версия помечается плохой. Новый APK сам отменяет скачанное (Capacitor сбрасывает путь). */
 (function(){var W=window,ls,ss;try{ls=W.localStorage;ss=W.sessionStorage;}catch(e){return;}
- var BV='4.11.3',K='klapp-ota';
+ var BV='4.12',K='klapp-ota';
  function cmp(a,b){a=String(a).split('.').map(Number);b=String(b).split('.').map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var x=a[i]||0,y=b[i]||0;if(x!==y)return x>y?1:-1;}return 0;}
  function get(){try{return JSON.parse(ls.getItem(K)||'null');}catch(e){return null;}}
  function put(o){try{ls.setItem(K,JSON.stringify(o));}catch(e){}}
@@ -1300,6 +1300,22 @@ body.ovl main{overflow:hidden;touch-action:none}
 .cosd p{font-size:14px;line-height:1.5;margin:0 0 10px}
 .cosd small{display:block;color:var(--muted);font-size:12px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:2px}
 .cosd a{color:var(--red,#ff4438)}
+/* 4.12: доступ по коду */
+.accov .onbin{overflow:auto}
+.accsc{overflow:auto;flex:1;min-height:0}
+.accterms{margin:6px 0 0;padding:0 0 0 20px;font-size:15px;line-height:1.5;color:var(--ink)}
+.accterms li{margin:0 0 10px}.accterms b{font-weight:600}
+.fmtc .accterms{font-size:14px;margin:8px 0 12px}
+.acccode{min-height:84px;resize:vertical;font-size:14px;line-height:1.4;font-family:inherit;word-break:break-all}
+.accerr{min-height:20px;margin:8px 0 0!important;color:#d0342c!important;font-size:14px!important}
+.accbn{display:flex;gap:12px;align-items:center;margin:12px 16px 4px;padding:12px 14px;border-radius:14px;background:var(--chip);font-size:14px;line-height:1.4}
+.accbn span{flex:1}.accbn b{display:block;font-weight:600;margin-bottom:2px}
+.accbn .btn{flex:none;white-space:nowrap}
+.acccta{display:flex;flex-direction:column;gap:10px;padding:4px 20px 16px}.acccta .btn{justify-content:center;padding:14px}
+.accl{margin:0 20px 14px;padding:0 0 0 18px;line-height:1.6;color:var(--ink)}
+.accst{padding:4px 20px 8px}.accst b{display:block;font-weight:600}.accst span{display:block;color:var(--muted);font-size:14px}
+.lnk{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer}
+.accm .fmtc .btn{width:100%;justify-content:center;margin-top:8px}
 </style>
 <script>
 (function(){var r=document.documentElement,mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
@@ -1367,7 +1383,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611072126',date:'2026-11-07',app:'4.11.3',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611072126',date:'2026-11-07',app:'4.12',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -1532,7 +1548,7 @@ function render(fresh){
   tabsEl.innerHTML=TABS.map(([k,l,ic])=>`<button data-tab="${k}" ${curTab===k?'aria-current="page"':''}>${ic}${k==='cab'&&due?`<i class="b">${due}</i>`:''}${k==='academy'&&!(DQ.days&&DQ.days[todayS()])?'<i class="b dot"></i>':''}<span>${l}</span><i></i></button>`).join('');
   if(state.view!=='run'&&typeof RUN!=='undefined'&&RUN){clearInterval(RUN.tm);RUN=null;wakeOff();}
   const key=JSON.stringify(state), same=!fresh&&render._last===key, keepY=main.scrollTop;
-  const v=VIEWS[state.view]||VIEWS.lines; GLOW_ON=false; main.innerHTML=v(state); glowMode(GLOW_ON);
+  const v=(isDemo()&&!DEMO_VIEWS.has(state.view))?VIEWS.locked:(VIEWS[state.view]||VIEWS.lines); GLOW_ON=false; main.innerHTML=v(state); glowMode(GLOW_ON);
   {const sg=main.querySelector('.seg.stk');main.style.setProperty('--segh',sg?sg.offsetHeight+'px':'0px');
    main.classList.remove('sw-l','sw-r');if(SWIPE_DIR){void main.offsetWidth;main.classList.add(SWIPE_DIR>0?'sw-l':'sw-r');SWIPE_DIR=0;}}
   main.scrollTop=same?keepY:((!fresh&&scrolls[key])?scrolls[key]:0);
@@ -3212,7 +3228,7 @@ function ordCtl(p){
 function orderText(){
   const d=new Date().toLocaleDateString('ru-RU');
   const rows=ORD.items.map((x,i)=>{const p=itemById[x.id];return `${i+1}. арт. ${x.art} — ${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}${p._f!=='kit'&&p.vol?', '+p.vol:''}) — ${x.qty} шт.`;});
-  return `Заказ KLAPP · ${d}${QZS.name?'\nОт: '+QZS.name:''}\n\n${rows.join('\n')}\n\nИтого: ${ordCount()} ${plural(ordCount(),'позиция','позиции','позиций')}, ${ordUnits()} шт.${ORD.comment?'\nКомментарий: '+ORD.comment:''}`;
+  return `Заказ KLAPP · ${d}${QZS.name?'\nОт: '+QZS.name:''}\n\n${rows.join('\n')}\n\nИтого: ${ordCount()} ${plural(ordCount(),'позиция','позиции','позиций')}, ${ordUnits()} шт.${ORD.comment?'\nКомментарий: '+ORD.comment:''}${accTag()?'\n'+accTag():''}`;
 }
 VIEWS.order=function(s){
   setTop('Мой заказ',true);
@@ -3307,6 +3323,7 @@ async function drawSheet(sh){
     else if(o.k==='foot'){x.fillStyle='#111111';x.fillRect(0,o.y,W,c.height-o.y);
       if(PHO){const cx=P+F.D/2,cy=o.y+40+F.D/2;x.save();x.beginPath();x.arc(cx,cy,F.D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(F.D/PHO.width,F.D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle=NT?'#ffffff':'#ff4438';x.lineWidth=3;x.beginPath();x.arc(cx,cy,F.D/2+6,0,Math.PI*2);x.stroke();}
       F.L.forEach(l=>{x.font=l.f;x.fillStyle=l.c;try{x.letterSpacing=l.ls||'0px';}catch(e){}x.fillText(l.t,F.TX,o.y+l.y);});try{x.letterSpacing='0px';}catch(e){}
+      {const tg=accTag();if(tg){x.font='300 16px Jost';x.fillStyle='#6a6a64';x.fillText('KLAPP Pro · '+tg,P,c.height-14);}}
       if(!NT){x.fillStyle='#ff4438';x.font='400 24px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,c.height-44);
       x.fillStyle='#8a8a84';x.font='500 20px Jost';x.textAlign='right';try{x.letterSpacing='4px';}catch(e){}x.fillText('KLAPP',W-P,c.height-44);x.textAlign='left';try{x.letterSpacing='0px';}catch(e){}}}
   }
@@ -3849,7 +3866,7 @@ VIEWS.home=function(){
   const fv=favs.map(id=>itemById[id]).filter(Boolean).slice(0,4);
   const DAY=dayTile();
   const qa=[['vnew','Новый визит',I.cab,'клиент и диагностика'],['oopen','Мой заказ',I.plus,ORD.items.length?ordCount()+' '+plural(ordCount(),'позиция','позиции','позиций'):'список для менеджера'],[DAY.attr,DAY.t,DAY.ic,DAY.sub],['cmpgo','Сравнение',I.pick,CMP.length?CMP.length+' в списке':'2–3 препарата']];
-  return `<section class="hhead"><p class="hi">${hi}${QZS.name?', '+esc(QZS.name.split(' ')[0]):''} · <button class="lvchip" data-am2="coll">${esc(xpInfo().level)}</button></p><h1>KLAPP Pro</h1>
+  return accBanner()+`<section class="hhead"><p class="hi">${hi}${QZS.name?', '+esc(QZS.name.split(' ')[0]):''} · <button class="lvchip" data-am2="coll">${esc(xpInfo().level)}</button></p><h1>KLAPP Pro</h1>
    <button class="hsearch" data-open="search">${I.search}<span>Препарат, артикул, актив или состояние кожи</span></button></section>
    ${contentBanner()}
    <div class="qgrid">${qa.map(([k,t,ic,sub])=>`<button class="qa" data-${k}>${ic}<b>${t}</b><span>${esc(sub)}</span></button>`).join('')}</div>
@@ -3861,7 +3878,7 @@ VIEWS.home=function(){
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Pro · версия 4.11.3</p>`;
+   <p class="foot">KLAPP Pro · версия 4.12</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -4079,7 +4096,7 @@ function v34Click(d,b){
   if(d.errp){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);return true;}
   if(d.errsend){const p=itemById[d.errsend];const parts=[...document.querySelectorAll('[data-errp][aria-pressed="true"]')].map(x=>x.dataset.errp);const t=(document.getElementById('errt')||{}).value||'';
     const m=document.getElementById('fmtm');if(m)m.remove();
-    doShare(`KLAPP Pro · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 4.11.3`);return true;}
+    doShare(`KLAPP Pro · ошибка в карточке\n${p._f==='kit'?'Набор «'+p.sub+'»':p.name} (${p._l.name}, арт. ${p.art})\nРаздел: ${parts.join(', ')||'не указан'}\nКомментарий: ${t.trim()||'—'}\n${QZS.name?'От: '+QZS.name+'\n':''}Версия приложения: 4.12`);return true;}
   if(d.fs){setFont(+d.fs);render(false);return true;}
   if(contentClick(d))return true;
   if(d.thm){setLook(d.thm,null);buzz(8);render(false);return true;}
@@ -4506,7 +4523,7 @@ let OTA_BUSY=false;
 const otaRoot=()=>{const c=cUrl();return c?c.replace(/content\/?$/,''):'';};
 const otaGet=()=>{try{return JSON.parse(localStorage.getItem('klapp-ota')||'null');}catch(e){return null;}};
 const otaPut=o=>{try{localStorage.setItem('klapp-ota',JSON.stringify(o));}catch(e){}};
-const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.11.3';}catch(e){return '4.11.3';}};
+const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.12';}catch(e){return '4.12';}};
 async function otaVerify(text,sigB64){
   const key=await crypto.subtle.importKey('jwk',OTA_PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
   const sig=Uint8Array.from(atob(sigB64),c=>c.charCodeAt(0));
@@ -4524,7 +4541,7 @@ async function codeCheck(manual){
     const r=await fetch(root+'code/manifest.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('manifest '+r.status);
     const m=await r.json();LSset('klapp-code-check',Date.now());
     if(!m||!m.ver||!m.file||!m.sha256||!m.sig)throw new Error('manifest');
-    if(verCmp(m.ver,'4.11.3')<=0){if(manual)toast('Код приложения — последней версии');return;}
+    if(verCmp(m.ver,'4.12')<=0){if(manual)toast('Код приложения — последней версии');return;}
     if(m.apk_min&&verCmp(apkVer(),m.apk_min)<0){if(manual)toast('Для версии '+m.ver+' нужен новый APK — попросите его у менеджера');return;}
     const o=otaGet();
     if(o&&o.ver===m.ver){if(o.state==='bad'){if(manual)toast('Версия '+m.ver+' не запустилась на этом телефоне — ждём исправления');return;}otaBanner(m.ver);return;}
@@ -4550,7 +4567,7 @@ async function codeCheck(manual){
 }
 if(window.androidBridge){setTimeout(()=>codeCheck(false),15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')codeCheck(false);});}
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='4.11.3'.split('.').slice(0,2).join('.');
+const VERMIN='4.12'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -4568,9 +4585,9 @@ hintWrap('myl','myl','Мои препараты','Добавьте средст�
 hintWrap('honors','honors','Награды','Медали — за тесты по линиям, кубки — за категории, корона — за большой тест. Ниже — коллекция линий: линия собрана, когда вы открыли все её препараты и наборы и сдали тест по ней на 75% и выше.');
 hintWrap('run','run','Процедура по шагам','На каждом этапе — препарат, техника и таймер. Экран не гаснет, пока идёт процедура. «Следующий этап» — переход дальше.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'4.11':[['KLAPP Pro','Новое название приложения.'],['⇆ Альтернатива','В каждой карточке препарата и набора — до трёх замен, похожих и по действию, и по составу. У кабинетного препарата первой предлагается домашняя версия того же средства.'],['Новые схемы ухода','+12 схем, в том числе для подростковой кожи. Средство в схеме можно заменить, схему — отправить клиенту и добавить в заказ одной кнопкой.'],['Согласие на обработку данных','Бланк по 152-ФЗ в карте клиента: заполнен данными клиента и вашими, готов к печати или отправке.'],['Состав INCI подробнее','У 654 компонентов — функции и ограничения по официальной базе ЕС CosIng, с источником.'],['Поиск везде одинаковый','Как на главной: понимает падежи и неверную раскладку — в заказе, сравнении, назначениях.'],['Тесты стали точнее','Неверные варианты больше не совпадают с настоящим составом, вопросы про наборы — по этапам процедуры.'],['Окна и «назад»','Окна закрываются кнопкой «назад», свайпом или крестиком; «назад» ведёт сразу в раздел, без перебора истории.'],['Скоро в архив','Пометка на препаратах, которые уходят из ассортимента.']],'4.10':[['Мои препараты','Кабинет → «Мои препараты»: заносите препараты других брендов — название, объём, артикул, экспозицию, как наносить. Добавляйте их в авторские протоколы (с таймером в режиме процедуры) и назначайте клиентам домой.'],['Бланки клиенту — в вашем стиле','Шпаргалка, итоги визита и протокол оформляются в цветах выбранного дизайна, с фирменной шапкой KLAPP. Если в назначениях есть препараты других брендов, бланк выходит обезличенным — от вашего имени и салона.'],['Карточки и тесты точнее','Ответы в карточках больше не обрываются на сокращениях вроде «в т. ч.», названия в кавычках — без ошибок.']],'4.9':[['Учёба заряжает','Верные ответы на вопрос дня, выученные карточки и собранные линии теперь копят «заряды». Статус и опыт они не тратят. А где их потратить — знают те, кто нашёл секрет.']],'4.8':[['Новый статус специалиста','Статус — на экране «Награды» в Академии. С ростом меняется его материал: жемчуг, розовое золото, платина, золото и чёрное золото у Амбассадора. Нажмите на него — откроется «Как растёт статус».'],['Статус стал ценнее','Новые пороги: Специалист — 400 XP, Эксперт — 1 200, Мастер — 3 000, Амбассадор KLAPP — 5 000. За каждый тест засчитывается лучший результат — пройти заново стоит, чтобы его улучшить.'],['Тесты удобнее','После ответа экран сам докручивается до кнопки «Следующий вопрос». Интерфейс стал легче — без постоянных анимаций при прокрутке.'],['Тема «Как в системе»','На Android теперь следует тёмной теме телефона — в новой версии приложения (APK).'],['Шпаргалка клиенту — красивее','Внизу шпаргалки и итогов визита — фирменная плашка на чёрном фоне: ваше фото, имя и контакты, как в «Моей рекомендации».']],'4.7':[['Новые дизайны','«Облако» — в цвете года Pantone 2026, мягкий тёплый белый с пудровыми пастелями. Настройки → Оформление.'],['Своя гамма','Выберите цвет — фон и стекло подстроятся под него, фирменный красный KLAPP останется. Пока это эксперимент.'],['«Стекло» и «Аврора»','Больше не эксперимент — полноценные дизайны приложения.']],'4.6':[['В Гиде появился секрет','Подсказка: ищите там, где начинается история бренда. И не торопитесь — секрет любит тех, кто задерживается.']],'4.3':[['Быстрый повторный визит','В карте клиента — «Повторить прошлый визит»: всё заполнено как в прошлый раз, меняете только то, что поменялось. Полминуты вместо нескольких минут.'],['Карта клиента — главное сверху','Последний визит, номер процедуры в курсе, что назначено домой и когда закончится, аллергии и противопоказания — на одном экране.'],['Пора пригласить','Если клиент проходит курс процедурного набора, приложение само посчитает дату следующей процедуры, напомнит утром и подготовит текст приглашения.']],'4.2':[['Обновления без переустановки','С этой версии приложение на Android обновляется по сети. Когда выйдет новая версия, появится плашка «Обновление загружено — Перезапустить». Устанавливать APK заново почти никогда не понадобится.'],['Надёжно','Каждое обновление подписано и проверяется на телефоне. Если новая версия вдруг не запустится, приложение само вернётся к предыдущей.']],'4.0':[['Процедура Cell Pro','У наборов Balancing, Firming и Lifting появился режим процедуры: пилинг, авторский массаж 30 минут, маска и крем — с таймерами.'],['Тесты точнее','Вопросы переписаны без ошибок в падежах, ответы про активы — без обрывков фраз.'],['Поиск','Пустой поиск снова аккуратный: подсказки переносятся и не уезжают за край.'],['Надёжнее обновления','Каждая версия теперь проходит автоматические проверки перед выпуском — меньше сюрпризов после обновления.']],'3.11':[['Моя рекомендация','В карточке домашнего средства, процедурного набора и набора Let it glow — «Поделиться»: фирменная карточка клиенту картинкой или PDF, с вашим комментарием.'],['Ваше фото','В Настройках можно добавить своё фото — оно появится рядом с контактами в рекомендации, шпаргалке и результате теста.'],['Разделы под рукой','Подразделы вверху остаются на месте при прокрутке, а листать их можно свайпом влево и вправо.'],['Что уже смотрели','Просмотренные карточки отмечены красной чертой, а рамка линии в каталоге заполняется по кругу — как циферблат.']],'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — на Google Диск, в iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
+const WHATSNEW={'4.12':[['Код доступа','Полный доступ к KLAPP Pro теперь открывается персональным кодом от менеджера KLAPP. Без кода — пробный режим: только просмотр каталога. Тем, кто уже пользуется приложением, — 30 дней на получение кода.'],['Условия использования','Короткие правила работы с приложением — при первом запуске и в Настройках.']],'4.11':[['KLAPP Pro','Новое название приложения.'],['⇆ Альтернатива','В каждой карточке препарата и набора — до трёх замен, похожих и по действию, и по составу. У кабинетного препарата первой предлагается домашняя версия того же средства.'],['Новые схемы ухода','+12 схем, в том числе для подростковой кожи. Средство в схеме можно заменить, схему — отправить клиенту и добавить в заказ одной кнопкой.'],['Согласие на обработку данных','Бланк по 152-ФЗ в карте клиента: заполнен данными клиента и вашими, готов к печати или отправке.'],['Состав INCI подробнее','У 654 компонентов — функции и ограничения по официальной базе ЕС CosIng, с источником.'],['Поиск везде одинаковый','Как на главной: понимает падежи и неверную раскладку — в заказе, сравнении, назначениях.'],['Тесты стали точнее','Неверные варианты больше не совпадают с настоящим составом, вопросы про наборы — по этапам процедуры.'],['Окна и «назад»','Окна закрываются кнопкой «назад», свайпом или крестиком; «назад» ведёт сразу в раздел, без перебора истории.'],['Скоро в архив','Пометка на препаратах, которые уходят из ассортимента.']],'4.10':[['Мои препараты','Кабинет → «Мои препараты»: заносите препараты других брендов — название, объём, артикул, экспозицию, как наносить. Добавляйте их в авторские протоколы (с таймером в режиме процедуры) и назначайте клиентам домой.'],['Бланки клиенту — в вашем стиле','Шпаргалка, итоги визита и протокол оформляются в цветах выбранного дизайна, с фирменной шапкой KLAPP. Если в назначениях есть препараты других брендов, бланк выходит обезличенным — от вашего имени и салона.'],['Карточки и тесты точнее','Ответы в карточках больше не обрываются на сокращениях вроде «в т. ч.», названия в кавычках — без ошибок.']],'4.9':[['Учёба заряжает','Верные ответы на вопрос дня, выученные карточки и собранные линии теперь копят «заряды». Статус и опыт они не тратят. А где их потратить — знают те, кто нашёл секрет.']],'4.8':[['Новый статус специалиста','Статус — на экране «Награды» в Академии. С ростом меняется его материал: жемчуг, розовое золото, платина, золото и чёрное золото у Амбассадора. Нажмите на него — откроется «Как растёт статус».'],['Статус стал ценнее','Новые пороги: Специалист — 400 XP, Эксперт — 1 200, Мастер — 3 000, Амбассадор KLAPP — 5 000. За каждый тест засчитывается лучший результат — пройти заново стоит, чтобы его улучшить.'],['Тесты удобнее','После ответа экран сам докручивается до кнопки «Следующий вопрос». Интерфейс стал легче — без постоянных анимаций при прокрутке.'],['Тема «Как в системе»','На Android теперь следует тёмной теме телефона — в новой версии приложения (APK).'],['Шпаргалка клиенту — красивее','Внизу шпаргалки и итогов визита — фирменная плашка на чёрном фоне: ваше фото, имя и контакты, как в «Моей рекомендации».']],'4.7':[['Новые дизайны','«Облако» — в цвете года Pantone 2026, мягкий тёплый белый с пудровыми пастелями. Настройки → Оформление.'],['Своя гамма','Выберите цвет — фон и стекло подстроятся под него, фирменный красный KLAPP останется. Пока это эксперимент.'],['«Стекло» и «Аврора»','Больше не эксперимент — полноценные дизайны приложения.']],'4.6':[['В Гиде появился секрет','Подсказка: ищите там, где начинается история бренда. И не торопитесь — секрет любит тех, кто задерживается.']],'4.3':[['Быстрый повторный визит','В карте клиента — «Повторить прошлый визит»: всё заполнено как в прошлый раз, меняете только то, что поменялось. Полминуты вместо нескольких минут.'],['Карта клиента — главное сверху','Последний визит, номер процедуры в курсе, что назначено домой и когда закончится, аллергии и противопоказания — на одном экране.'],['Пора пригласить','Если клиент проходит курс процедурного набора, приложение само посчитает дату следующей процедуры, напомнит утром и подготовит текст приглашения.']],'4.2':[['Обновления без переустановки','С этой версии приложение на Android обновляется по сети. Когда выйдет новая версия, появится плашка «Обновление загружено — Перезапустить». Устанавливать APK заново почти никогда не понадобится.'],['Надёжно','Каждое обновление подписано и проверяется на телефоне. Если новая версия вдруг не запустится, приложение само вернётся к предыдущей.']],'4.0':[['Процедура Cell Pro','У наборов Balancing, Firming и Lifting появился режим процедуры: пилинг, авторский массаж 30 минут, маска и крем — с таймерами.'],['Тесты точнее','Вопросы переписаны без ошибок в падежах, ответы про активы — без обрывков фраз.'],['Поиск','Пустой поиск снова аккуратный: подсказки переносятся и не уезжают за край.'],['Надёжнее обновления','Каждая версия теперь проходит автоматические проверки перед выпуском — меньше сюрпризов после обновления.']],'3.11':[['Моя рекомендация','В карточке домашнего средства, процедурного набора и набора Let it glow — «Поделиться»: фирменная карточка клиенту картинкой или PDF, с вашим комментарием.'],['Ваше фото','В Настройках можно добавить своё фото — оно появится рядом с контактами в рекомендации, шпаргалке и результате теста.'],['Разделы под рукой','Подразделы вверху остаются на месте при прокрутке, а листать их можно свайпом влево и вправо.'],['Что уже смотрели','Просмотренные карточки отмечены красной чертой, а рамка линии в каталоге заполняется по кругу — как циферблат.']],'3.10':[['Заказ через MAX','В настройках «Мой менеджер» теперь можно выбрать MAX — рядом с WhatsApp и Telegram.']],'3.9':[['Копия клиентов под защитой','Раз в неделю приложение напомнит сохранить копию — на Google Диск, в iCloud или Telegram.'],['Заказ в одно касание','Укажите менеджера в настройках — заказ уйдёт ему сразу в WhatsApp или Telegram.'],['Ваши контакты в шпаргалке','Салон, телефон и соцсети — внизу шпаргалки и итогов визита.'],['Подбор от состояния кожи','Отметьте, что беспокоит клиента, — получите уход домой и процедуры в кабинете.'],['Быстрее запуск','Приложение стало легче и открывается быстрее.']],'3.8':[['Академия — в нижнем меню','Тесты, карточки, награды и семинары теперь в одно касание.'],['Спокойная главная','Сверху — быстрые действия и то, что важно сегодня. Остальное — на своих местах.'],['Настройки за шестерёнкой','Тема, дизайн, размер текста, имя и обновления базы — в одном месте.'],['«Как пользоваться»','Короткие ответы на частые вопросы — в настройках.'],['Подсказки','При первом входе в раздел приложение коротко объяснит, что здесь к чему.']]};
 function sheet(html){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';m.innerHTML=`<div class="fmtc" role="dialog">${html}</div>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-sheetx]'))m.remove();});return m;}
-function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.11.3</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.12</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB=[
  {ic:'brand',t:'KLAPP Pro',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -4589,22 +4606,23 @@ function onbShow(){let o=document.getElementById('onb');if(o)o.remove();o=docume
   let x0=null;o.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
   o.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>60){if(dx<0&&i<ONB.length)i++;else if(dx>0&&i>0)i--;draw();}},{passive:true});
   draw();}
-function firstRun(){const used=CAB.clients.length||QZS.att.length||RECENT.length||ORD.items.length||Object.keys(DQ.days||{}).length;
+function firstRun(){if(accStart(firstRun))return;if(isDemo())return;const used=CAB.clients.length||QZS.att.length||RECENT.length||ORD.items.length||Object.keys(DQ.days||{}).length;
   if(!LS('klapp-onb','')){if(used){LSset('klapp-onb',VERMIN);}else{onbShow();return;}}
   if(LS('klapp-seen-ver','')!==VERMIN){LSset('klapp-seen-ver',VERMIN);if(used)whatsNew();}}
 VIEWS.settings=function(){setTop('Настройки',true);
-  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.11.3${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
-  <div class="grp">Профиль</div><label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">Имя появится в заказе менеджеру и на доске почёта.</p>
+  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.12</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
+  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.12${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
+  ${accSettings()}<div class="grp">Профиль</div><label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">Имя появится в заказе менеджеру и на доске почёта.</p>
   ${settings39()}
   ${lookHTML()}${fontHTML()}${contentHTML()}
   <div class="grp">Помощь</div>
   <button class="row" data-open="help"><span class="tx"><span class="nm">Как пользоваться</span><span class="sb">Короткие ответы на частые вопросы</span></span>${I.go}</button>
   <button class="row" data-onb><span class="tx"><span class="nm">Знакомство с приложением</span><span class="sb">Четыре экрана о главном</span></span>${I.go}</button>
-  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.11.3</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
+  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.12</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
   <button class="row" data-hreset><span class="tx"><span class="nm">Вернуть подсказки</span><span class="sb">Снова показать объяснения в разделах</span></span>${I.go}</button>
   <div class="grp">Сообщество и бренд</div>${tgLine()}
   <button class="row" data-am2="brand"><span class="tx"><span class="nm">О бренде KLAPP</span><span class="sb">История, философия, контакты</span></span>${I.go}</button>
-  <p class="foot">KLAPP Pro · версия 4.11.3 · Beauty Alliance</p>`;};
+  <p class="foot">KLAPP Pro · версия 4.12 · Beauty Alliance</p>`;};
 const HELP=[
  ['Как завести клиента и провести визит','Кабинет → «Новый клиент» → имя и тип кожи → «Сохранить». В карте клиента — «Визит и диагностика»: три шага — состояние кожи, процедура, домашний уход. Обязательно только состояние кожи, остальное по желанию.'],
  ['Как приложение напоминает о докупке','Назначение знает норму расхода средства и считает, когда оно закончится. За несколько дней до конца клиент появится в списке «Пора напомнить» в Кабинете, а на телефон в 10:00 придёт уведомление.'],
@@ -4628,6 +4646,145 @@ function v38Click(d,b){
   return false;}
 document.addEventListener('change',e=>{if(e.target&&e.target.id==='setname'){QZS.name=e.target.value.trim();qzSave();toast('Имя сохранено');}});
 
+/* ---------- 4.12: доступ по коду ----------
+   Код выдаёт администратор (генератор кодов с закрытым ключом — только у него, в репозитории ключа НЕТ).
+   Формат: KP1.<данные base64url>.<подпись ECDSA P-256 / SHA-256, 64 байта = 86 знаков base64url>
+   Данные: {v:1,k:'s1',i:'номер',n:'имя',s:'салон',d:'выдан',e:'действует до'} — подпись ставится на строку «KP1.<данные>».
+   Режимы: full — действующий код; grace — переходный период для тех, кто пользовался до 4.12 (30 дней); demo — без кода:
+   только просмотр каталога (DEMO_VIEWS), любые действия (кнопки вне DEMO_KEYS) закрыты окном «Доступно по коду».
+   Стоп-лист: D.revoked (номера кодов) — из листа «Доступы» Google-таблицы, приходит с обновлением базы.
+   Защита от перевода даты назад: klapp-maxd — самая поздняя дата, которую видело приложение. */
+const ACC_KEYS={s1:{x:'dSyrN0JW1la_NBqWsO0VQb_c2GZxaPquZ3ZQHt3u9YQ',y:'mdAf6ZHpOkAR9BuCY8-plsaOwub7sRsB-HwAZoZTPLQ'}};
+const ACC_REV=new Set(((D&&D.revoked)||[]).map(String));
+const ACC_GRACE=30,ACC_WARN=14,ACC_TERMS='1';
+const ACC_RE=/KP1\.([A-Za-z0-9_-]{8,900})\.([A-Za-z0-9_-]{86})/;
+const DEMO_VIEWS=new Set(['catalog','lines','line','item','search','spec','step','gloss','gitem','comp','settings','help','locked']);
+const DEMO_KEYS=new Set(['back','c','ccat','cs','cs2','g','gcat','gt','hint','hintbox','item','jump','line','lineh','seg','tab','anch','step','spec','mode','q','scht','thm','uiset','uihue','fsz']);
+let ACC=LS('klapp-acc',null);
+/* строки из памяти: и в JSON-кавычках, и без (проверки пишут без) */
+const accGet=k=>{try{const v=localStorage.getItem(k);if(v==null)return '';try{const j=JSON.parse(v);return j==null?'':String(j);}catch(e){return v;}}catch(e){return '';}};
+const accB64=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;};
+const accDate=s=>s?s.slice(8,10)+'.'+s.slice(5,7)+'.'+s.slice(0,4):'';
+function accToday(){const t=todayS(),m=LS('klapp-maxd','');const r=m&&m>t?m:t;if(r!==m)LSset('klapp-maxd',r);return r;}
+/* проверка кода: {ok, p (данные), why} */
+async function accVerify(text){
+  const m=ACC_RE.exec(String(text||'').replace(/\s+/g,''));
+  if(!m)return {ok:false,why:'Код не найден. Скопируйте сообщение менеджера целиком или только код — он начинается с «KP1.»'};
+  let p;try{p=JSON.parse(new TextDecoder().decode(accB64(m[1])));}catch(e){return {ok:false,why:'Код повреждён — скопируйте его ещё раз.'};}
+  const K=ACC_KEYS[p&&p.k];if(!K)return {ok:false,why:'Код выдан для другой версии приложения или отключён. Обратитесь к менеджеру.'};
+  if(!(window.crypto&&crypto.subtle))return {ok:false,soft:true,why:'Телефон не может проверить код: обновите браузер или Android System WebView и попробуйте снова.'};
+  try{const key=await crypto.subtle.importKey('jwk',{kty:'EC',crv:'P-256',x:K.x,y:K.y,ext:true},{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
+    const good=await crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,accB64(m[2]),new TextEncoder().encode('KP1.'+m[1]));
+    if(!good)return {ok:false,why:'Код не подходит. Проверьте, что скопировали его полностью, или попросите новый.'};}
+  catch(e){return {ok:false,soft:true,why:'Не удалось проверить код на этом телефоне. Попробуйте ещё раз.'};}
+  if(!p.i||!p.e||!/^\d{4}-\d\d-\d\d$/.test(p.e))return {ok:false,why:'Код повреждён — попросите новый.'};
+  if(ACC_REV.has(String(p.i)))return {ok:false,why:'Этот код отключён. Обратитесь к менеджеру KLAPP.'};
+  if(p.e<accToday())return {ok:false,why:`Срок этого кода закончился ${accDate(p.e)}. Попросите новый у менеджера.`};
+  return {ok:true,p,c:'KP1.'+m[1]+'.'+m[2]};
+}
+function accMode(){const t=accToday();
+  if(ACC&&ACC.e&&ACC_KEYS[ACC.k]&&!ACC_REV.has(String(ACC.i))&&t<=ACC.e)return 'full';
+  const g=accGet('klapp-grace');if(g&&t<=g)return 'grace';
+  return 'demo';}
+function isDemo(){try{return accMode()==='demo';}catch(e){return false;}}
+const accLeft=()=>ACC&&ACC.e?Math.round((Date.parse(ACC.e)-Date.parse(accToday()))/864e5):0;
+const accWho=()=>ACC?[ACC.n,ACC.s].filter(Boolean).join(', '):'';
+/* подпись на бланках и в заказе */
+const accTag=()=>ACC&&accMode()==='full'?`Доступ: ${accWho()} · №${ACC.i}`:'';
+/* первый запуск 4.12: тем, кто уже пользовался приложением, — переходный период */
+(function(){if(accGet('klapp-acc-init'))return;const t=todayS();LSset('klapp-acc-init',t);
+  let old=false;try{old=!!localStorage.getItem('klapp-onb')||!!localStorage.getItem('klapp-cab-v1')||!!localStorage.getItem('klapp-quiz-v1');}catch(e){}
+  if(old&&!ACC){const d=new Date(Date.parse(t)+ACC_GRACE*864e5);LSset('klapp-grace',iso(d));}})();
+/* сохранённый код перепроверяем при каждом запуске (вдруг правили память вручную) */
+if(ACC&&ACC.c)accVerify(ACC.c).then(r=>{if(!r.ok&&!r.soft){ACC=null;LSset('klapp-acc',null);render(false);}}).catch(()=>{});
+
+/* ---------- экраны ---------- */
+const ACC_TERMS_HTML=`<ol class="accterms">
+<li><b>KLAPP Pro — рабочий инструмент косметолога-партнёра KLAPP.</b> Полный доступ открывается персональным кодом, который выдаёт менеджер KLAPP на ограниченный срок. Без кода доступен только просмотр каталога.</li>
+<li><b>Код личный.</b> Его нельзя передавать другим людям. Имя и салон из кода показываются в приложении и на документах, которые оно создаёт.</li>
+<li><b>Материалы приложения</b> — тексты, фото, протоколы, схемы, тесты — нельзя копировать, публиковать и передавать третьим лицам. Установочный файл и ссылку на приложение не распространяйте: новым коллегам их выдаёт менеджер KLAPP.</li>
+<li><b>Сведения о препаратах справочные</b> и не заменяют инструкцию производителя и решение специалиста. Противопоказания проверяйте перед назначением.</li>
+<li><b>Данные клиентов хранятся только на вашем телефоне</b> и уходят из него только по вашему действию (отправка, резервная копия). Согласие клиента на обработку персональных данных (152-ФЗ) оформляйте сами — бланк есть в карточке клиента.</li>
+<li><b>Доступ может быть прекращён</b> при нарушении этих условий или окончании сотрудничества.</li></ol>`;
+function accOverlay(){let o=document.getElementById('acc');if(o)o.remove();o=document.createElement('div');o.id='acc';o.className='onb accov';document.body.appendChild(o);return o;}
+function accClose(){const o=document.getElementById('acc');if(o){o.classList.add('out');setTimeout(()=>o.remove(),300);}}
+function accTerms(next){const o=accOverlay();
+  o.innerHTML=`<div class="onbin" role="dialog" aria-label="Условия использования"><div class="accsc"><h2>Условия использования</h2>${ACC_TERMS_HTML}</div>
+    <div class="onbbtns"><button class="btn red" data-accterms>Принимаю</button></div></div>`;
+  o.querySelector('[data-accterms]').onclick=()=>{LSset('klapp-terms',ACC_TERMS);accClose();setTimeout(next,320);};}
+/* экран кода. after — что делать после (активация или «позже») */
+function accCodeScreen(after,why){const o=accOverlay(),m=accMode();
+  const exp=ACC&&ACC.e&&accToday()>ACC.e,rev=ACC&&ACC_REV.has(String(ACC.i));
+  const lead=why||(rev?'Ваш код отключён. Обратитесь к менеджеру KLAPP за новым.':exp?`Срок вашего кода закончился ${accDate(ACC.e)}. Попросите новый у менеджера KLAPP.`
+    :m==='grace'?`До ${accDate(accGet('klapp-grace'))} приложение работает как раньше. Чтобы не потерять доступ, введите код от менеджера KLAPP.`
+    :'Полный доступ открывается персональным кодом. Его выдаёт ваш менеджер KLAPP.');
+  o.innerHTML=`<div class="onbin" role="dialog" aria-label="Код доступа"><div class="onbart">${I.star}</div><h2>Код доступа</h2><p>${esc(lead)}</p>
+    <textarea id="acccode" class="onbin2 acccode" rows="3" placeholder="Вставьте сюда сообщение с кодом" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+    <p class="accerr" id="accerr" role="alert"></p>
+    <div class="onbbtns"><button class="btn ghost" data-accpaste>Вставить из буфера</button><button class="btn red" data-accok>Открыть доступ</button>
+    <button class="btn ghost" data-acclater>${m==='grace'?'Позже':ACC&&m==='full'?'Отмена':'Пробный режим — только каталог'}</button></div></div>`;
+  const ta=o.querySelector('#acccode'),er=o.querySelector('#accerr');
+  const tryIt=async()=>{const b=o.querySelector('[data-accok]');b.disabled=true;er.textContent='Проверяю…';const r=await accVerify(ta.value);b.disabled=false;
+    if(!r.ok){er.textContent=r.why;buzz(20);return;}
+    ACC={c:r.c,k:r.p.k,i:String(r.p.i),n:r.p.n||'',s:r.p.s||'',d:r.p.d||'',e:r.p.e,t:todayS()};LSset('klapp-acc',ACC);LSset('klapp-grace','');
+    er.textContent='';accClose();toast(`Доступ открыт до ${accDate(ACC.e)}`);buzz(12);
+    render(false);if(after)setTimeout(()=>after(true),350);else if(!LS('klapp-onb',''))setTimeout(onbShow,350);};
+  o.querySelector('[data-accok]').onclick=tryIt;
+  o.querySelector('[data-accpaste]').onclick=async()=>{try{const t=await navigator.clipboard.readText();if(t){ta.value=t;tryIt();return;}}catch(e){}
+    er.textContent='Не получилось прочитать буфер. Нажмите на поле и удерживайте — появится «Вставить».';ta.focus();};
+  o.querySelector('[data-acclater]').onclick=()=>{LSset('klapp-acc-asked',todayS());accClose();render(false);if(after)after(false);};}
+/* при запуске: условия → (без кода) экран кода. Возвращает true, если показали экран */
+function accStart(next){
+  if(accGet('klapp-terms')!==ACC_TERMS){accTerms(()=>{if(!accStart(next)&&next)next();});return true;}
+  const m=accMode();
+  const ask=m==='demo'&&accGet('klapp-acc-asked')!==todayS();          /* без кода — экран кода не чаще раза в день */
+  if(ask){accCodeScreen(()=>next&&next());return true;}
+  return false;}
+/* окно «Доступно по коду» на закрытые действия */
+function accLockSheet(){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm accm';
+  m.innerHTML=`<div class="fmtc" role="dialog" aria-label="Доступно по коду"><b>Доступно по коду доступа</b>
+    <p class="snote" style="margin:4px 0 10px">В пробном режиме открыт только просмотр каталога. Кабинет, подбор, заказ, тесты, протоколы и отправка клиентам открываются кодом от менеджера KLAPP.</p>
+    <button class="btn red" data-accgo>Ввести код</button><button class="btn ghost" data-fmt="x">Закрыть</button></div>`;
+  document.body.appendChild(m);}
+/* пробный режим: всё, что не просмотр каталога, — через окно «Доступно по коду» */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button,[data-line],.il[data-c],[data-qstart],[data-fcflip],a[href]');if(!b)return;
+  if(b.closest('#acc,#onb'))return;
+  const d=b.dataset;
+  if('accgo' in d){e.preventDefault();e.stopImmediatePropagation();ovlThen(()=>accCodeScreen());return;}
+  if('accterms2' in d){e.preventDefault();e.stopImmediatePropagation();accTermsView();return;}
+  if(!isDemo())return;
+  if(b.closest('.accm'))return;
+  if(d.open&&(d.open==='search'||d.open==='settings'||d.open==='help'))return;
+  if(d.fmt==='x')return;
+  const ks=Object.keys(d);
+  if(ks.every(k=>DEMO_KEYS.has(k)))return;
+  e.preventDefault();e.stopImmediatePropagation();accLockSheet();},true);
+function accTermsView(){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm accm';
+  m.innerHTML=`<div class="fmtc" role="dialog" aria-label="Условия использования"><b>Условия использования</b>${ACC_TERMS_HTML}<button class="btn ghost" data-fmt="x">Закрыть</button></div>`;
+  document.body.appendChild(m);}
+/* плашка на главной и в настройках: переходный период / скоро конец срока / пробный режим */
+function accBanner(){const m=accMode();
+  if(m==='grace')return `<div class="accbn"><span><b>Нужен код доступа</b>До ${accDate(accGet('klapp-grace'))} всё работает как раньше. Потом без кода откроется только каталог — попросите код у менеджера KLAPP.</span><button class="btn sm red" data-accgo>Ввести код</button></div>`;
+  if(m==='full'&&accLeft()<=ACC_WARN)return `<div class="accbn"><span><b>Доступ до ${accDate(ACC.e)}</b>Осталось ${accLeft()} ${plural(accLeft(),'день','дня','дней')}. Попросите новый код у менеджера KLAPP.</span><button class="btn sm red" data-accgo>Ввести код</button></div>`;
+  return '';}
+/* страница вместо закрытого раздела в пробном режиме */
+VIEWS.locked=function(s){const home=!s||s.view==='home';setTop(home?'':'Доступно по коду',!home);
+  const exp=ACC&&ACC.e&&accToday()>ACC.e,rev=ACC&&ACC_REV.has(String(ACC.i));
+  return `<section class="intro acclock"><p class="kick">Пробный режим</p><h1>${home?'KLAPP Pro':'Этот раздел открывается кодом'}</h1>
+    <p>${rev?'Ваш код доступа отключён. ':exp?`Срок вашего кода закончился ${accDate(ACC.e)}. `:''}Без кода доступа можно смотреть каталог: линии, препараты, наборы, активы и состав. Всё остальное открывается персональным кодом от менеджера KLAPP.</p></section>
+    <div class="acccta"><button class="btn red" data-accgo>Ввести код доступа</button><button class="btn ghost" data-tab="catalog">Открыть каталог</button></div>
+    <div class="grp">С кодом откроются</div>
+    <ul class="accl"><li>Кабинет: карты клиентов, визиты, курсы и напоминания</li><li>Подбор ухода и схемы для клиента</li><li>Заказ менеджеру и сравнение</li><li>Протоколы, процедуры и бланки для клиентов</li><li>Академия: тесты, карточки, семинары, награды</li></ul>
+    <p class="snote" style="padding:0 20px">Код выдаёт ваш менеджер KLAPP. <button class="lnk" data-accterms2>Условия использования</button></p>`;};
+/* блок в настройках */
+function accSettings(){const m=accMode();
+  const row=m==='full'?`<div class="accst"><b>${esc(accWho())||'Код доступа'}</b><span>Действует до ${accDate(ACC.e)} · код №${esc(ACC.i)}</span></div>`
+    :m==='grace'?`<div class="accst"><b>Переходный период</b><span>До ${accDate(accGet('klapp-grace'))} — без кода. Попросите код у менеджера KLAPP.</span></div>`
+    :`<div class="accst"><b>Пробный режим</b><span>Открыт только просмотр каталога.</span></div>`;
+  return `<div class="grp">Доступ</div>${row}<button class="row" data-accgo><span class="tx"><span class="nm">${m==='full'?'Ввести новый код':'Ввести код доступа'}</span><span class="sb">Код выдаёт менеджер KLAPP</span></span>${I.go}</button>
+    <button class="row" data-accterms2><span class="tx"><span class="nm">Условия использования</span></span>${I.go}</button>`;}
+window.__klappAcc={mode:accMode,verify:t=>accVerify(t),get:()=>ACC,rev:()=>[...ACC_REV],tag:()=>accTag()};
 /* ---------- 3.9: копия данных, менеджер, подпись косметолога ---------- */
 let BK=LS('klapp-backup',{last:0,snooze:0});
 const bkDays=()=>BK.last?Math.floor((Date.now()-BK.last)/864e5):null;
@@ -4808,7 +4965,7 @@ new MutationObserver(()=>{
 /* 3.11.4: плашка «Вышла новая версия» для сайта (window.klappNewVer — для проверок) */
 window.klappNewVer=function(){newVerBanner();};
 function newVerBanner(){if(document.getElementById('nvb'))return;
-  var cur='4.11.3';
+  var cur='4.12';
   function show(v){if(v&&v===cur)return;var b=document.createElement('div');b.id='nvb';b.className='nvb';b.setAttribute('role','status');
     b.innerHTML='<span class="tx"><b>Вышла новая версия'+(v?' '+v:'')+'</b><small>Обновление займёт секунду</small></span><button type="button" class="nvbgo">Обновить</button><button type="button" class="nvbx" aria-label="Позже">×</button>';
     b.querySelector('.nvbgo').onclick=function(){location.reload();};b.querySelector('.nvbx').onclick=function(){b.remove();};document.body.appendChild(b);}
