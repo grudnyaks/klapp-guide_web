@@ -1,6 +1,6 @@
 {
-  "name": "KLAPP Гид",
-  "short_name": "KLAPP Гид",
+  "name": "KLAPP Pro",
+  "short_name": "KLAPP Pro",
   "description": "Справочник по ассортименту KLAPP Skin Care Science",
   "start_url": "./",
   "scope": "./",
