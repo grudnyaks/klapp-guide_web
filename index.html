@@ -17,7 +17,7 @@
    Скачанная обязана подтвердить нормальный запуск (__otaOk) за 12 с, иначе — пометка «плохая» и мгновенный возврат на встроенную.
    Жёсткий сбой без подтверждения: после 2 попыток версия помечается плохой. Новый APK сам отменяет скачанное (Capacitor сбрасывает путь). */
 (function(){var W=window,ls,ss;try{ls=W.localStorage;ss=W.sessionStorage;}catch(e){return;}
- var BV='4.24',K='klapp-ota';
+ var BV='4.25',K='klapp-ota';
  function cmp(a,b){a=String(a).split('.').map(Number);b=String(b).split('.').map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var x=a[i]||0,y=b[i]||0;if(x!==y)return x>y?1:-1;}return 0;}
  function get(){try{return JSON.parse(ls.getItem(K)||'null');}catch(e){return null;}}
  function put(o){try{ls.setItem(K,JSON.stringify(o));}catch(e){}}
@@ -704,6 +704,27 @@ a.btn{text-decoration:none}
 .orgl{display:grid;grid-template-columns:1fr 1fr;gap:8px}.orgl div{background:var(--chip);border-radius:var(--rm);padding:10px 12px}.orgl small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}.orgl span{display:block;font-size:14px;line-height:1.4;margin-top:3px}
 @media (max-width:360px){.orgl{grid-template-columns:1fr}}
 
+/* 4.25: скрытые награды и «Вспышка» */
+.awt.sec.hid{background:linear-gradient(160deg,#141416,#3a1512)}.awt.sec.hid small{color:#ffb4ab}
+.awt.lock.hid span{color:var(--muted)}
+.flash{position:fixed;inset:0;z-index:210;display:flex;align-items:center;justify-content:center;background:rgba(8,8,10,.74);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:flIn .25s ease;overflow:hidden;cursor:pointer}
+.flash.out{animation:flOut .3s ease forwards}
+.flr{position:absolute;left:50%;top:44%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;background:repeating-conic-gradient(from 0deg,rgba(var(--fc),.34) 0deg 7deg,rgba(var(--fc),0) 7deg 20deg);-webkit-mask:radial-gradient(closest-side,#000 0,rgba(0,0,0,.55) 14%,transparent 34%);mask:radial-gradient(closest-side,#000 0,rgba(0,0,0,.55) 14%,transparent 34%);animation:flSpin 9s linear infinite,flRay .7s ease-out}
+.flb{position:relative;text-align:center;color:#fff;padding:0 28px;max-width:360px}
+.flk{font:500 12px/1 var(--mono,'Roboto Mono',monospace);letter-spacing:.18em;text-transform:uppercase;color:rgb(var(--fc));margin:0 0 14px}
+.fla{position:relative;display:inline-block;border-radius:50%;animation:flPop .6s cubic-bezier(.2,1.6,.4,1) both;filter:drop-shadow(0 0 28px rgba(var(--fc),.65))}
+.fla svg{display:block}
+.fls{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none}
+.fls::after{content:'';position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:flShine 1.1s .45s ease-out both}
+.flb h2{font:400 26px/1.15 Jost,sans-serif;margin:16px 0 6px;animation:flUp .5s .2s ease both}
+.flt{font-size:14.5px;line-height:1.4;color:rgba(255,255,255,.78);margin:0;animation:flUp .5s .3s ease both}
+.flb small{display:block;margin-top:22px;font-size:12px;color:rgba(255,255,255,.5);animation:flUp .5s .9s ease both}
+@keyframes flIn{from{opacity:0}}@keyframes flOut{to{opacity:0}}
+@keyframes flSpin{to{transform:rotate(360deg)}}@keyframes flRay{from{opacity:0;scale:.3}}
+@keyframes flPop{from{transform:scale(.2) rotate(-25deg);opacity:0}}
+@keyframes flShine{from{left:-60%}to{left:130%}}
+@keyframes flUp{from{opacity:0;transform:translateY(10px)}}
+@media (prefers-reduced-motion:reduce){.flr,.fla,.fls::after,.flb h2,.flt,.flb small{animation:none}}
 /* ======== 3.0: UI-кит, главная, доступность ======== */
 :root{--muted:#62625e}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--muted:#a9a9a4}}
@@ -1099,6 +1120,14 @@ html.glowmode .tabs button,:root.glowmode[data-ui] .tabs button{color:rgba(255,2
 .signprev{margin:8px 20px 0;padding:12px 14px;border-radius:12px;border:1.5px dashed var(--line);font-size:14px}.signprev small{display:block;font-size:11.5px;color:var(--muted);margin-bottom:3px}
 .lnk{color:var(--red);text-decoration:underline;text-underline-offset:3px;font:inherit;padding:0}
 .seg{overflow-x:auto;scrollbar-width:none}.seg::-webkit-scrollbar{display:none}
+/* 4.25: стили карточек и сторис */
+.fmtc.recs .stsg{padding:0 0 8px}
+.recpv.story img,.fmtc.isstory .recpv img{max-height:430px}
+.stdot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.st-classic{background:#fff}.st-cream{background:#f3ece3}.st-night{background:radial-gradient(circle,#ff4438 0 32%,#111113 38%)}
+.fmtc .storyonly{display:none}.fmtc.isstory .storyonly{display:inline}.fmtc.isstory .cardonly,.fmtc.isstory .recfor{display:none}
+.vgrid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 8px}.vgrid3 .vf{min-width:0}
+.cbtns.factst{padding:8px 20px 0}
 /* 4.3: сводка карты клиента, быстрый визит, «Пора пригласить» (префиксы cs-, cq-) */
 .cs-sum{margin:14px 16px 0;padding:6px 16px 14px;border-radius:16px;border:1px solid var(--line);background:var(--paper)}
 .cs-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
@@ -1521,7 +1550,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611140308',date:'2026-11-14',app:'4.24',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611140308',date:'2026-11-14',app:'4.25',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"ed436e2314d31cf3","home:A9002":"b0c35a7a21e816f5","home:A9003":"fdb5ada5630bbcb6","home:A9004":"52fa1d93e76051fc","home:A9006":"f0e97799638e62be","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"c243525442bf0584","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -2002,7 +2031,7 @@ VIEWS.gitem=function(s){
   const inc=g.base?[]:[...g._inci].filter(id=>!g._key.has(id)).map(id=>itemById[id]).filter(Boolean);
   const parents=GL.filter(x=>(x.comp||[]).includes(g.id));
   const row=i=>`<button class="prow" data-item="${esc(i._id)}">${thumb(i._id)}<span class="art">${esc(i.art)}</span><span class="tx"><span class="nm">${i._f==='kit'?'Набор «'+esc(i.sub)+'»':nice(i.name)}</span><span class="sb">${esc(i._l.name)} · ${i._f==='pro'?'кабинет':i._f==='kit'?'процедурный набор':'дом'}${!g._direct.has(i._id)&&g._via[i._id]?' · в составе '+esc(g._via[i._id]):''}${!g._direct.has(i._id)&&!g._via[i._id]&&g._cls&&g._cls[i._id]?' · '+esc(g._cls[i._id].toLowerCase()):''}</span></span><span class="vol">${esc(i.vol||i.time||'')}</span></button>`;
-  return `<section class="lhead"><p class="kick">Энциклопедия · <span class="gcat">${esc(D.gcats[g.c])}</span></p><h1>${esc(g.n)}</h1><p>${nice(g.d)}</p>
+  return `<section class="lhead"><p class="kick">Энциклопедия · <span class="gcat">${esc(D.gcats[g.c])}</span></p><h1>${esc(g.n)}</h1><p>${nice(g.d)}</p>${!g.base&&!isDemo()?`<div class="cbtns" style="padding:4px 0 0"><button class="btn ghost sm" data-tipsty="g:${g.id}">Сторис для клиентов</button></div>`:''}
    ${g.parts?`<p class="sublbl" style="margin-top:6px">Из чего состоит</p><div class="parts">${g.parts.map(x=>`<div><b>${esc(x.n)}</b><code>${esc(x.i)}</code><span>${esc(x.t)}</span></div>`).join('')}</div><p class="snote" style="margin-top:8px">${esc(g.pnote)}</p>`:''}
    ${g._comps.length?`<p class="sublbl" style="margin-top:6px">Как указывается в INCI</p><div class="gchips">${g._comps.map(x=>`<button data-c="${x.id}" class="mono" style="font-size:12px">${esc(x.n)}</button>`).join('')}</div>`:''}
    ${g.comp&&g.comp.length?`<p class="sublbl" style="margin-top:6px">${g.parts?'Статьи энциклопедии по компонентам':'Состав комплекса'}</p><div class="gchips">${g.comp.filter(c=>gById[c]).map(c=>`<button data-g="${c}">${esc(gById[c].n)}</button>`).join('')}</div>`:''}
@@ -2561,7 +2590,7 @@ async function doShare(text){
 }
 async function doExport(){BK.last=Date.now();BK.snooze=0;LSset('klapp-backup',BK);setTimeout(()=>render(false),800);
   const data=JSON.stringify({app:'klapp-guide',v:2,saved:new Date().toISOString(),clients:CAB.clients,protocols:PROTOS,my:MY,favorites:favs,tests:QZS,order:ORD,daily:DQ,cards:FC,seen:[...SEEN],advent:ADV,pro:PRO,prophoto:PROPH||'',mgr:MGR,compare:CMP,schemes:SCHX,mysch:MYS,path:PTH,trainer:{done:TRN.done},recent:LS('klapp-recent',[]),
-    prefs:{theme:TH,ui:UIX,hue:LS('klapp-ui-hue',345),fs:FS,hints:HINTS,onb:LS('klapp-onb',null)}},null,1);
+    prefs:{theme:TH,ui:UIX,hue:LS('klapp-ui-hue',345),fs:FS,card:cardStyle(),hints:HINTS,onb:LS('klapp-onb',null)}},null,1);
   const name='klapp-guide-backup-'+todayS()+'.json';
   const cap=await window.__cap;
   if(cap&&cap.FS&&cap.SH){try{const r=await cap.FS.writeFile({path:name,data,directory:'CACHE',encoding:'utf8'});await cap.SH.share({title:'Резервная копия KLAPP Pro',files:[r.uri]});return;}catch(e){console.warn(e);}}
@@ -2582,6 +2611,7 @@ function doImport(file){
       /* 4.11: игра, секретные награды, просмотренное в тестах, настройки вида */
       if(o.tests&&typeof o.tests==='object'){const t=o.tests;
         if(t.gm&&typeof t.gm==='object'){QZS.gm=QZS.gm||{};QZS.gm.best=Math.max(+QZS.gm.best||0,+t.gm.best||0);QZS.gm.plays=Math.max(+QZS.gm.plays||0,+t.gm.plays||0);QZS.gm.seen=Math.max(+QZS.gm.seen||0,+t.gm.seen||0);}
+        if(t.hid&&typeof t.hid==='object'){QZS.hid=QZS.hid||{};Object.keys(t.hid).forEach(k=>{if(!QZS.hid[k]&&HID.some(h=>h.k===k))QZS.hid[k]=String(t.hid[k]);});}
         if(t.secret&&typeof t.secret==='object'){QZS.secret=QZS.secret||{};Object.keys(t.secret).forEach(k=>{if(!QZS.secret[k])QZS.secret[k]=t.secret[k];});}
         if(t.bestc&&typeof t.bestc==='object'&&!QZS.bestc)QZS.bestc=t.bestc; if(t.seen&&typeof t.seen==='object'&&!Array.isArray(t.seen)){QZS.seen=Object.assign({},t.seen,QZS.seen||{});}
         qzSave();}
@@ -2592,7 +2622,7 @@ function doImport(file){
       if(Array.isArray(o.mysch)){const have=new Set(MYS.map(x=>x.title));mysClean(o.mysch).forEach(x=>{if(!have.has(x.title)&&!(D.schemes||[]).some(b=>b.title===x.title)){MYS.push(x);have.add(x.title);}});mysSave();}
       if(o.schemes&&typeof o.schemes==='object'){Object.keys(o.schemes).forEach(k=>{if(!SCHX[k]&&o.schemes[k]&&typeof o.schemes[k]==='object')SCHX[k]=o.schemes[k];});schSave();}
       if(Array.isArray(o.compare)&&!CMP.length){o.compare.filter(id=>itemById[id]).slice(0,3).forEach(id=>CMP.push(id));try{cmpSave();}catch(e){}}
-      if(o.prefs&&typeof o.prefs==='object'){const p=o.prefs;if(p.hints&&typeof p.hints==='object'){Object.assign(HINTS,p.hints);LSset('klapp-hints',HINTS);}
+      if(o.prefs&&typeof o.prefs==='object'){const p=o.prefs;if(CARD_ST[p.card])LSset('klapp-card',p.card);if(p.hints&&typeof p.hints==='object'){Object.assign(HINTS,p.hints);LSset('klapp-hints',HINTS);}
         if(p.onb!=null&&LS('klapp-onb',null)==null)LSset('klapp-onb',p.onb);
         if(typeof p.hue==='number')LSset('klapp-ui-hue',p.hue); if(typeof p.fs==='number'&&p.fs>=.8&&p.fs<=1.5)setFont(p.fs);
         if(typeof p.theme==='string'&&typeof p.ui==='string')setLook(p.theme,UIS.some(u=>u[0]===p.ui)?p.ui:'classic');}
@@ -3039,7 +3069,7 @@ function finishQuiz(){
   else if(att.pct===0&&!QZS.seen.zero){QZS.seen.zero=1;att.fx='zero';}
   else if(att.pct>0&&att.pct<20&&!QZS.seen.low){QZS.seen.low=1;att.fx='low';}
   if(att.fx) audioCtx();
-  QZS.att.push(att); QZS.bestc=testBest(); if(QZS.att.length>200) QZS.att=QZS.att.slice(-200); qzSave(); QZ=null;
+  const prevB=best(att.scope); QZS.att.push(att); att.flash=newAward(att.scope,att.pct,prevB); att.hid=hidCheck(att); QZS.bestc=testBest(); if(QZS.att.length>200) QZS.att=QZS.att.slice(-200); qzSave(); QZ=null;
   go({tab:'tests',view:'qres',id:att.id,anim:1},true);
 }
 VIEWS.qres=function(s){
@@ -3069,7 +3099,8 @@ function animateResult(){
   const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches; const dur=reduce?300:1900; const t0=performance.now();
   const ease=t=>1-Math.pow(1-t,3);
   function f(now){const t=Math.min(1,(now-t0)/dur), v=ease(t)*pct; num.textContent=Math.round(v); arc.style.strokeDashoffset=(C*(1-v/100)).toFixed(1);
-    if(t<1) requestAnimationFrame(f); else {el.classList.add('done'); const g=document.getElementById('qgrade'); if(g) g.style.opacity=1; const aw=el.querySelector('.qaw'); if(aw){aw.style.opacity=1;aw.classList.add('pop');} const at=QZS.att.find(x=>x.id===state.id); if(at&&at.fx&&!at.fxDone){at.fxDone=1;qzSave();setTimeout(()=>celebrate(at.fx),500);} if(pct>=80) el.classList.add('win');}}
+    if(t<1) requestAnimationFrame(f); else {el.classList.add('done'); const g=document.getElementById('qgrade'); if(g) g.style.opacity=1; const aw=el.querySelector('.qaw'); if(aw){aw.style.opacity=1;aw.classList.add('pop');} const at=QZS.att.find(x=>x.id===state.id); const fl=at&&!at.flDone?[...(at.flash?[at.flash]:[]),...(at.hid||[]).map(k=>({hid:k}))]:[];if(at&&fl.length){at.flDone=1;qzSave();}
+    if(at&&at.fx&&!at.fxDone){at.fxDone=1;qzSave();FLQ=FLQ.concat(fl);setTimeout(()=>celebrate(at.fx),500);}else if(fl.length)setTimeout(()=>flash(fl),550); if(pct>=80) el.classList.add('win');}}
   requestAnimationFrame(f);
 }
 async function resultImage(a){
@@ -3636,7 +3667,8 @@ async function drawSheet(sh){
         sign:{name,salon,phone,link}} */
 async function drawRec(R){
   try{await Promise.all(['300 20px Jost','400 20px Jost','500 20px Jost','600 20px Jost','400 20px "Roboto Mono"','400 40px KGlow','400 40px "Great Vibes"'].map(f=>document.fonts.load(f,'Аа Zz 0,81%')));}catch(e){}
-  const RED='#ff4438',INK='#111111',GREY='#5d5d57',MUTE='#8a8a84',PAPER='#f5f4f0',PANEL='#ffffff';
+  const CST=R.kind==='glow'?'classic':(R.style||cardStyle()),PL=CARD_ST[CST]||CARD_ST.classic;   /* 4.25: стиль карточки — Классика / Крем / Ночь */
+  const RED='#ff4438',INK=PL.ink,GREY=PL.grey,MUTE=PL.mute,PAPER=PL.paper,PANEL=PL.panel;
   const W=1080,P=72,IW=W-2*P;
   const c=document.createElement('canvas');const x=c.getContext('2d');
   const LS=v=>{try{x.letterSpacing=v;}catch(e){}};
@@ -3716,7 +3748,7 @@ async function drawRec(R){
   const FH=PHO?266:hasSign?236:150;
   const H=Math.max(1350,Math.ceil(y+FH+30));shSize(c,x,W,H);
   /* ---- рисуем ---- */
-  if(!sheetPaint(x,W,H,sheetLook())){x.fillStyle=PAPER;x.fillRect(0,0,W,H);}   /* 4.10: фон — по дизайну приложения */
+  if(CST!=='classic'){cardBg(x,W,H,CST);}else if(!sheetPaint(x,W,H,sheetLook())){x.fillStyle=PAPER;x.fillRect(0,0,W,H);}   /* 4.10: фон — по дизайну приложения */
   const rr=(X,Y,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h);};
   const photo=(X,Y,w,h,pad)=>{const im=R.img;if(!im)return;const k=Math.min((w-2*pad)/im.width,(h-2*pad)/im.height);const iw=im.width*k,ih=im.height*k;
     x.save();x.shadowColor='rgba(0,0,0,.16)';x.shadowBlur=36;x.shadowOffsetY=18;x.drawImage(im,X+(w-iw)/2,Y+(h-ih)/2,iw,ih);x.restore();};
@@ -3730,19 +3762,20 @@ async function drawRec(R){
       let sd=7;const rnd=()=>(sd=(sd*9301+49297)%233280)/233280;for(let i=0;i<70;i++){const sx=rnd()*W,sy=rnd()*o.h,sr=rnd()*2.2+0.6;x.fillStyle=`rgba(247,231,180,${(0.25+rnd()*0.6).toFixed(2)})`;x.beginPath();x.arc(sx,sy,sr,0,Math.PI*2);x.fill();}}
     else if(o.k==='gv'){x.font='400 120px KGlow,"Great Vibes"';LS('0px');const g=x.createLinearGradient(P,o.y-90,P+460,o.y);g.addColorStop(0,'#F7E7B4');g.addColorStop(0.5,'#E6C47A');g.addColorStop(1,'#F7E7B4');x.fillStyle=g;x.fillText('Let it glow',P-6,o.y);}
     else if(o.k==='badge'){setF('500 24px Jost');const w=x.measureText(o.t).width+48;x.fillStyle=o.col;rr(o.x,o.y,w,48,24);x.fill();const hx=String(o.col).replace('#','');let L=0;if(hx.length===6){const f=v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);};L=0.2126*f(parseInt(hx.slice(0,2),16))+0.7152*f(parseInt(hx.slice(2,4),16))+0.0722*f(parseInt(hx.slice(4,6),16));}x.fillStyle=(1.05/(L+0.05))>=((L+0.05)/0.0559)?'#fff':'#111';x.fillText(o.t,o.x+24,o.y+32);}
+    else if(o.k==='heroph'&&CST!=='classic'){cardHero(x,o.x,o.y,o.w,o.h,CST);photo(o.x,o.y,o.w,o.h,54);}
     else if(o.k==='heroph'){x.fillStyle=PANEL;x.save();if(glow){x.shadowColor='rgba(7,14,54,.25)';x.shadowBlur=40;x.shadowOffsetY=16;}rr(o.x,o.y,o.w,o.h,40);x.fill();x.restore();photo(o.x,o.y,o.w,o.h,54);}
-    else if(o.k==='kitph'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,40);x.fill();photo(P,o.y,IW,o.h,36);}
-    else if(o.k==='stats'){const n=o.items.length,cw=IW/n;o.items.forEach(([k,v],i)=>{const X=P+i*cw;if(i){x.fillStyle='#dcdbd5';x.fillRect(X,o.y,2,96);}
+    else if(o.k==='kitph'){if(CST!=='classic')cardHero(x,P,o.y,IW,o.h,CST);else{x.fillStyle=PANEL;rr(P,o.y,IW,o.h,40);x.fill();}photo(P,o.y,IW,o.h,36);}
+    else if(o.k==='stats'){const n=o.items.length,cw=IW/n;o.items.forEach(([k,v],i)=>{const X=P+i*cw;if(i){x.fillStyle=PL.line;x.fillRect(X,o.y,2,96);}
       const px=i?X+28:X;setF('500 20px Jost');LS('3px');x.fillStyle=MUTE;x.fillText(k.toUpperCase(),px,o.y+24);setF(MONO(30));x.fillStyle=INK;x.fillText(v,px,o.y+72);});LS('0px');}
     else if(o.k==='pill'){setF('400 26px Jost');const w=x.measureText(o.t).width+56;x.strokeStyle=INK;x.lineWidth=2;rr(o.x,o.y,w,52,26);x.stroke();x.fillStyle=INK;x.fillText(o.t,o.x+28,o.y+35);}
     else if(o.k==='cap'){setF('500 22px Jost');LS('3px');x.fillStyle=RED;x.fillText(o.t,P,o.y+24);LS('0px');}
     else if(o.k==='sq'){x.fillStyle=RED;x.fillRect(o.x,o.y-7,12,12);}
-    else if(o.k==='box'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();}
-    else if(o.k==='quote'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();x.fillStyle=RED;x.fillRect(P,o.y+24,6,o.h-48);}
+    else if(o.k==='box'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();if(PL.edge){x.strokeStyle=PL.edge;x.lineWidth=2;x.stroke();}}
+    else if(o.k==='quote'){x.fillStyle=PANEL;rr(P,o.y,IW,o.h,32);x.fill();if(PL.edge){x.strokeStyle=PL.edge;x.lineWidth=2;x.stroke();}x.fillStyle=RED;x.fillRect(P,o.y+24,6,o.h-48);}
     else if(o.k==='t'){setF(o.f);if(o.ls)LS(o.ls);x.fillStyle=o.c;x.textAlign=o.al||'left';x.fillText(o.t,o.x,o.y);x.textAlign='left';LS('0px');}
   }
   /* подвал */
-  const FY=H-FH;x.fillStyle=glow?'#0B1650':INK;x.fillRect(0,FY,W,FH);const ACC=glow?'#E6C47A':RED;
+  const FY=H-FH;x.fillStyle=glow?'#0B1650':PL.foot;x.fillRect(0,FY,W,FH);const ACC=glow?'#E6C47A':RED;
   if(hasSign){let TX=P;
     if(PHO){const D=136,cx=P+D/2,cy=FY+96;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();
       x.strokeStyle=ACC;x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();TX=P+D+40;}
@@ -3755,6 +3788,164 @@ async function drawRec(R){
   return c;
 }
 
+/* ---------- 4.25: стили карточек клиенту (Классика / Крем / Ночь) и сторис 1080×1920 ---------- */
+/* Цвета — только фирменные: белый, чёрный, красный KLAPP; «Крем» — тёплая бумага без медных акцентов. */
+const CARD_ST={
+  classic:{n:'Классика',sb:'Белый, как раньше',paper:'#f5f4f0',panel:'#ffffff',ink:'#111111',grey:'#5d5d57',mute:'#8a8a84',line:'#dcdbd5',foot:'#111111',soft:'#fff1ee',sp:'#f5f4f0'},
+  cream:{n:'Крем',sb:'Тёплая бумага',paper:'#f3ece3',panel:'#fbf8f3',ink:'#1d1d1b',grey:'#665d55',mute:'#958a7f',line:'#dccfc0',foot:'#1d1d1b',soft:'#fbf5ee',sp:'#fbf8f3',edge:'#e6dacb'},
+  night:{n:'Ночь',sb:'Тёмный, с красным',paper:'#111113',panel:'#1c1c20',ink:'#f4f1ee',grey:'#b3ada9',mute:'#85807c',line:'#2e2e33',foot:'#000000',soft:'#1f1f23',sp:'#1c1c20',edge:'#2c2c31'}};
+const cardStyle=()=>{const v=LS('klapp-card','classic');return CARD_ST[v]?v:'classic';};
+function setCardStyle(v){if(CARD_ST[v])LSset('klapp-card',v);}
+const cardRR=(x,X,Y,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h);};
+function cardBg(x,W,H,st){const P=CARD_ST[st]||CARD_ST.classic;x.fillStyle=P.paper;x.fillRect(0,0,W,H);
+  if(st==='night'){const g=x.createRadialGradient(W*.84,110,10,W*.84,110,780);g.addColorStop(0,'rgba(255,68,56,.34)');g.addColorStop(1,'rgba(255,68,56,0)');x.fillStyle=g;x.fillRect(0,0,W,Math.min(H,1150));}
+  if(st==='cream'){x.strokeStyle=P.line;x.lineWidth=2;x.strokeRect(30,30,W-60,H-60);}}
+function cardHero(x,X,Y,w,h,st){const P=CARD_ST[st];x.fillStyle=P.panel;cardRR(x,X,Y,w,h,40);x.fill();x.save();cardRR(x,X,Y,w,h,40);x.clip();
+  if(st==='cream'){x.fillStyle='#ece2d6';x.beginPath();x.arc(X+w/2,Y+h/2,Math.min(w,h)*.42,0,Math.PI*2);x.fill();}
+  if(st==='night'){const g=x.createRadialGradient(X+w/2,Y+h*.55,10,X+w/2,Y+h*.55,Math.max(w,h)*.62);g.addColorStop(0,'rgba(255,68,56,.42)');g.addColorStop(1,'rgba(255,68,56,0)');x.fillStyle=g;x.fillRect(X,Y,w,h);}
+  x.restore();if(P.edge){x.strokeStyle=P.edge;x.lineWidth=2;cardRR(x,X,Y,w,h,40);x.stroke();}}
+const STORY_T={product:'Продукт',quote:'Цитата',question:'Вопрос клиента',fact:'Факт дня'};
+const storyHandle=s=>{const l=String(s.link||'').trim().replace(/^https?:\/\/(www\.)?/i,'').replace(/\/$/,'');return l||String(s.phone||'').trim()||'';};
+
+/* S = {tpl, style, R (данные препарата + img), note, badge, tip:{text,rule,q,a,pts[],kicker,term,tags[]}, sign:{name,salon,phone,link}, photo} */
+async function drawStory(S){await fontsReady();
+  const W=1080,H=1920,P=88,IW=W-2*P,st=CARD_ST[S.style]?S.style:cardStyle(),PL=CARD_ST[st],RED='#ff4438';
+  const c=document.createElement('canvas'),x=c.getContext('2d');shSize(c,x,W,H);
+  const LSp=v=>{try{x.letterSpacing=v;}catch(e){}};
+  const setF=f=>{x.font=f;LSp(/Roboto Mono/.test(f)?(-0.045*parseFloat(f.split(' ')[1]))+'px':'0px');};
+  const cl=t=>String(t||'').replace(/\s+([.,;:!?])/g,'$1').replace(/\s{2,}/g,' ').trim();
+  const wrap=(t,f,w)=>{setF(f);const out=[];cl(t).split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const lines=(t,f,w,max)=>{let ls=wrap(t,f,w);if(max&&ls.length>max){ls=ls.slice(0,max);ls[max-1]=ls[max-1].replace(/[\s,.;:—–-]*\S*$/,'')+'…';}return ls;};
+  const txt=(t,f,col,lh,X,Y,w,o={})=>{const ls=lines(t,f,w,o.max);setF(f);x.fillStyle=col;x.textAlign=o.al||'left';ls.forEach((l,i)=>x.fillText(l,X,Y+lh*.78+i*lh));x.textAlign='left';return ls.length*lh;};
+  const caps=(t,f,col,X,Y,ls,al)=>{setF(f);LSp(ls||'4px');x.fillStyle=col;x.textAlign=al||'left';x.fillText(String(t).toUpperCase(),X,Y);x.textAlign='left';LSp('0px');};
+  const fit=(im,X,Y,w,h,sh)=>{if(!im)return;const k=Math.min(w/im.width,h/im.height);const iw=im.width*k,ih=im.height*k;x.save();if(sh){x.shadowColor=sh;x.shadowBlur=70;x.shadowOffsetY=26;}x.drawImage(im,X+(w-iw)/2,Y+(h-ih)/2,iw,ih);x.restore();};
+  const logo=(col,sub)=>{setF('600 58px Jost');x.fillStyle=col;x.fillText('KLAPP',P,236);setF('400 17px Jost');LSp('5px');x.fillStyle=sub;x.fillText('SKIN CARE SCIENCE',P+2,268);LSp('0px');};
+  const sg=S.sign||{},who=(sg.name||sg.salon||'').trim(),hd=storyHandle(sg),PHO=S.photo||null;
+  const sign=(Y,ink,sub)=>{if(!who&&!PHO&&!hd)return;let TX=P;const D=112;
+    if(PHO||who){const cx=P+D/2,cy=Y+D/2;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();
+      if(PHO){const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);}
+      else{x.fillStyle=RED;x.fillRect(cx-D/2,cy-D/2,D,D);setF('500 40px Jost');x.fillStyle='#fff';x.textAlign='center';x.fillText(who.split(/\s+/).slice(0,2).map(w=>w.charAt(0)).join('').toUpperCase(),cx,cy+14);x.textAlign='left';}
+      x.restore();if(PHO){x.strokeStyle=RED;x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();}TX=P+D+32;}
+    const l1=who||hd,l2=who?(hd||(sg.name&&sg.salon?sg.salon:'косметолог')):'';
+    setF('500 38px Jost');x.fillStyle=ink;x.fillText(lines(l1,'500 38px Jost',W-P-TX,1)[0]||'',TX,Y+(l2?48:68));
+    if(l2){setF('400 32px Jost');x.fillStyle=sub;x.fillText(lines(l2,'400 32px Jost',W-P-TX,1)[0]||'',TX,Y+94);}};
+  const R=Object.assign({},S.R||{}),T=S.tip||{};if(R.kind==='kit'&&R.sub)R.name=R.sub;
+
+  if(S.tpl==='product'){const note=cl(S.note);
+    if(st==='classic'){x.fillStyle=RED;x.fillRect(0,0,W,H);const g=x.createRadialGradient(W*.1,H*.95,10,W*.1,H*.95,1200);g.addColorStop(0,'rgba(120,12,6,.38)');g.addColorStop(1,'rgba(120,12,6,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+      logo('#fff','rgba(255,255,255,.75)');caps(R.line||'','500 27px Jost','rgba(255,255,255,.88)',P,350,'5px');
+      const th=txt(R.name,'300 100px Jost','#fff',104,P,372,IW,{max:3});
+      const nl=note?lines(note,'400 40px Jost',IW,3).length:0;const PY=372+th+44,PH2=Math.max(520,Math.min(800,1600-PY-(nl?nl*54+44:0)));
+      x.fillStyle='#fff';cardRR(x,P,PY,IW,PH2,48);x.fill();fit(R.img,P+60,PY+50,IW-120,PH2-100,'rgba(0,0,0,.16)');
+      const bd=cl(S.badge);if(bd){const cx=W-P-70,cy=PY+20,r=122;x.save();x.translate(cx,cy);x.rotate(-0.21);x.fillStyle='#111';x.beginPath();x.arc(0,0,r,0,Math.PI*2);x.fill();
+        const bl=lines(bd,'500 33px Jost',r*1.55,3);setF('500 33px Jost');x.fillStyle='#fff';x.textAlign='center';bl.forEach((l,i)=>x.fillText(l,0,(i-(bl.length-1)/2)*40+12));x.textAlign='left';x.restore();}
+      if(nl)txt(note,'400 40px Jost','#fff',54,P,PY+PH2+40,IW,{max:3});
+      x.fillStyle='#fff';cardRR(x,P,1650,IW,120,60);x.fill();
+      setF('500 32px Jost');const hw=hd?x.measureText(hd).width:0;if(hd){x.fillStyle=RED;x.textAlign='right';x.fillText(hd,W-P-44,1721);x.textAlign='left';}
+      const lt=[R.line,R.art?'арт. '+R.art:''].filter(Boolean).join(' · ');txt(lt,'400 32px Jost','#111',42,P+44,1689,IW-88-(hw?hw+30:0),{max:1});}
+    else if(st==='cream'){cardBg(x,W,H,'cream');
+      setF('400 26px "Roboto Mono"');LSp('6px');x.fillStyle=PL.mute;x.textAlign='center';x.fillText(('KLAPP · '+(R.line||'')).toUpperCase(),W/2,250);x.textAlign='left';LSp('0px');
+      x.fillStyle='#e9dfd2';x.beginPath();x.arc(W/2,790,370,0,Math.PI*2);x.fill();fit(R.img,W/2-310,790-320,620,640,'rgba(80,50,20,.16)');
+      let y=1220;y+=txt(R.name,'300 90px Jost',PL.ink,96,W/2,y,IW,{max:3,al:'center'});
+      const body=note||firstSent(R.desc||'');if(body){y+=30;txt(body,'400 40px Jost',PL.grey,56,W/2,y,IW-40,{max:Math.max(1,Math.min(4,Math.floor((1600-y)/56))),al:'center'});}
+      x.fillStyle=RED;x.fillRect(W/2-30,1640,60,4);
+      if(who){setF('500 36px Jost');x.fillStyle=PL.ink;x.textAlign='center';x.fillText(lines(who,'500 36px Jost',IW,1)[0],W/2,1706);}
+      if(hd){setF('400 32px Jost');x.fillStyle=RED;x.textAlign='center';x.fillText(lines(hd,'400 32px Jost',IW,1)[0],W/2,who?1752:1706);}
+      setF('400 20px "Roboto Mono"');LSp('5px');x.fillStyle=PL.mute;x.textAlign='center';x.fillText('MADE IN GERMANY',W/2,1836);x.textAlign='left';LSp('0px');}
+    else{x.fillStyle=PL.paper;x.fillRect(0,0,W,H);
+      logo('#fff','rgba(255,255,255,.6)');caps(cl(S.badge)||'Рекомендую','500 27px Jost',RED,P,350,'5px');
+      const th=txt(R.name,'300 98px Jost','#fff',102,P,372,IW,{max:3});
+      const nl=note?lines(note,'400 40px Jost',IW,3).length:0;const PY=372+th+40,PH2=Math.max(560,Math.min(860,1600-PY-(nl?nl*54+40:0)));
+      const g=x.createRadialGradient(W/2,PY+PH2*.55,10,W/2,PY+PH2*.55,620);g.addColorStop(0,'rgba(255,68,56,.5)');g.addColorStop(1,'rgba(255,68,56,0)');x.fillStyle=g;x.fillRect(0,PY-200,W,PH2+400);
+      fit(R.img,P+40,PY,IW-80,PH2,'rgba(0,0,0,.5)');
+      if(nl)txt(note,'400 40px Jost','#c9c3c0',54,P,PY+PH2+40,IW,{max:3});
+      x.fillStyle='rgba(255,255,255,.08)';cardRR(x,P,1650,IW,120,60);x.fill();x.strokeStyle='rgba(255,255,255,.22)';x.lineWidth=2;x.stroke();
+      const lead=hd?'Записаться: ':'';setF('400 32px Jost');const lw=x.measureText(lead).width;x.fillStyle='#fff';x.fillText(lead,P+44,1721);
+      setF('500 32px Jost');x.fillStyle=hd?RED:'#fff';x.fillText(lines(hd||who||R.line||'','500 32px Jost',IW-88-lw,1)[0]||'',P+44+lw,1721);}
+    return c;}
+
+  /* «Совет эксперта»: цитата, вопрос клиента, факт дня */
+  if(st==='classic'){x.fillStyle='#fff';x.fillRect(0,0,W,H);}else cardBg(x,W,H,st);
+  logo(PL.ink,PL.grey);
+  const top=(tot,min)=>Math.round(Math.max(min,(380+1560-tot)/2));
+  if(S.tpl==='quote'){const tl=lines(T.text,'300 82px Jost',IW,8).length,rule=cl(T.rule),rl=rule?lines(rule,'400 42px Jost',IW-96,4).length:0,bh=rl*58+130;
+    const y0=top(170+tl*96+(rule?60+bh:0),330);setF('400 300px Georgia,"Times New Roman",serif');x.fillStyle=RED;x.fillText('“',P-8,y0+230);
+    let y=y0+170;y+=txt(T.text,'300 82px Jost',PL.ink,96,P,y,IW,{max:8});
+    if(rule){y+=60;x.fillStyle=PL.soft;cardRR(x,P,y,IW,bh,36);x.fill();if(PL.edge){x.strokeStyle=PL.edge;x.lineWidth=2;x.stroke();}
+      caps('Главное правило','500 25px Jost',RED,P+48,y+66,'4px');txt(rule,'400 42px Jost',PL.ink,58,P+48,y+88,IW-96,{max:4});}}
+  else if(S.tpl==='question'){const q='«'+cl(T.q).replace(/^[«"]|[»"]$/g,'')+'»',qh=lines(q,'300 88px Jost',IW,4).length*100,ah=lines(T.a,'400 48px Jost',IW,5).length*68;
+    const pts=(T.pts||[]).map(cl).filter(Boolean).slice(0,3);const y0=top(110+qh+96+ah+(pts.length?56+230:0),300);
+    const chip='ВОПРОС ОТ КЛИЕНТА';setF('500 27px Jost');LSp('3px');const cw=x.measureText(chip).width+56;x.fillStyle=RED;cardRR(x,P,y0,cw,62,31);x.fill();x.fillStyle='#fff';x.fillText(chip,P+28,y0+41);LSp('0px');
+    let y=y0+110;y+=txt(q,'300 88px Jost',PL.ink,100,P,y,IW,{max:4});
+    y+=50;x.fillStyle=PL.line;x.fillRect(P,y,IW,2);y+=44;
+    y+=txt(T.a,'400 48px Jost',PL.grey,68,P,y,IW,{max:5});
+    if(pts.length){y+=56;const gap=24,bw=(IW-gap*(pts.length-1))/pts.length,bh=230;
+      pts.forEach((p,i)=>{const X=P+i*(bw+gap);x.strokeStyle=PL.edge||'#e6e3dd';x.lineWidth=2;cardRR(x,X,y,bw,bh,28);x.stroke();
+        setF('500 52px Jost');x.fillStyle=PL.ink;x.fillText('0'+(i+1),X+28,y+76);txt(p,'400 33px Jost',PL.grey,42,X+28,y+100,bw-56,{max:3});});}}
+  else{const th=lines(T.term,'300 100px Jost',IW,2).length*104,tl=lines(T.text,'400 50px Jost',IW-96,9),bh=tl.length*74+96,tags=(T.tags||[]).map(cl).filter(Boolean).slice(0,4);
+    const y0=top(22+th+50+bh+(tags.length?36+64:0),330);
+    caps('Факт дня'+(T.kicker&&T.kicker!==T.term?' · '+T.kicker:''),'500 27px Jost',RED,P,y0,'5px');
+    let y=y0+22;y+=txt(T.term,'300 100px Jost',PL.ink,104,P,y,IW,{max:2});y+=50;
+    x.fillStyle=PL.sp;cardRR(x,P,y,IW,bh,40);x.fill();if(PL.edge){x.strokeStyle=PL.edge;x.lineWidth=2;x.stroke();}
+    txt(T.text,'400 50px Jost',PL.ink,74,P+48,y+48,IW-96,{max:9});y+=bh+36;
+    let tx=P;tags.forEach(t=>{setF('400 32px Jost');const w=x.measureText(t).width+52;if(tx+w>W-P){tx=P;y+=80;}if(y>1500)return;
+      x.fillStyle=PL.sp;cardRR(x,tx,y,w,64,32);x.fill();if(PL.edge){x.strokeStyle=PL.edge;x.lineWidth=2;x.stroke();}x.fillStyle=PL.grey;x.fillText(t,tx+26,y+43);tx+=w+14;});}
+  sign(1616,PL.ink,PL.grey);
+  return c;}
+
+/* --- сторис из карточки препарата --- */
+function storyBadge(R){const e=(R.effects||[]).map(s=>String(s).replace(/[.;]+$/,'')).find(s=>s.length<=26);return e?e.charAt(0).toLowerCase()+e.slice(1):'мой выбор';}
+async function storyFromRec(id,o){const R=recData(id);if(!R)return null;
+  if(PH[id]){try{const im=new Image();im.src=PH[id];await im.decode();R.img=im;}catch(e){}}
+  return drawStory({tpl:'product',style:o.style,R,note:o.note,badge:cardStyleBadge(o.style,R),sign:{name:QZS.name||'',salon:PRO.salon||'',phone:PRO.phone||'',link:PRO.link||''},photo:await proPhotoImg()});}
+const cardStyleBadge=(st,R)=>st==='night'?(R.kind==='kit'?'Процедура в моём кабинете':'Рекомендую'):storyBadge(R);
+
+/* --- «Совет эксперта» --- */
+let TIP=null;
+function tipFact(src){let term='',text='',kicker='',tags=[];
+  const g=src&&src.indexOf('g:')===0?gById[src.slice(2)]:null;
+  if(g){term=g.n;text=cut(firstSent(g.d)+(g.d.length>firstSent(g.d).length?' '+firstSent(g.d.slice(firstSent(g.d).length).trim()):''),300);kicker=D.gcats[g.c]||'';}
+  else{const F=factPool();const n=dayN();const f=n%2===0?F.A[(n/2)%F.A.length]:F.B[((n-1)/2)%F.B.length];kicker=f.c||'';
+    const gg=f.g&&gById[f.g];if(gg){term=gg.n;text=cut(firstSent(gg.d),300);}else{const m=String(f.t).match(/^(.{3,60}?)(?: — |: )(.+)$/);if(m){term=m[1];text=m[2].charAt(0).toUpperCase()+m[2].slice(1);}else{term='Знаете ли вы?';text=f.t;}}}
+  return {term,text,kicker,tags};}
+function tipAsk(src){const fact=(src==='fact'||String(src).indexOf('g:')===0)?tipFact(src):null;
+  TIP={tpl:fact?'fact':(STORY_T[src]&&src!=='product'?src:'quote'),fact:fact||tipFact('fact')};
+  sheet(`<b>Сторис «Совет эксперта»</b><p class="snote" style="margin:-6px 0 2px">Картинка 1080×1920 для сторис — с вашим именем и контактами.</p>
+  <div class="fsz stsg" role="group" aria-label="Шаблон">${['quote','question','fact'].map(k=>`<button data-tiptpl="${k}" aria-pressed="${TIP.tpl===k}">${STORY_T[k]}</button>`).join('')}</div>
+  ${stStyleSeg()}
+  <div class="recpv story" id="recpv"><span>Готовлю превью…</span></div>
+  <div id="tipf">${tipFields()}</div>
+  ${!proSign()&&!PROPH?'<p class="snote">Имя, контакты и фото — в Настройках, «Мои контакты для клиентов».</p>':''}
+  <button class="btn red" data-tipgo>Отправить картинкой</button><button class="cx2" data-fmt="x">Отмена</button>`);
+  const fc=document.querySelector('#fmtm .fmtc');if(fc)fc.classList.add('recs');tipBind();tipPreview();}
+const stStyleSeg=()=>`<div class="fsz stsg" role="group" aria-label="Стиль">${Object.keys(CARD_ST).map(k=>`<button data-recst="${k}" aria-pressed="${cardStyle()===k}"><i class="stdot st-${k}" aria-hidden="true"></i>${CARD_ST[k].n}</button>`).join('')}</div>`;
+function tipFields(){const t=TIP.tpl,F=TIP.fact,v=k=>esc((TIP[t+'_'+k]!==undefined?TIP[t+'_'+k]:'')||'');
+  if(t==='quote')return `<label class="vf"><span>Совет</span><textarea id="tip-text" rows="3" maxlength="220" placeholder="Например: осень — лучшее время для ретинола: солнце мягче, кожа успевает восстановиться">${v('text')}</textarea></label>
+   <label class="vf"><span>Главное правило · по желанию</span><input id="tip-rule" maxlength="120" value="${v('rule')}" placeholder="Например: SPF каждый день, даже в пасмурную погоду"></label>`;
+  if(t==='question')return `<label class="vf"><span>Вопрос клиента</span><input id="tip-q" maxlength="90" value="${v('q')}" placeholder="Например: можно ли ретинол осенью?"></label>
+   <label class="vf"><span>Ваш ответ</span><textarea id="tip-a" rows="3" maxlength="260" placeholder="Коротко, 2–3 предложения">${v('a')}</textarea></label>
+   <div class="vgrid3">${[1,2,3].map(i=>`<label class="vf"><span>Пункт ${i}</span><input id="tip-p${i}" maxlength="34" value="${v('p'+i)}" placeholder="${['вечером','2–3 раза в неделю','SPF утром'][i-1]}"></label>`).join('')}</div>`;
+  return `<label class="vf"><span>Заголовок</span><input id="tip-term" maxlength="60" value="${esc(TIP.fact_term!==undefined?TIP.fact_term:F.term)}"></label>
+   <label class="vf"><span>Текст</span><textarea id="tip-ftext" rows="4" maxlength="320">${esc(TIP.fact_ftext!==undefined?TIP.fact_ftext:F.text)}</textarea></label>
+   <label class="vf"><span>Метки через запятую · по желанию</span><input id="tip-tags" maxlength="80" value="${v('tags')}" placeholder="успокаивает, после пилингов"></label>`;}
+function tipBind(){let t=0;document.querySelectorAll('#tipf input,#tipf textarea').forEach(el=>el.addEventListener('input',()=>{TIP[TIP.tpl+'_'+el.id.replace(/^tip-/,'')]=el.value;clearTimeout(t);t=setTimeout(tipPreview,450);}));}
+function tipData(){const t=TIP.tpl,g=k=>String(TIP[t+'_'+k]||'').trim(),F=TIP.fact;
+  if(t==='quote')return {text:g('text')||'Осень — лучшее время для ретинола: солнце мягче, а кожа успевает восстановиться до зимы.',rule:g('rule')};
+  if(t==='question')return {q:g('q')||'Можно ли ретинол осенью?',a:g('a')||'Да — осень лучшее время для ретиноидов. Вводите постепенно и поддерживайте барьер.',pts:[1,2,3].map(i=>g('p'+i))};
+  return {term:TIP.fact_term!==undefined?String(TIP.fact_term).trim():F.term,text:TIP.fact_ftext!==undefined?String(TIP.fact_ftext).trim():F.text,kicker:F.kicker,tags:g('tags').split(/\s*,\s*/).filter(Boolean)};}
+async function tipCanvas(){return drawStory({tpl:TIP.tpl,style:cardStyle(),tip:tipData(),sign:{name:QZS.name||'',salon:PRO.salon||'',phone:PRO.phone||'',link:PRO.link||''},photo:await proPhotoImg()});}
+async function tipPreview(){const box=$('#recpv');if(!box||!TIP)return;const n=tipPreview.n=(tipPreview.n||0)+1;const c=await tipCanvas();if(!$('#recpv')||n!==tipPreview.n)return;$('#recpv').innerHTML=`<img src="${c.toDataURL('image/jpeg',0.8)}" alt="Превью сторис">`;}
+function storyClick(d,b){
+  if(d.tipsty){if(isDemo()){toast('Сторис — с кодом доступа');return true;}tipAsk(d.tipsty);return true;}
+  if(d.tiptpl&&TIP){TIP.tpl=d.tiptpl;document.querySelectorAll('[data-tiptpl]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.tiptpl===TIP.tpl));const f=$('#tipf');if(f){f.innerHTML=tipFields();tipBind();}tipPreview();return true;}
+  if(d.recst){setCardStyle(d.recst);document.querySelectorAll('[data-recst]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.recst===d.recst));
+    if($('#tipf'))tipPreview();else if($('#recpv')&&RECF.id)recPreview(RECF.id);else render(false);return true;}
+  if(d.recfmt){RECF.fmt=d.recfmt;document.querySelectorAll('[data-recfmt]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.recfmt===RECF.fmt));
+    const m=document.querySelector('#fmtm .fmtc');if(m)m.classList.toggle('isstory',RECF.fmt==='story');if(RECF.id)recPreview(RECF.id);return true;}
+  if('tipgo' in d&&TIP){const t=TIP.tpl;SHEET_JOB={title:'Сторис',file:'KLAPP-storis-'+t,short:STORY_T[t],canvas:()=>tipCanvas()};runFormat('png');return true;}
+  return false;}
+let RECF={id:'',fmt:'card'};
+window.__klappStory={draw:drawStory,styles:()=>Object.keys(CARD_ST),style:cardStyle,tip:()=>TIP&&{tpl:TIP.tpl,data:tipData()},rec:(id,o)=>recCanvas(id,o),ask:t=>tipAsk(t),tipCanvas:()=>tipCanvas(),items:re=>Object.keys(itemById).filter(k=>new RegExp(re).test(k))};
 let PROPH=(()=>{try{return JSON.parse(localStorage.getItem('klapp-pro-photo')||'""')||'';}catch(e){return '';}})(),PROPH_IMG=null;
 async function proPhotoImg(){if(!PROPH)return null;if(PROPH_IMG&&PROPH_IMG._src===PROPH)return PROPH_IMG;try{const im=new Image();im.src=PROPH;await im.decode();im._src=PROPH;PROPH_IMG=im;return im;}catch(e){return null;}}
 function proPhotoSet(f){if(!f)return;const u=URL.createObjectURL(f);const im=new Image();
@@ -3769,23 +3960,24 @@ function recData(id){const p=itemById[id];if(!p)return null;
   if(p._f==='home')return {kind:'home',line:p._l.name,name:p.name,vol:p.vol||'',art:p.art,when:p.when||'',desc:p.desc||'',how:p.how||'',nb:p.nb||'',effects:p.effects||[],actives:(p.actives||[]).filter(a=>!a.x&&a.n).map(a=>({n:a.n,t:a.t||''}))};
   if(p._f==='pro'&&canSharePro())return {kind:'home',line:p._l.name,name:p.name,vol:p.vol||'',art:p.art,when:'Процедура в кабинете',desc:p.desc||'',how:'',nb:'',effects:p.effects||[],actives:(p.actives||[]).filter(a=>!a.x&&a.n).map(a=>({n:a.n,t:a.t||''}))};   /* 4.22: проф. препараты — менеджер, тренер, партнёр, куратор */
   return null;}
-async function recCanvas(id,o){await fontsReady();if(id.startsWith('gift:'))glowFont();const R=recData(id);if(!R)return null;
+async function recCanvas(id,o){await fontsReady();if(o&&o.fmt==='story')return storyFromRec(id,o);if(id.startsWith('gift:'))glowFont();const R=recData(id);if(!R)return null;
   if(PH[id]){try{const im=new Image();im.src=PH[id];await im.decode();R.img=im;}catch(e){}}
-  R.sign={name:QZS.name||'',salon:PRO.salon||'',phone:PRO.phone||'',link:PRO.link||''};R.photo=await proPhotoImg();R.forName=(o&&o.forName)||'';R.note=(o&&o.note)||'';
+  R.sign={name:QZS.name||'',salon:PRO.salon||'',phone:PRO.phone||'',link:PRO.link||''};R.photo=await proPhotoImg();R.forName=(o&&o.forName)||'';R.note=(o&&o.note)||'';R.style=(o&&o.style)||'';
   return drawRec(R);}
-function recAsk(id){const p=itemById[id];if(!p||!recData(id))return;
-  sheet(`<b>Моя рекомендация</b><p class="snote" style="margin:-6px 0 2px">${esc(recName(p))} — фирменная карточка для клиента.</p>
+function recAsk(id){const p=itemById[id];if(!p||!recData(id))return;RECF.id=id;const glow=p._f==='gift';if(glow)RECF.fmt='card';
+  sheet(`<b>Моя рекомендация</b><p class="snote" style="margin:-6px 0 2px">${esc(recName(p))} — фирменная карточка для клиента${glow?'':' или сторис'}.</p>
+  ${glow?'':`<div class="fsz stsg" role="group" aria-label="Формат">${[['card','Карточка'],['story','Сторис']].map(([k,l])=>`<button data-recfmt="${k}" aria-pressed="${RECF.fmt===k}">${l}</button>`).join('')}</div>${stStyleSeg()}`}
   <div class="recpv" id="recpv"><span>Готовлю превью…</span></div>
-  <label class="vf"><span>Кому · по желанию</span><input id="rec-for" placeholder="Например: Марии" autocomplete="off" maxlength="40"></label>
-  <label class="vf"><span>Ваш комментарий · по желанию</span><textarea id="rec-note" rows="3" maxlength="300" placeholder="Например: утром и вечером, через 4 недели — контрольный визит"></textarea></label>
+  <label class="vf recfor"><span>Кому · по желанию</span><input id="rec-for" placeholder="Например: Марии" autocomplete="off" maxlength="40"></label>
+  <label class="vf"><span class="cardonly">Ваш комментарий · по желанию</span><span class="storyonly">Подпись на сторис · по желанию</span><textarea id="rec-note" rows="3" maxlength="300" placeholder="Например: утром и вечером, через 4 недели — контрольный визит"></textarea></label>
   ${!proSign()&&!PROPH?'<p class="snote">Подпись и фото для карточки — в Настройках, «Мои контакты для клиентов».</p>':''}
-  <button class="btn red" data-recgo="png|${esc(id)}">Отправить картинкой</button><button class="btn" data-recgo="pdf|${esc(id)}">Отправить PDF</button><button class="cx2" data-fmt="x">Отмена</button>`);
-  const fc=document.querySelector('#fmtm .fmtc');if(fc)fc.classList.add('recs');
+  <button class="btn red" data-recgo="png|${esc(id)}">Отправить картинкой</button><button class="btn cardonly" data-recgo="pdf|${esc(id)}">Отправить PDF</button><button class="cx2" data-fmt="x">Отмена</button>`);
+  const fc=document.querySelector('#fmtm .fmtc');if(fc){fc.classList.add('recs');fc.classList.toggle('isstory',RECF.fmt==='story');}
   let t=0;const upd=()=>{clearTimeout(t);t=setTimeout(()=>recPreview(id),450);};['rec-for','rec-note'].forEach(k=>{const el=$('#'+k);if(el)el.addEventListener('input',upd);});recPreview(id);}
-const recOpts=()=>({forName:(($('#rec-for')||{}).value||'').trim(),note:(($('#rec-note')||{}).value||'').trim()});
-async function recPreview(id){const box=$('#recpv');if(!box)return;const c=await recCanvas(id,recOpts());if(!c||!$('#recpv'))return;const u=c.toDataURL('image/jpeg',0.8);$('#recpv').innerHTML=`<img src="${u}" alt="Превью карточки">`;}
+const recOpts=()=>({forName:(($('#rec-for')||{}).value||'').trim(),note:(($('#rec-note')||{}).value||'').trim(),fmt:RECF.id&&itemById[RECF.id]&&itemById[RECF.id]._f==='gift'?'card':RECF.fmt,style:cardStyle()});
+async function recPreview(id){const box=$('#recpv');if(!box)return;const n=recPreview.n=(recPreview.n||0)+1;const c=await recCanvas(id,recOpts());if(!c||!$('#recpv')||n!==recPreview.n)return;const u=c.toDataURL('image/jpeg',0.8);$('#recpv').innerHTML=`<img src="${u}" alt="Превью карточки">`;}
 function recGo(v){const [f,id]=v.split('|');const p=itemById[id];if(!p)return;const o=recOpts();
-  SHEET_JOB={title:'Моя рекомендация',file:'KLAPP-rekomendaciya-'+String(p.art||'').replace(/[^\w-]+/g,''),short:recName(p),canvas:()=>recCanvas(id,o)};runFormat(f);}
+  SHEET_JOB={title:o.fmt==='story'?'Сторис':'Моя рекомендация',file:(o.fmt==='story'?'KLAPP-storis-':'KLAPP-rekomendaciya-')+String(p.art||'').replace(/[^\w-]+/g,''),short:recName(p),canvas:()=>recCanvas(id,o)};runFormat(f);}
 /* ---------- 4.11: схемы ухода — заменить средство, поделиться с клиентом, добавить в заказ ----------
    Замены хранятся на телефоне: SCHX[название схемы][исходный артикул] = новый артикул. «Вернуть как было» — убрать замену. */
 let SCHX={};try{SCHX=JSON.parse(localStorage.getItem('klapp-schx')||'{}')||{};}catch(e){SCHX={};}
@@ -4030,7 +4222,7 @@ function honors(){
 }
 function awardChip(sc){const b=best(sc);const aw=awardOf(sc,b);return aw?`<span class="awc" title="${KINDN[aw.kind]} · ${RANKN[aw.rank]}">${awSVG(aw.kind,aw.rank,26)}</span>`:'';}
 VIEWS.honors=function(){
-  setTop('Доска почёта',true);
+  setTop('Доска почёта',true);{const hg=hidCheck();if(hg.length)setTimeout(()=>flash(hg.map(k=>({hid:k}))),500);}
   const h=honors(); const sc=['global','cat:home','cat:pro','cat:kit'].concat(LINES.map(L=>'line:'+L.id));
   const tile=s=>{const aw=awardOf(s,h.best[s]);const kind=s==='global'?'crown':s.startsWith('cat:')?'cup':'medal';
     return `<button class="awt ${aw?'':'lock'}" data-qstart="${s}">${awSVG(kind,aw?aw.rank:'lock',52)}<span>${esc(s.startsWith('line:')?byId[s.slice(5)].name:scopeTitle(s).replace('Глобальный тест по ассортименту','Весь ассортимент'))}</span><small>${h.best[s]!==undefined?h.best[s]+'%':'—'}</small></button>`;};
@@ -4042,6 +4234,7 @@ VIEWS.honors=function(){
    <div class="grp">Кубки по категориям</div><div class="awg">${['cat:home','cat:pro','cat:kit'].map(tile).join('')}</div>
    <div class="grp">Медали по линиям</div><div class="awg">${LINES.map(L=>tile('line:'+L.id)).join('')}</div>
    <div class="grp">Секретные награды</div><div class="awg">${XP_TIERS.filter(t=>QZS.secret&&QZS.secret[t.k]).reverse().map(t=>`<button class="awt sec ${t.k==='master'?'gold':''}" data-celreplay="${t.k}">${awSVG('crown',t.k==='master'?'gold':'diamond',56)}<span>${esc(t.n)}</span><small>${new Date(QZS.secret[t.k]).toLocaleDateString('ru-RU')}</small></button>`).join('')}${QZS.secret&&QZS.secret.gold?`<button class="awt sec gold" data-celreplay="gold">${gerhardSVG(64,'gold')}<span>Золотой Герхард</span><small>${new Date(QZS.secret.gold).toLocaleDateString('ru-RU')}</small></button>`:''}${QZS.secret&&QZS.secret.ruby?`<button class="awt sec ruby" data-celreplay="ruby">${gerhardSVG(64,'ruby')}<span>Рубиновый Герхард</span><small>${new Date(QZS.secret.ruby).toLocaleDateString('ru-RU')}</small></button>`:`<div class="awt lock"><svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="#f4f4f2" stroke="#cfcfcb" stroke-dasharray="3 3"/><text x="32" y="40" text-anchor="middle" font-size="22" fill="#bdbdb8" font-family="Roboto Mono">?</text></svg><span>Сезонная награда</span><small>ищите в декабре</small></div>`}${QZS.secret&&QZS.secret.gerhard?`<button class="awt sec" data-celreplay="gerhard">${gerhardSVG(64)}<span>Бриллиантовый Герхард</span><small>${new Date(QZS.secret.gerhard).toLocaleDateString('ru-RU')}</small></button>`:`<div class="awt lock"><svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="#f4f4f2" stroke="#cfcfcb" stroke-dasharray="3 3"/><text x="32" y="40" text-anchor="middle" font-size="22" fill="#bdbdb8" font-family="Roboto Mono">?</text></svg><span>Секретная награда</span><small>условие скрыто</small></div>`}</div>
+   ${hidHonors()}
    ${h.zero||h.low?`<div class="grp">Особые номинации</div>${h.zero?`<div class="joke">${awSVG('zero','',44)}<div><b>${JOKES.zero.n}${h.zero>1?' × '+h.zero:''}</b><span>${JOKES.zero.d}</span></div></div>`:''}${h.low?`<div class="joke">${awSVG('low','',44)}<div><b>${JOKES.low.n}${h.low>1?' × '+h.low:''}</b><span>${JOKES.low.d}</span></div></div>`:''}`:''}`;
 };
 function honorsJob(){const h=honors();
@@ -4050,6 +4243,7 @@ function honorsJob(){const h=honors();
   const grp={};h.list.forEach(x=>{const k=x.kind+':'+x.rank;(grp[k]=grp[k]||[]).push(x);});
   const items=Object.keys(grp).sort((a,b)=>{const [ka,ra]=a.split(':'),[kb,rb]=b.split(':');return KO[ka]-KO[kb]||RO[ra]-RO[rb];}).map(k=>{const L=grp[k].sort((a,b)=>b.p-a.p),[kind,rank]=k.split(':');
     return {ic:awSVG(kind,rank,64),t:`${KINDN[kind]} · ${RANKN[rank]}${L.length>1?' × '+L.length:''}`,s:L.map(x=>`${nm(x)} (${x.p}%)`).join(', ')};});
+  items.unshift(...hidItems());
   XP_TIERS.forEach(t=>{if(QZS.secret&&QZS.secret[t.k])items.unshift({ic:awSVG('crown',t.k==='master'?'gold':'diamond',64),t:t.n,s:'Секретный статус знаний: '+t.xp+' XP'});});
   if(QZS.secret&&QZS.secret.ruby) items.unshift({ic:gerhardSVG(64,'ruby'),t:'Рубиновый Герхард',s:'Сезонная награда: все 24 окошка адвент-календаря'});
   items.unshift({t:'Статус: '+xpInfo().level,s:xpInfo().xp+' XP · коллекция линий: '+collection().filter(c=>c.done).length+' из '+LINES.length+' · серия вопросов дня: '+streakInfo().cur});
@@ -4103,9 +4297,60 @@ function celebrate(kind){
   setTimeout(()=>{const b=el.querySelector('[data-celok]');b.hidden=false;b.classList.add('in');},cfg.hold);
   el._stop=stop;
 }
-document.addEventListener('click',e=>{const b=e.target.closest('[data-celok]');if(!b)return;const el=b.closest('.celeb');if(el){el._stop&&el._stop();el.classList.add('out');setTimeout(()=>el.remove(),450);}},true);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-celok]');if(!b)return;const el=b.closest('.celeb');if(el){el._stop&&el._stop();el.classList.add('out');setTimeout(()=>{el.remove();flash();},450);}},true);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-hidshow]');if(b)flash([{hid:b.dataset.hidshow}]);});
 
 window.__klappHonors=att=>{if(att){QZS.att=att;}return honorsJob().text;};
+/* ---------- 4.25: «Вспышка» при новой награде и шесть скрытых наград ---------- */
+const HID=[
+  {k:'early',n:'Ранняя пташка',d:'Тест пройден до 8 утра.'},
+  {k:'owl',n:'Сова',d:'Тест пройден после 23:00.'},
+  {k:'sniper',n:'Снайпер',d:'Три теста подряд — на 100%.'},
+  {k:'marathon',n:'Марафонец',d:'30 дней подряд с вопросом дня.'},
+  {k:'patient',n:'Терпеливый',d:'Тест пересдан: было меньше 75%, стало 100%.'},
+  {k:'collector',n:'Коллекционер',d:'Собраны все линии KLAPP.'}];
+const HID_GL={
+  early:'<path d="M18 40h28M22 45h20" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M22.5 38a9.5 9.5 0 0 1 19 0z"/><path d="M32 20v5M19.5 25.5l3.3 3.3M44.5 25.5l-3.3 3.3M14.5 35.5h4M45.5 35.5h4" stroke-width="2.2" stroke-linecap="round" fill="none"/>',
+  owl:'<path d="M36.5 19.5a13 13 0 1 0 8 23.3A11 11 0 0 1 36.5 19.5z"/><path d="M22 22l1 2.4 2.4 1-2.4 1-1 2.4-1-2.4-2.4-1 2.4-1zM44 30l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z"/>',
+  sniper:'<circle cx="32" cy="32" r="12" fill="none" stroke-width="2.4"/><circle cx="32" cy="32" r="5.5" fill="none" stroke-width="2.4"/><circle cx="32" cy="32" r="1.8"/><path d="M32 15v7M32 42v7M15 32h7M42 32h7" stroke-width="2.4" stroke-linecap="round" fill="none"/>',
+  marathon:'<path d="M32 17c1.5 6.5 9.5 9.5 9.5 18.5a9.5 9.5 0 0 1-19 0c0-4.6 2.5-7.2 4.4-9.4.4 3 1.8 4.6 3.6 5.3C29.8 26.6 30.5 21.5 32 17z"/><path d="M32 47.5a4.2 4.2 0 0 1-4.2-4.2c0-2.6 2.4-3.7 3.2-6.6 1.6 1.5 5.2 3.6 5.2 6.6a4.2 4.2 0 0 1-4.2 4.2z" fill="#ff4438" stroke="none"/>',
+  patient:'<path d="M23 18h18M23 46h18" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M25 18c0 7 7 9.5 7 14s-7 7-7 14M39 18c0 7-7 9.5-7 14s7 7 7 14" stroke-width="2.2" fill="none"/><path d="M27.5 44c1.2-3 3.4-4.2 4.5-5 1.1.8 3.3 2 4.5 5z"/>',
+  collector:'<rect x="19" y="19" width="7" height="7" rx="1.6"/><rect x="28.5" y="19" width="7" height="7" rx="1.6"/><rect x="38" y="19" width="7" height="7" rx="1.6"/><rect x="19" y="28.5" width="7" height="7" rx="1.6"/><rect x="28.5" y="28.5" width="7" height="7" rx="1.6" fill="#ff4438" stroke="none"/><rect x="38" y="28.5" width="7" height="7" rx="1.6"/><rect x="19" y="38" width="7" height="7" rx="1.6"/><rect x="28.5" y="38" width="7" height="7" rx="1.6"/><rect x="38" y="38" width="7" height="7" rx="1.6"/>'};
+function hidSVG(k,sz,lock){const u=++awUid;
+  if(lock)return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true"><circle cx="32" cy="32" r="27" fill="#ecebe7" stroke="#d6d6d2" stroke-dasharray="2 3"/><text x="32" y="41" text-anchor="middle" font-family="Jost,sans-serif" font-size="24" font-weight="500" fill="#b9b8b3">?</text></svg>`;
+  return `<svg viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true"><defs><radialGradient id="hd${u}" cx=".35" cy=".28" r=".9"><stop offset="0" stop-color="#45454b"/><stop offset=".6" stop-color="#1d1d1f"/><stop offset="1" stop-color="#0b0b0c"/></radialGradient>
+   <linearGradient id="hr${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a7e"/><stop offset=".5" stop-color="#ff4438"/><stop offset="1" stop-color="#a51d14"/></linearGradient></defs>
+   <circle cx="32" cy="32" r="28" fill="url(#hr${u})"/><circle cx="32" cy="32" r="24.5" fill="url(#hd${u})"/><ellipse cx="25" cy="17" rx="15" ry="6" fill="#fff" opacity=".08"/>
+   <g fill="#fff" stroke="#fff">${HID_GL[k]||''}</g></svg>`;}
+const hidGot=()=>(QZS.hid=QZS.hid||{});
+/* проверка после теста (att), ответа на вопрос дня и открытия наград; возвращает только что полученные */
+function hidCheck(att){const H=hidGot(),now=new Date(),got=[];const give=k=>{if(!H[k]){H[k]=now.toISOString();got.push(k);}};
+  if(att){const h=now.getHours();if(h>=4&&h<8)give('early');if(h>=23||h<4)give('owl');
+    const L=QZS.att.slice(-3);if(L.length===3&&L.every(a=>a.pct===100))give('sniper');
+    if(att.pct===100&&QZS.att.some(a=>a!==att&&a.id!==att.id&&a.scope===att.scope&&a.pct<75))give('patient');}
+  try{if(streakInfo().cur>=30)give('marathon');}catch(e){}
+  try{const C=collection();if(C.length&&C.every(c=>c.done))give('collector');}catch(e){}
+  if(got.length)qzSave();return got;}
+const RANK_O={bronze:1,silver:2,gold:3,diamond:4};
+function newAward(scope,pct,prev){const a=awardOf(scope,pct),b=awardOf(scope,prev);if(!a)return null;if(b&&RANK_O[b.rank]>=RANK_O[a.rank])return null;return {kind:a.kind,rank:a.rank,scope};}
+/* «Вспышка»: короткая анимация вместо салюта — лучи, награда, блик. Очередь: награда за тест, затем скрытые */
+let FLQ=[];
+function chime(top){const c=audioCtx();if(!c)return;const t=c.currentTime+.03;[[880,0],[1174.7,.09],[1760,.18]].forEach(([f,d])=>tone(c,t+d,f*(top?1:.75),.55,'sine',.07));}
+function flash(list){FLQ=FLQ.concat(list||[]);if(document.querySelector('.flash,.celeb')||!FLQ.length)return;const it=FLQ.shift();
+  let art,kick,title,sub,col;
+  if(it.hid){const h=HID.find(x=>x.k===it.hid);if(!h)return flash();art=hidSVG(h.k,150);kick='Скрытая награда';title=h.n;sub=h.d;col='255,68,56';}
+  else{art=awSVG(it.kind,it.rank,150);kick='Новая награда';title=KINDN[it.kind]+' · '+RANKN[it.rank];sub=it.scope?(it.scope.startsWith('line:')&&byId[it.scope.slice(5)]?'Тест по линии '+byId[it.scope.slice(5)].name:scopeTitle(it.scope)):'';
+    col={bronze:'214,140,86',silver:'190,198,210',gold:'240,190,70',diamond:'120,210,250'}[it.rank]||'255,68,56';}
+  const el=document.createElement('div');el.className='flash';el.setAttribute('role','dialog');el.setAttribute('aria-label',kick+': '+title);el.style.setProperty('--fc',col);
+  el.innerHTML=`<div class="flr" aria-hidden="true"></div><div class="flb"><p class="flk">${esc(kick)}</p><div class="fla">${art}<i class="fls" aria-hidden="true"></i></div><h2>${esc(title)}</h2>${sub?`<p class="flt">${esc(sub)}</p>`:''}<small>Нажмите, чтобы продолжить</small></div>`;
+  document.body.appendChild(el);try{chime(!!it.hid||it.rank==='gold'||it.rank==='diamond');}catch(e){}try{navigator.vibrate&&navigator.vibrate([30,40,60]);}catch(e){}
+  let done=false;const close=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>{el.remove();flash();},320);};
+  el.addEventListener('click',close);el._t=setTimeout(close,3600);}
+function hidHonors(){const H=hidGot(),n=HID.filter(h=>H[h.k]).length;
+  return `<div class="grp">Скрытые награды · ${n} из ${HID.length}</div>${n?'':'<p class="snote" style="padding:0 20px 6px">Их условия — секрет. Они открываются сами, когда вы делаете что-то необычное.</p>'}
+   <div class="awg">${HID.map(h=>H[h.k]?`<button class="awt sec hid" data-hidshow="${h.k}">${hidSVG(h.k,56)}<span>${esc(h.n)}</span><small>${new Date(H[h.k]).toLocaleDateString('ru-RU')}</small></button>`:`<div class="awt lock hid">${hidSVG(h.k,56,1)}<span>Секрет</span><small>—</small></div>`).join('')}</div>`;}
+function hidItems(){const H=hidGot();return HID.filter(h=>H[h.k]).map(h=>({ic:hidSVG(h.k,64),t:h.n,s:'Скрытая награда: '+h.d.replace(/\.$/,'').toLowerCase()}));}
+window.__klappHid={check:a=>hidCheck(a),got:()=>Object.assign({},hidGot()),flash:l=>flash(l),list:()=>HID.map(h=>h.k),queue:()=>FLQ.length};
 /* ---------- 3.0: навигация, главная, академия, UX-утилиты ---------- */
 const TABMAP={lines:'catalog',gloss:'catalog',catalog:'catalog',tests:'academy',brand:'academy',academy:'academy',home:'home',pick:'pick',cab:'cab'};
 function buzz(p){p=p||12;const c=window.__capv;
@@ -4260,13 +4505,13 @@ VIEWS.home=function(){
    ${roleOffer()}
    ${(()=>{const t=[bkCard(),due?`<button class="ocard" data-tab="cab"><span class="tx"><b>Пора напомнить клиентам · ${due}</b><span>У них заканчиваются средства — откройте кабинет</span></span>${I.go}</button>`:'',advCard(),glowBanner(),seasonCard()].join('');return t.trim()?`<div class="grp">Сегодня</div>${t}`:'';})()}
    <div class="grp">Каждый день</div>
-   ${factHTML()}
+   ${factHTML()}${isDemo()?'':'<div class="cbtns factst"><button class="btn ghost sm" data-tipsty="fact">Сделать сторис из факта</button></div>'}
    ${rec.length?`<div class="grp">Недавно смотрели</div><div class="hscroll">${rec.map(p=>`<button class="hcard" data-item="${esc(p._id)}"><span class="hph">${PH[p._id]?`<img src="${PH[p._id]}" alt="" loading="lazy">`:''}</span><b>${p._f==='kit'?'«'+esc(p.sub)+'»':nice(p.name)}</b><span>${esc(p._l.name)}</span></button>`).join('')}</div>`:''}
    ${fv.length?`<div class="grp">Избранное</div>${fv.map(prow).join('')}<div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-open="saved">Всё избранное</button></div>`:''}
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Pro · версия 4.24</p>`;
+   <p class="foot">KLAPP Pro · версия 4.25</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -4639,7 +4884,7 @@ function errSheet(id){const p=itemById[id];if(!p)return;let m=document.getElemen
   document.body.appendChild(m);}
 function v34Click(d,b){
   if(d.qdx!==undefined){QDX=QDX===todayS()?null:todayS();render(false);return true;}
-  if(d.qd!==undefined){const t=todayS();if(DQ.days[t])return true;const q=dayQuestion(t,'qd');const i=+d.qd;DQ.days[t]={a:i,ok:i===q.c};QDX=t;LSset('klapp-daily',DQ);buzz(i===q.c?15:[30,50,30]);render(false);return true;}
+  if(d.qd!==undefined){const t=todayS();if(DQ.days[t])return true;const q=dayQuestion(t,'qd');const i=+d.qd;DQ.days[t]={a:i,ok:i===q.c};QDX=t;LSset('klapp-daily',DQ);{const hg=hidCheck();if(hg.length)setTimeout(()=>flash(hg.map(k=>({hid:k}))),700);}buzz(i===q.c?15:[30,50,30]);render(false);return true;}
   if(d.fcflip!==undefined&&FCS&&!FCS.flip&&!b.closest('[data-g],[data-item],[data-line]')){FCS.flip=true;render(false);setTimeout(()=>{const w=document.querySelector('.fc~.wnav');if(w)w.scrollIntoView({block:'nearest',behavior:'smooth'});},80);return true;}
   if(d.fcans!==undefined){fcAnswer(d.fcans==='1');return true;}
   if('season' in d){go({view:'season'});return true;}
@@ -5084,7 +5329,7 @@ let OTA_BUSY=false;
 const otaRoot=()=>{const c=cUrl();return c?c.replace(/content\/?$/,''):'';};
 const otaGet=()=>{try{return JSON.parse(localStorage.getItem('klapp-ota')||'null');}catch(e){return null;}};
 const otaPut=o=>{try{localStorage.setItem('klapp-ota',JSON.stringify(o));}catch(e){}};
-const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.24';}catch(e){return '4.24';}};
+const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.25';}catch(e){return '4.25';}};
 async function otaVerify(text,sigB64){
   const key=await crypto.subtle.importKey('jwk',OTA_PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
   const sig=Uint8Array.from(atob(sigB64),c=>c.charCodeAt(0));
@@ -5102,7 +5347,7 @@ async function codeCheck(manual){
     const r=await fetch(root+'code/manifest.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('manifest '+r.status);
     const m=await r.json();LSset('klapp-code-check',Date.now());
     if(!m||!m.ver||!m.file||!m.sha256||!m.sig)throw new Error('manifest');
-    if(verCmp(m.ver,'4.24')<=0){if(manual)toast('Код приложения — последней версии');return;}
+    if(verCmp(m.ver,'4.25')<=0){if(manual)toast('Код приложения — последней версии');return;}
     if(m.apk_min&&verCmp(apkVer(),m.apk_min)<0){if(manual)toast('Для версии '+m.ver+' нужен новый APK — попросите его у менеджера');return;}
     const o=otaGet();
     if(o&&o.ver===m.ver){if(o.state==='bad'){if(manual)toast('Версия '+m.ver+' не запустилась на этом телефоне — ждём исправления');return;}otaBanner(m.ver);return;}
@@ -5129,7 +5374,7 @@ async function codeCheck(manual){
 }
 if(window.androidBridge){setTimeout(()=>codeCheck(false),15000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')codeCheck(false);});}
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='4.24'.split('.').slice(0,2).join('.');
+const VERMIN='4.25'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -5147,9 +5392,9 @@ hintWrap('myl','myl','Мои препараты','Добавьте средст�
 hintWrap('honors','honors','Награды','Медали — за тесты по линиям, кубки — за категории, корона — за большой тест. Ниже — коллекция линий: линия собрана, когда вы открыли все её препараты и наборы и сдали тест по ней на 75% и выше.');
 hintWrap('run','run','Процедура по шагам','На каждом этапе — препарат, техника и таймер. Экран не гаснет, пока идёт процедура. «Следующий этап» — переход дальше.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'4.24':[['Новый «Подбор»','Три раздела — Профуход, Наборы и Дом, в каждом свои подвкладки: шаги процедуры и протоколы, все наборы и наборы по задаче, подбор по состоянию, по задаче и схемы. Из процедур и наборов — кнопка «Рекомендовать домашний уход».'],['Названия наборов','Шесть наборов называются как на коробке: ASA Peel Face Treatment, Caviar Power Treatment, Cell Pro Balancing, Firming и Lifting Treatment, Retinol MLP Treatment.']],'4.23':[['Наличие на складе','Если препарата нет на складе KLAPP, в карточке и списках видна плашка «нет в наличии» или «скоро в продаже» с датой. Вместо «В заказ» — подбор замены, которая есть в наличии.'],['В схемах и заказе','Отсутствующие средства отмечены в схемах ухода и в «Моём заказе» — рядом кнопка «замена».']],'4.22':[['Ступени опыта','За тесты, вопрос дня и карточки растёт ваш опыт: Ученик → Практик → Знаток → Виртуоз. Ступень видна на «Наградах» и на главной.'],['Программа лояльности','Если вы пока не участвуете в программе KLAPP, вместо «Моего пути» — вкладка «Программа лояльности»: ступени, условия и что они дают.'],['Подсказка на главной','Под быстрыми кнопками — подсказка под вашу роль: что посмотреть или сделать дальше.'],['Имена в падежах','Напоминания и сообщения склоняют имя клиента: «Пора напомнить Анне Смирновой».']],'4.21':[['Быстрее и без случайного зума','Экраны переключаются быстрее, «Стекло» и «Аврора» легче для телефона. Страница больше не увеличивается двумя пальцами и не «тянется» на краях.'],['Клиенты в поиске','Поиск на главной находит и клиентов из кабинета — по имени или телефону.'],['Вопрос дня','После ответа сворачивается в тонкую плашку — нажмите, чтобы развернуть. «Мой путь» теперь стоит после «Наград».'],['Идеи и отзывы','В Настройках — «Предложить улучшение» и «Оставить отзыв»: письмо уйдёт разработчику.'],['Составы по упаковкам','A Classic (802/1802, 803/1803, 809/1809, 830/1811, 1806, 1825) и «Супер Липид» 954/1954 сверены с актуальными упаковками: в них нет лилиаля и лирала.']],'4.20':[['Ошибка — сразу разработчику','Нашли неточность в карточке → «Сообщите»: письмо уйдёт разработчику приложения. Ошибку в работе приложения — Настройки → «Сообщить об ошибке».'],['iPhone: как не потерять данные','Короткий ответ в Настройках → «Как пользоваться». Главное — открывайте приложение значком и сохраняйте копию раз в неделю.']],'4.19':[['Для профи — во всём каталоге','Во всех 145 препаратах и 13 наборах — разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Откройте любую карточку → «Для профи».']],'4.18':[['Для профи в наборах','Во всех 13 процедурных наборах — логика протокола, курс и продолжение дома, что учесть по составу (с номерами шагов) и фраза для клиента.'],['По составу — в каждой карточке','Во всех препаратах блок «Для профи» показывает, на что обратить внимание по составу: отдушка и аллергены, масла орехов, пшеница, ретиноиды, кислоты и другое.']],'4.17':[['Для профи','В карточках ASA Peel и Niacinamide появился блок «Для профи»: разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Пробуем на двух линиях — расскажите, удобно ли.'],['Ингредиенты подробнее','В «Подробнее» у каждого из 656 компонентов INCI — рассказ для косметолога.']],'4.16':[['Ингредиенты подробнее','В каталоге состава у компонентов INCI в «Подробнее» теперь рассказ для косметолога: что это, как работает, кому подходит и на что обратить внимание. Ниже — данные официальной базы ЕС, как раньше. Описаны все 656 компонентов: у активов — подробно, у технических — коротко, что делает в формуле.'],['Составы по упаковкам','Составы 1840, 957, 958 и 1958 сверены с актуальными упаковками.'],['Адвент-календарь Let it glow','Исправлен состав: вместо маски в календаре крем «День и ночь» Retinol MLP, 20 мл.']],'4.15':[['Чёткие картинки','Памятки, рекомендации и результаты тестов теперь отправляются вдвое чётче — 2160 точек по ширине. PDF — тоже. Совет: в Telegram отправляйте «как файл», в WhatsApp включайте HD — тогда мессенджер не пережмёт картинку.'],['Секретные статусы знаний','За опыт в приложении — тесты, вопрос дня, карточки — теперь открываются скрытые статусы. Какие — узнаете, когда дойдёте.'],['Мой путь','Обучение — три базовых семинара: «Профессиональные препараты», «Процедурные наборы», «Домашний уход». После аттестации — «Отправить отчёт менеджеру».']]};
+const WHATSNEW={'4.25':[['Три стиля карточек','«Моя рекомендация» теперь бывает в трёх стилях: Классика, Крем и Ночь. Стиль выбирается прямо при отправке или в Настройках.'],['Сторис для клиентов','Из карточки препарата или набора можно сделать сторис 1080×1920 — с фото, вашим именем и ником. А «Совет эксперта» — цитата, вопрос клиента или факт дня — собирается в Настройках, из факта дня на главной и из статьи энциклопедии.'],['Новые награды','Новая медаль, кубок или корона появляются со вспышкой. И ещё шесть скрытых наград — их условия секрет, ищите сами.']],'4.24':[['Новый «Подбор»','Три раздела — Профуход, Наборы и Дом, в каждом свои подвкладки: шаги процедуры и протоколы, все наборы и наборы по задаче, подбор по состоянию, по задаче и схемы. Из процедур и наборов — кнопка «Рекомендовать домашний уход».'],['Названия наборов','Шесть наборов называются как на коробке: ASA Peel Face Treatment, Caviar Power Treatment, Cell Pro Balancing, Firming и Lifting Treatment, Retinol MLP Treatment.']],'4.23':[['Наличие на складе','Если препарата нет на складе KLAPP, в карточке и списках видна плашка «нет в наличии» или «скоро в продаже» с датой. Вместо «В заказ» — подбор замены, которая есть в наличии.'],['В схемах и заказе','Отсутствующие средства отмечены в схемах ухода и в «Моём заказе» — рядом кнопка «замена».']],'4.22':[['Ступени опыта','За тесты, вопрос дня и карточки растёт ваш опыт: Ученик → Практик → Знаток → Виртуоз. Ступень видна на «Наградах» и на главной.'],['Программа лояльности','Если вы пока не участвуете в программе KLAPP, вместо «Моего пути» — вкладка «Программа лояльности»: ступени, условия и что они дают.'],['Подсказка на главной','Под быстрыми кнопками — подсказка под вашу роль: что посмотреть или сделать дальше.'],['Имена в падежах','Напоминания и сообщения склоняют имя клиента: «Пора напомнить Анне Смирновой».']],'4.21':[['Быстрее и без случайного зума','Экраны переключаются быстрее, «Стекло» и «Аврора» легче для телефона. Страница больше не увеличивается двумя пальцами и не «тянется» на краях.'],['Клиенты в поиске','Поиск на главной находит и клиентов из кабинета — по имени или телефону.'],['Вопрос дня','После ответа сворачивается в тонкую плашку — нажмите, чтобы развернуть. «Мой путь» теперь стоит после «Наград».'],['Идеи и отзывы','В Настройках — «Предложить улучшение» и «Оставить отзыв»: письмо уйдёт разработчику.'],['Составы по упаковкам','A Classic (802/1802, 803/1803, 809/1809, 830/1811, 1806, 1825) и «Супер Липид» 954/1954 сверены с актуальными упаковками: в них нет лилиаля и лирала.']],'4.20':[['Ошибка — сразу разработчику','Нашли неточность в карточке → «Сообщите»: письмо уйдёт разработчику приложения. Ошибку в работе приложения — Настройки → «Сообщить об ошибке».'],['iPhone: как не потерять данные','Короткий ответ в Настройках → «Как пользоваться». Главное — открывайте приложение значком и сохраняйте копию раз в неделю.']],'4.19':[['Для профи — во всём каталоге','Во всех 145 препаратах и 13 наборах — разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Откройте любую карточку → «Для профи».']],'4.18':[['Для профи в наборах','Во всех 13 процедурных наборах — логика протокола, курс и продолжение дома, что учесть по составу (с номерами шагов) и фраза для клиента.'],['По составу — в каждой карточке','Во всех препаратах блок «Для профи» показывает, на что обратить внимание по составу: отдушка и аллергены, масла орехов, пшеница, ретиноиды, кислоты и другое.']],'4.17':[['Для профи','В карточках ASA Peel и Niacinamide появился блок «Для профи»: разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Пробуем на двух линиях — расскажите, удобно ли.'],['Ингредиенты подробнее','В «Подробнее» у каждого из 656 компонентов INCI — рассказ для косметолога.']],'4.16':[['Ингредиенты подробнее','В каталоге состава у компонентов INCI в «Подробнее» теперь рассказ для косметолога: что это, как работает, кому подходит и на что обратить внимание. Ниже — данные официальной базы ЕС, как раньше. Описаны все 656 компонентов: у активов — подробно, у технических — коротко, что делает в формуле.'],['Составы по упаковкам','Составы 1840, 957, 958 и 1958 сверены с актуальными упаковками.'],['Адвент-календарь Let it glow','Исправлен состав: вместо маски в календаре крем «День и ночь» Retinol MLP, 20 мл.']],'4.15':[['Чёткие картинки','Памятки, рекомендации и результаты тестов теперь отправляются вдвое чётче — 2160 точек по ширине. PDF — тоже. Совет: в Telegram отправляйте «как файл», в WhatsApp включайте HD — тогда мессенджер не пережмёт картинку.'],['Секретные статусы знаний','За опыт в приложении — тесты, вопрос дня, карточки — теперь открываются скрытые статусы. Какие — узнаете, когда дойдёте.'],['Мой путь','Обучение — три базовых семинара: «Профессиональные препараты», «Процедурные наборы», «Домашний уход». После аттестации — «Отправить отчёт менеджеру».']]};
 function sheet(html){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';m.innerHTML=`<div class="fmtc" role="dialog">${html}</div>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-sheetx]'))m.remove();});return m;}
-function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.24</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.25</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB=[
  {ic:'brand',t:'KLAPP Pro',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -5172,22 +5417,22 @@ function firstRun(){if(accStart(firstRun))return;if(isDemo())return;const used=C
   if(!LS('klapp-onb','')){if(used){LSset('klapp-onb',VERMIN);}else{onbShow();return;}}
   if(LS('klapp-seen-ver','')!==VERMIN){LSset('klapp-seen-ver',VERMIN);if(used)whatsNew();}}
 VIEWS.settings=function(){setTop('Настройки',true);
-  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.24</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
-  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.24${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
+  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.25</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
+  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.25${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
   ${accSettings()}<div class="grp">Профиль</div><label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">Имя появится в заказе менеджеру и на доске почёта.</p>
   ${settings39()}
   ${lookHTML()}${fontHTML()}${contentHTML()}
   <div class="grp">Помощь</div>
   <button class="row" data-open="help"><span class="tx"><span class="nm">Как пользоваться</span><span class="sb">Короткие ответы на частые вопросы</span></span>${I.go}</button>
   <button class="row" data-onb><span class="tx"><span class="nm">Знакомство с приложением</span><span class="sb">Четыре экрана о главном</span></span>${I.go}</button>
-  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.24</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
+  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.25</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
   <button class="row" data-bugapp><span class="tx"><span class="nm">Сообщить об ошибке</span><span class="sb">Письмо разработчику: что случилось и где</span></span>${I.go}</button>
   <button class="row" data-ideaapp><span class="tx"><span class="nm">Предложить улучшение</span><span class="sb">Чего не хватает в работе — идея уйдёт разработчику</span></span>${I.go}</button>
   <button class="row" data-revapp><span class="tx"><span class="nm">Оставить отзыв</span><span class="sb">Что нравится, что мешает — коротко, своими словами</span></span>${I.go}</button>
   <button class="row" data-hreset><span class="tx"><span class="nm">Вернуть подсказки</span><span class="sb">Снова показать объяснения в разделах</span></span>${I.go}</button>
   <div class="grp">Сообщество и бренд</div>${tgLine()}
   <button class="row" data-am2="brand"><span class="tx"><span class="nm">О бренде KLAPP</span><span class="sb">История, философия, контакты</span></span>${I.go}</button>
-  <p class="foot">KLAPP Pro · версия 4.24</p>`;};
+  <p class="foot">KLAPP Pro · версия 4.25</p>`;};
 const HELP=[
  ['Как завести клиента и провести визит','Кабинет → «Новый клиент» → имя и тип кожи → «Сохранить». В карте клиента — «Визит и диагностика»: три шага — состояние кожи, процедура, домашний уход. Обязательно только состояние кожи, остальное по желанию.'],
  ['Как приложение напоминает о докупке','Назначение знает норму расхода средства и считает, когда оно закончится. За несколько дней до конца клиент появится в списке «Пора напомнить» в Кабинете, а на телефон в 10:00 придёт уведомление.'],
@@ -5409,7 +5654,7 @@ function openExt(url){const now=Date.now();if(now-EXT_T<1500)return;EXT_T=now;
 const DEV_MAIL='grudnyaks@gmail.com';
 function devInfo(){const ua=navigator.userAgent||'';const os=/iPhone|iPad/.test(ua)?'iOS '+((ua.match(/OS (\d+[_\d]*)/)||[])[1]||'').replace(/_/g,'.'):/Android/.test(ua)?'Android '+((ua.match(/Android ([\d.]+)/)||[])[1]||''):'браузер';
   const how=window.androidBridge?'приложение':(navigator.standalone||matchMedia('(display-mode: standalone)').matches)?'значок на экране':'вкладка браузера';
-  return `Версия приложения: 4.24\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
+  return `Версия приложения: 4.25\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
 function devMail(subj,body){openExt('mailto:'+DEV_MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body));}
 let PRO=LS('klapp-pro',{salon:'',phone:'',link:''});
 const proSign=()=>[QZS.name?'Ваш косметолог: '+QZS.name:'',PRO.salon,PRO.phone,PRO.link].map(x=>(x||'').trim()).filter(Boolean).join(' · ');
@@ -5423,6 +5668,9 @@ function settings39(){const ch=MGR.ch;const ph=ch==='tg'?'@username в Telegram'
   <div class="vgrid" style="padding:0 20px"><label class="vf"><span>Телефон</span><input id="pro-phone" value="${esc(PRO.phone||'')}" placeholder="+7 …" inputmode="tel"></label><label class="vf"><span>Соцсети или сайт</span><input id="pro-link" value="${esc(PRO.link||'')}" placeholder="@ваш_профиль или сайт"></label></div>
   <div class="signprev"><small>Так подпись увидят клиенты</small><span id="signprev">${esc(proSign()||'Заполните имя и контакты')}</span></div>
   <div class="prophoto"><span class="pav">${PROPH?`<img src="${PROPH}" alt="Ваше фото">`:I.cam}</span><span class="tx"><b>Ваше фото</b><small>По желанию. Появится внизу «Моей рекомендации», шпаргалки клиенту и результата теста — рядом с контактами.</small><span class="pbtns"><label class="btn ghost sm">${PROPH?'Заменить':'Добавить фото'}<input type="file" accept="image/*" id="pro-photo-in" hidden></label>${PROPH?'<button class="btn ghost sm" data-prophdel>Убрать</button>':''}</span></span></div>
+  <div class="grp">Карточки и сторис для клиентов</div><p class="snote" style="padding:0 20px 8px">Стиль «Моей рекомендации» и сторис. Его можно поменять и прямо при отправке.</p>
+  ${stStyleSeg()}
+  <div class="cbtns" style="padding-top:4px"><button class="btn ghost sm" data-tipsty="quote">Сторис «Совет эксперта»</button></div>
   <div class="grp">Резервная копия</div><p class="snote" style="padding:0 20px">${esc(bkLine())}. В копию входят карты клиентов (с отметками о согласии), протоколы, мои препараты, ваши правки схем ухода, заказ и сравнение, избранное, тесты, награды и рекорд игры, карточки и вопросы дня, ваши контакты, фото, менеджер и настройки вида.</p>
   <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button></div>`;}
 document.addEventListener('change',e=>{const t=e.target;if(!t||!t.id)return;
@@ -5472,6 +5720,7 @@ document.addEventListener('click',e=>{
   if(pdClick(d)) return;
   if(cabClick(d,b)) return;
   if(d.fmt){runFormat(d.fmt);return;}
+  if(storyClick(d,b))return;
   if(d.recsh){recAsk(d.recsh);return;}
   if(d.recgo){recGo(d.recgo);return;}
   if('prophdel' in d){PROPH='';PROPH_IMG=null;try{localStorage.removeItem('klapp-pro-photo');}catch(e){}render(false);toast('Фото убрано');return;}
@@ -5571,7 +5820,7 @@ new MutationObserver(()=>{
 /* 3.11.4: плашка «Вышла новая версия» для сайта (window.klappNewVer — для проверок) */
 window.klappNewVer=function(){newVerBanner();};
 function newVerBanner(){if(document.getElementById('nvb'))return;
-  var cur='4.24';
+  var cur='4.25';
   function show(v){if(v&&v===cur)return;var b=document.createElement('div');b.id='nvb';b.className='nvb';b.setAttribute('role','status');
     b.innerHTML='<span class="tx"><b>Вышла новая версия'+(v?' '+v:'')+'</b><small>Обновление займёт секунду</small></span><button type="button" class="nvbgo">Обновить</button><button type="button" class="nvbx" aria-label="Позже">×</button>';
     b.querySelector('.nvbgo').onclick=function(){location.reload();};b.querySelector('.nvbx').onclick=function(){b.remove();};document.body.appendChild(b);}
