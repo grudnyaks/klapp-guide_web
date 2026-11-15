@@ -4854,11 +4854,13 @@ const cardStyleBadge=(st,R)=>st==='night'?(R.kind==='kit'?'Процедура в
 
 /* --- «Совет эксперта» --- */
 let TIP=null;
+/* 4.41: две первых фразы описания — целиком, без обрезки «X — » (раньше срез шёл по длине укороченной фразы и рвал слово) */
+function sent2(t){t=String(t||'').trim();const a=sentEnd(t);if(a<=0||a>=t.length)return t;const r=t.slice(a).trim(),b=sentEnd(r);return (t.slice(0,a).trim()+' '+(b>0?r.slice(0,b):r).trim()).trim();}
 function tipFact(src){let term='',text='',kicker='',tags=[];
   const g=src&&src.indexOf('g:')===0?gById[src.slice(2)]:null;
-  if(g){term=g.n;text=cut(firstSent(g.d)+(g.d.length>firstSent(g.d).length?' '+firstSent(g.d.slice(firstSent(g.d).length).trim()):''),300);kicker=D.gcats[g.c]||'';}
+  if(g){term=g.n;text=cut(sent2(g.d),300);kicker=D.gcats[g.c]||'';}
   else{const F=factPool();const n=dayN();const f=n%2===0?F.A[(n/2)%F.A.length]:F.B[((n-1)/2)%F.B.length];kicker=f.c||'';
-    const gg=f.g&&gById[f.g];if(gg){term=gg.n;text=cut(firstSent(gg.d),300);}else{const m=String(f.t).match(/^(.{3,60}?)(?: — |: )(.+)$/);if(m){term=m[1];text=m[2].charAt(0).toUpperCase()+m[2].slice(1);}else{term='Знаете ли вы?';text=f.t;}}}
+    const gg=f.g&&gById[f.g];if(gg){term=gg.n;text=cut(sent2(gg.d),300);}else{const m=String(f.t).match(/^(.{3,60}?)(?: — |: )(.+)$/);if(m){term=m[1];text=m[2].charAt(0).toUpperCase()+m[2].slice(1);}else{term='Знаете ли вы?';text=f.t;}}}
   return {term,text,kicker,tags};}
 function tipAsk(src){const fact=(src==='fact'||String(src).indexOf('g:')===0)?tipFact(src):null;
   TIP={tpl:fact?'fact':(STORY_T[src]&&src!=='product'?src:'quote'),fact:fact||tipFact('fact')};
@@ -7248,7 +7250,7 @@ function settings39(){const ch=MGR.ch;const ph=ch==='tg'?'@username в Telegram'
   ${stStyleSeg()}
   <div class="cbtns" style="padding-top:4px"><button class="btn ghost sm" data-tipsty="quote">Сторис «Совет эксперта»</button></div>
   <div class="grp">Резервная копия</div><p class="snote" style="padding:0 20px">${esc(bkLine())}. В копию входят карты клиентов (с отметками о согласии), протоколы, мои препараты, ваши правки схем ухода, заказ и сравнение, избранное, тесты, награды и рекорд игры, карточки и вопросы дня, ваши контакты, фото, менеджер и настройки вида.</p>
-  <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button></div>`;}
+  <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button><label class="btn ghost sm" style="cursor:pointer">Загрузить из файла<input type="file" accept="application/json,.json" data-cimport hidden></label></div>`;}
 document.addEventListener('change',e=>{const t=e.target;if(!t||!t.id)return;
   if(t.id==='pro-photo-in'){proPhotoSet(t.files&&t.files[0]);t.value='';return;}
   if(t.id.startsWith('mgr-')){MGR[t.id.slice(4)]=t.value.trim();LSset('klapp-mgr',MGR);if(t.id==='mgr-ch')render(false);else toast('Менеджер сохранён');}
