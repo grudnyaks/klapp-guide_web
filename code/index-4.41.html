@@ -17,7 +17,7 @@
    Скачанная обязана подтвердить нормальный запуск (__otaOk) за 12 с, иначе — пометка «плохая» и мгновенный возврат на встроенную.
    Жёсткий сбой без подтверждения: после 2 попыток версия помечается плохой. Новый APK сам отменяет скачанное (Capacitor сбрасывает путь). */
 (function(){var W=window,ls,ss;try{ls=W.localStorage;ss=W.sessionStorage;}catch(e){return;}
- var BV='4.40',K='klapp-ota';
+ var BV='4.41',K='klapp-ota';
  function cmp(a,b){a=String(a).split('.').map(Number);b=String(b).split('.').map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var x=a[i]||0,y=b[i]||0;if(x!==y)return x>y?1:-1;}return 0;}
  function get(){try{return JSON.parse(ls.getItem(K)||'null');}catch(e){return null;}}
  function put(o){try{ls.setItem(K,JSON.stringify(o));}catch(e){}}
@@ -1178,6 +1178,29 @@ html.glowmode .tabs button,:root.glowmode[data-ui] .tabs button{color:rgba(255,2
 @keyframes accwIn{from{opacity:0}to{opacity:1}}@keyframes accwPop{from{transform:scale(.85) translateY(30px);opacity:0}to{transform:none;opacity:1}}
 @keyframes accwShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
 @media (prefers-reduced-motion:reduce){.accw,.accw-c,.accw-i{animation:none}}
+/* 4.41: стили документов клиенту */
+.dst-official{background:linear-gradient(#ff4438 0 38%,#fff 38%)}.dst-clinic{background:#f3f5f5;box-shadow:inset 0 0 0 1px #b9c2c3}.dst-cream{background:#f3ece3}
+.rfpv{max-height:38vh;overflow:auto;border-radius:12px;background:var(--panel,#f3f3f1);text-align:center}.rfpv img{width:100%;display:block}
+.rfdoc .fsz{margin:0}
+/* 4.41: визит — «Выполнено» для клиента, домашний уход, следующий визит */
+.vq{padding:8px 0;border-top:1px solid var(--line,#e4e4e2)}.vq:first-child{border-top:0}.vq b{display:block;font-weight:500;font-size:14px;margin-bottom:6px}
+.vqr{display:flex;gap:6px}.vqr input,.vqr select{min-width:0;flex:1;font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#ddd);background:var(--card,#fff);color:inherit}
+.vqr input[data-vq$="|n"]{flex:0 0 76px}.vqr select{flex:0 0 72px}
+.vhc{margin:14px 20px 0;padding:12px 14px;border-radius:16px;background:var(--card,#fff);border:1px solid var(--line,#e4e4e2);display:grid;gap:8px}
+.vhr{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.vhr>span{font-size:14px}.vhr .fsz{margin:0}
+.rfparts{display:flex;flex-wrap:wrap;gap:6px}.rfparts button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line,#ddd);background:transparent;color:inherit}
+.rfparts button[aria-pressed="true"]{background:var(--ink,#111);color:var(--paper,#fff);border-color:transparent}.rfparts .snote{flex-basis:100%;margin:0}
+/* 4.41: куратор — «Смотреть как» */
+.vaw{margin:10px 20px 0;padding:10px 12px;border-radius:16px;border:1px dashed var(--line,#ccc);display:grid;gap:8px}.vak{font:500 11px/1 "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#888)}
+.vas{display:flex;flex-wrap:wrap;gap:6px}.vas button{font:inherit;font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line,#ddd);background:transparent;color:inherit}.vas button[aria-pressed="true"]{background:#ff4438;color:#fff;border-color:transparent}
+#vabar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:9000;font:inherit;font-size:12.5px;padding:8px 14px;border-radius:999px;border:0;background:#111;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.25);white-space:nowrap}#vabar b{font-weight:500;color:#ff8a7f}
+/* 4.41: кабинет — первый клиент и «Ещё» */
+.cfirst{margin:12px 20px 4px;padding:16px;border-radius:18px;background:var(--card,#fff);border:1px solid var(--line,#e4e4e2)}.cfirst b{font-size:17px;font-weight:500}.cfirst ol{margin:8px 0 12px;padding-left:20px;font-size:14px;line-height:1.5}.cfirst p{margin:10px 0 0;font-size:12.5px;color:var(--muted,#888)}.cfirst .btn{width:100%;justify-content:center}
+.cabmore{margin:14px 0 0;border-top:1px solid var(--line,#e4e4e2)}.cabmore>summary{list-style:none;cursor:pointer;padding:14px 20px;font-size:14px;display:flex;flex-direction:column;gap:2px}.cabmore>summary::-webkit-details-marker{display:none}.cabmore>summary::after{content:"›";position:absolute;right:24px;transform:rotate(90deg);font-size:20px;color:var(--muted,#888)}.cabmore>summary{position:relative}.cabmore[open]>summary::after{transform:rotate(-90deg)}.cabmore>summary small{font-size:12px;color:var(--muted,#888)}
+.mbnote{font-size:11.5px;opacity:.7}
+/* 4.41: назначение — расход и частота свёрнуты, по умолчанию нормы KLAPP */
+.pdet{margin:6px 0 0}.pdet>summary{list-style:none;cursor:pointer;margin:0 20px;padding:12px 14px;border-radius:14px;border:1px solid var(--line,#e4e4e2);display:flex;flex-direction:column;gap:2px;position:relative}.pdet>summary::-webkit-details-marker{display:none}
+.pdet>summary span{font-size:14px}.pdet>summary small{font-size:12.5px;color:var(--muted,#888);padding-right:22px}.pdet>summary::after{content:"›";position:absolute;right:16px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:20px;color:var(--muted,#888)}.pdet[open]>summary::after{transform:translateY(-50%) rotate(-90deg)}.pdet[open]>summary{margin-bottom:6px}
 /* 4.3: сводка карты клиента, быстрый визит, «Пора пригласить» (префиксы cs-, cq-) */
 .cs-sum{margin:14px 16px 0;padding:6px 16px 14px;border-radius:16px;border:1px solid var(--line);background:var(--paper)}
 .cs-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
@@ -1741,7 +1764,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://grudnyaks.github.io/klapp-guide_web/content/',cv:'202611141730',date:'2026-11-14',app:'4.40',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"baea594fa8704f3f","home:A9002":"686c510fae30a79d","home:A9003":"3f4988ecfa179240","home:A9004":"a4262e20efdad012","home:A9006":"19761a20e1b28607","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"33ae1b1455bcc050","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://app.gru-pro.ru/content/',cv:'202611141730',date:'2026-11-14',app:'4.41',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"baea594fa8704f3f","home:A9002":"686c510fae30a79d","home:A9003":"3f4988ecfa179240","home:A9004":"a4262e20efdad012","home:A9006":"19761a20e1b28607","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"33ae1b1455bcc050","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -1908,6 +1931,12 @@ function setTop(title,back,extra){
   top.innerHTML=(back?`<button class="back" aria-label="Назад" data-back>${I.back}</button><div class="ttl">${esc(title)}</div>`:`<div class="brand"><b>KLAPP</b><span>skin care science</span></div>`)+(extra||(back?'':icons));
 }
 let GLOW_ON=false,SWIPE_DIR=0;
+/* 4.41: типографика экрана — неразрывный пробел после коротких предлогов и союзов, чтобы они не висели в конце строки */
+const NBSP_RE=/(^|[\s(«"„—–])((?:[вВкКсСуУоОиИаАяЯ]|во|Во|ко|Ко|со|Со|на|На|по|По|за|За|из|Из|от|От|до|До|не|Не|ни|Ни|но|Но|об|Об|для|Для|без|Без|под|Под|над|Над|при|При|про|Про)) +/g;
+function typoNbsp(root){try{if(!root||root.nodeType!==1)return;if(root.closest&&root.closest('textarea,script,style,code,pre,[contenteditable]'))return;
+  const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentNode;return p&&/^(TEXTAREA|SCRIPT|STYLE|CODE|PRE|OPTION)$/.test(p.nodeName)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  let n;while((n=tw.nextNode())){const v=n.nodeValue;if(v.length>3&&v.indexOf(' ')>=0){const w=v.replace(NBSP_RE,'$1$2 ').replace(NBSP_RE,'$1$2 ');if(w!==v)n.nodeValue=w;}}}catch(e){}}
+try{new MutationObserver(ms=>{for(const m of ms)for(const a of m.addedNodes)if(a.nodeType===1)typoNbsp(a);}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 function render(fresh){
   const due=cabDueCount();
   const curTab=TABMAP[state.tab]||state.tab;
@@ -2592,6 +2621,7 @@ VIEWS.cab=function(s){
   const dueBy={}; due.forEach(x=>dueBy[x.c.id]=(dueBy[x.c.id]||0)+1);
   return `<section class="intro"><h1>Кабинет косметолога</h1><p>Карты клиентов, назначения и напоминания о повторной покупке. Все данные хранятся только на этом устройстве.</p></section>
   ${bkCard()}
+  ${CAB.clients.length?'':`<div class="cfirst"><b>Начните с первого клиента</b><ol><li>Карта клиента: имя, телефон, тип кожи — минута.</li><li>Визит: состояние кожи, что выполнено, домашний уход.</li><li>Клиенту — итоги визита в фирменном стиле. Приложение само напомнит, когда пора докупить уход.</li></ol><button class="btn red" data-cnew>${I.plus} Первый клиент</button><p>Клиенты хранятся только на этом телефоне и никуда не отправляются.</p></div>`}
   ${CAB.clients.length?hint('cab','С чего начать','Откройте клиента → «Визит и диагностика». Назначения из визита сами напомнят, когда клиенту пора докупить уход.'):''}
   <button class="ocard" data-oopen><span class="tx"><b>Мой заказ</b><span>${ORD.items.length?`${ordCount()} ${plural(ordCount(),'позиция','позиции','позиций')} · ${ordUnits()} шт. — отправить менеджеру`:'Соберите список позиций для менеджера'}</span></span>${ORD.items.length?`<i>${ordCount()}</i>`:''}${I.go}</button>
   ${crmMonthHTML()}
@@ -2601,12 +2631,14 @@ VIEWS.cab=function(s){
   <div class="grp">Клиенты · ${CAB.clients.length}</div>
   <div style="padding:0 20px 8px"><button class="hsearch" data-csearch>${I.search}<span>Клиент, телефон, препарат или протокол</span></button></div>
   <div id="clist">${clientRows(list,dueBy)}</div>
+  <details class="cabmore"${s.cmore?' open':''}><summary>Ещё: авторские протоколы, ${_t('мои препараты')}, выгрузка<small>${PROTOS.length} ${plural(PROTOS.length,'протокол','протокола','протоколов')} · ${MY.length} ${plural(MY.length,'препарат','препарата','препаратов')}</small></summary>
   ${CAB.clients.length?'<div class="cbtns" style="padding-top:10px"><button class="btn ghost sm" data-cliexpask>Выгрузить клиентов таблицей</button></div>':''}
   <div class="grp">Мои авторские протоколы · ${PROTOS.length}</div>
   ${PROTOS.map(p=>`<button class="row" data-pview="${p.id}"><span class="tx"><span class="nm">${esc(p.name)}</span><span class="sb">${p.steps.length} ${plural(p.steps.length,'этап','этапа','этапов')}${prTotal(p)?' · ≈ '+prTotal(p)+' мин':''}</span></span>${I.go}</button>`).join('')||'<p class="empty">Протоколов пока нет.</p>'}
   <div class="cbtns" style="padding-top:10px"><button class="btn ghost sm" data-pnew2>${I.plus} Составить протокол</button></div>
   <div class="grp">${_t('Мои препараты')} · ${MY.length}</div>
   <button class="row" data-mylist><span class="tx"><span class="nm">${MY.length?esc(MY.slice(0,3).map(m=>m.name).join(', '))+(MY.length>3?'…':''):_t('Препараты других брендов')}</span><span class="sb">${_t('Для авторских протоколов и домашнего ухода — в каталог и заказ не попадают')}</span></span>${I.go}</button>
+  </details>
   <div class="grp">Резервная копия</div>
   <p class="bkst">${esc(bkLine())}</p>
   <p class="snote" style="padding:0 20px">В копию входят карты клиентов, авторские протоколы, ${_t('мои препараты')}, заказ, избранное, результаты тестов, карточки, серия и коллекция, а также ваши контакты для клиентов и фото. Сохраните её перед сменой телефона или переустановкой приложения — без неё эти данные не восстановить.</p>
@@ -2667,7 +2699,7 @@ VIEWS.cclient=function(s){
   ${w.map(x=>`<div class="warn">${esc(x)}</div>`).join('')}
   <div class="grp">Назначения · ${act.length}</div>
   ${act.length?act.map(pl=>planRow(c,pl)).join(''):'<p class="empty">Активных назначений нет. Добавьте их после диагностики или вручную.</p>'}
-  ${act.length?`<div class="cbtns" style="padding-top:12px"><button class="btn red sm" data-share="${c.id}">Шпаргалка по уходу клиенту</button></div>`:''}
+  ${act.length||visits.length||(typeof cphPair==='function'&&cphPair(c))?`<div class="cbtns" style="padding-top:12px"><button class="btn red sm" data-cli2="${c.id}">Клиенту…</button></div>`:''}
   ${cphHTML(c)}
   <div class="grp">Визиты · ${visits.length}</div>
   ${visits.length?visits.map(v=>{const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;const kt=v.kit&&itemById[v.kit];return `<div class="vrow"><button class="row" data-vopen="${c.id}|${v.id}"><span class="tx"><span class="nm">${fD(v.date)}</span><span class="sb">${kt?'Набор «'+esc(kt.sub)+'» · ':''}${pr?'Протокол «'+esc(pr.name)+'» · ':''}${(v.other||[]).length?esc(v.other.join(', '))+' · ':''}${esc((v.sym||[]).map(x=>symById[x]?symById[x].n:'').filter(Boolean).join(', ')||v.note||'Без отметок')}</span></span>${I.go}</button><button class="btn ghost sm vsend" data-vshare="${c.id}|${v.id}">Итоги визита клиенту</button></div>`;}).join(''):'<p class="empty">Визитов пока нет.</p>'}
@@ -2688,10 +2720,42 @@ VIEWS.cedit=function(s){
   <div class="cbtns" style="padding-top:12px"><button class="btn red" data-csave="${c?c.id:''}">Сохранить</button></div>`;
 };
 /* визит: черновик в памяти, чтобы отметки не терялись при перерисовке */
+/* 4.41: «Выполнено» — что увидит клиент: количество, единица, зона у каждой строки */
+const VUNIT=['мл','ед.','шт.','мин'],VZONES=['лицо','шея','декольте','веки','межбровье','лоб','гусиные лапки','носогубные складки','губы','подбородок','кисти рук','кожа головы','тело'];
+const vUnitDef=k=>/Ботулино/.test(k)?'ед.':/Биорев|Мезо|Контурн|Плазмо/.test(k)?'мл':k.indexOf('p:')===0?'мл':'';
+function vDone(d){const L=[];if(d.kit&&itemById[d.kit])L.push(['kit','Процедурный набор «'+itemById[d.kit].sub+'»',0]);
+  const pr=d.proto?PROTOS.find(x=>x.id===d.proto):null;if(pr)L.push(['proto','Процедура «'+pr.name+'»',0]);
+  (d.proc||[]).forEach(id=>{const it=itemById[id];if(it)L.push(['p:'+id,it._f==='kit'?'Процедурный набор «'+it.sub+'»':it.name,1]);});
+  (d.other||[]).forEach(t=>L.push(['o:'+t,t,1]));return L;}
+function vDoneHTML(d){const L=vDone(d);if(!L.length)return '<p class="snote" style="margin:0">Отметьте выше, что выполнялось, — здесь появятся строки для клиента.</p>';
+  return L.map(([k,t,qn])=>{const q=d.q[k]||{},u=q.u!=null?q.u:vUnitDef(k);return `<div class="vq"><b>${esc(t)}</b><div class="vqr">${qn?`<input type="text" inputmode="decimal" maxlength="6" data-vq="${esc(k)}|n" value="${esc(q.n||'')}" placeholder="кол-во" aria-label="Количество: ${esc(t)}"><select data-vq="${esc(k)}|u" aria-label="Единица">${['',...VUNIT].map(x=>`<option value="${x}" ${u===x?'selected':''}>${x||'—'}</option>`).join('')}</select>`:''}<input type="text" list="vzl" maxlength="60" data-vq="${esc(k)}|z" value="${esc(q.z||'')}" placeholder="зона" aria-label="Зона: ${esc(t)}"></div></div>`;}).join('')+`<datalist id="vzl">${VZONES.map(z=>`<option value="${z}">`).join('')}</datalist>`;}
+function vDoneRef(){const w=document.getElementById('vdone');if(w&&VDRAFT)w.innerHTML=vDoneHTML(VDRAFT);}
+function vQClean(d){const o={};vDone(d).forEach(([k])=>{const q=d.q[k]||{},u=q.u!=null?q.u:vUnitDef(k);const r={n:(q.n||'').trim(),u,z:(q.z||'').trim()};if(r.n||r.z)o[k]=r;});return o;}
+document.addEventListener('input',e=>{const a=e.target.dataset&&e.target.dataset.vq;if(!a||!VDRAFT)return;const i=a.lastIndexOf('|'),k=a.slice(0,i),f=a.slice(i+1);(VDRAFT.q[k]=VDRAFT.q[k]||{})[f]=e.target.value;});
+document.addEventListener('change',e=>{const a=e.target.dataset&&e.target.dataset.vq;if(a&&VDRAFT){const i=a.lastIndexOf('|');(VDRAFT.q[a.slice(0,i)]=VDRAFT.q[a.slice(0,i)]||{})[a.slice(i+1)]=e.target.value;return;}
+  if((e.target.id==='v-kit'||e.target.id==='v-proto')&&VDRAFT)setTimeout(vDoneRef,0);});
+/* 4.41: домашний уход — назначен (сам, если в этот день добавлены средства) и приобретён: да / позже / нет. Для всех косметологов */
+const vHn=(d,c)=>d.hn||((c&&(c.plans||[]).some(p=>p.start===d.date))?'y':'');
+function vHcBlock(d,c){const hn=vHn(d,c);const seg=(a,L,cur)=>`<div class="fsz stsg" role="group">${L.map(([k,l])=>`<button data-${a}="${k}" aria-pressed="${cur===k}">${l}</button>`).join('')}</div>`;
+  return `<div class="vhc" id="vhcw">${sklOk()?sklVisitHint(c):''}<div class="vhr"><span>Домашний уход назначен</span>${seg('vhn',[['y','да'],['n','нет']],hn)}</div>${hn==='y'?`<div class="vhr"><span>Приобретён</span>${seg('vhb',[['y','да'],['l','позже'],['n','нет']],d.hc)}</div>`:''}${!d.hn&&hn==='y'?'<p class="snote" style="margin:0">«Назначен» отмечен сам: сегодня добавлены средства.</p>':''}</div>`;}
+/* 4.41: следующий визит — вместо заметок в карточке клиента */
+const vNxDate=(d,nx)=>nx.dt||(nx.d?iso(new Date(new Date(d+'T12:00:00').getTime()+nx.d*864e5)):'');
+function vNextBlock(d){const nx=d.nx||{};return `<div class="vhc" id="vnxw"><div class="vhr"><span>Следующий визит</span><div class="fsz stsg" role="group">${[['check','чек-ап'],['proc','процедура']].map(([k,l])=>`<button data-vnk="${k}" aria-pressed="${nx.k===k}">${l}</button>`).join('')}</div></div>
+  <div class="vhr"><span>Через, дней</span><div class="fsz stsg" role="group">${[7,14,21,30].map(n=>`<button data-vnd="${n}" aria-pressed="${nx.d===n}">${n}</button>`).join('')}</div></div>
+  <label class="field" style="padding:4px 0 0"><span>или дата</span><input type="date" data-vnx="dt" value="${esc(nx.dt||'')}"></label></div>`;}
+document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.vnx==='dt'&&VDRAFT){VDRAFT.nx.dt=e.target.value;if(e.target.value)VDRAFT.nx.d=0;}});
+/* 4.41: одна кнопка «Клиенту» — что отправить: итоги визита, домашний уход, до и после */
+function cliSendSheet(c){const lv=(c.visits||[]).slice().sort((x,y)=>x.date<y.date?1:-1)[0],act=(c.plans||[]).some(p=>p.status==='active'),ph=typeof cphPair==='function'&&cphPair(c);
+  const row=(attr,t,sb)=>`<button class="row" ${attr}><span class="tx"><span class="nm">${t}</span><span class="sb">${sb}</span></span>${I.go}</button>`;
+  sheet(`<b>Клиенту</b><p class="snote" style="margin:-4px 0 6px">Что отправить ${esc(nameCase(firstName(c.name),'dat'))}? Перед отправкой — превью, стиль и подпись.</p>
+   ${lv?row(`data-vshare="${c.id}|${lv.id}"`,'Итоги визита',fD(lv.date)+' · что выполнено, уход, следующий визит'):''}
+   ${act?row(`data-share="${c.id}"`,'Домашний уход','назначенные средства: когда и как применять'):''}
+   ${ph?row(`data-cphsend="${c.id}"`,'До и после','два снимка рядом'):''}
+   <button class="cx2" data-sheetx>Отмена</button>`);}
 let VDRAFT=null;
 VIEWS.cvisit=function(s){
   const c=cById(s.cid); if(!c) return VIEWS.cab({});
-  if(!VDRAFT||VDRAFT.cid!==c.id||VDRAFT.vid!==(s.vid||'')){const v=s.vid?(c.visits||[]).find(x=>x.id===s.vid):null;VDRAFT={cid:c.id,vid:s.vid||'',date:v?v.date:todayS(),sym:v?[...(v.sym||[])]:[],proc:v?[...(v.proc||[])]:[],note:v?v.note||'':'',proto:v?v.proto||'':'',kit:v?v.kit||'':'',other:v?[...(v.other||[])]:[],otherNote:v?v.otherNote||'':'',anam:Object.assign({},v&&v.anam||{}),stl:Object.assign({},v&&v.stl||{}),diag:Object.assign({},v&&v.diag||{}),hc:v?v.hc||'':'',pq:'',step:1};}
+  if(!VDRAFT||VDRAFT.cid!==c.id||VDRAFT.vid!==(s.vid||'')){const v=s.vid?(c.visits||[]).find(x=>x.id===s.vid):null;VDRAFT={cid:c.id,vid:s.vid||'',date:v?v.date:todayS(),sym:v?[...(v.sym||[])]:[],proc:v?[...(v.proc||[])]:[],note:v?v.note||'':'',proto:v?v.proto||'':'',kit:v?v.kit||'':'',other:v?[...(v.other||[])]:[],otherNote:v?v.otherNote||'':'',anam:Object.assign({},v&&v.anam||{}),stl:Object.assign({},v&&v.stl||{}),diag:Object.assign({},v&&v.diag||{}),hc:v?v.hc||'':'',hn:v?v.hn||'':'',q:JSON.parse(JSON.stringify(v&&v.q||{})),nx:Object.assign({},v&&v.nx||{}),pq:'',step:1};}
   const d=VDRAFT, st=d.step||1;
   setTop(c.name+' · визит',true);
   const steps=['Состояние кожи','Процедура','Домашний уход'];
@@ -2707,13 +2771,14 @@ VIEWS.cvisit=function(s){
     <button class="btn ghost sm" data-vproto style="margin-top:8px">${I.plus} Составить протокол сейчас</button></div>
    <div class="vsec"><p class="vh">Отдельные кабинетные препараты</p><input class="vsel" id="prq" type="search" autocomplete="off" placeholder="Название или артикул препарата" aria-label="Поиск кабинетного препарата"><div id="prres" style="margin:4px -14px 0"></div><div class="gchips" id="procs">${procHTML()}</div></div>
    <div class="vsec"><p class="vh">Другие процедуры и манипуляции</p><div class="syms" style="padding:0">${OTHER_PROC.map(x=>`<button data-oproc="${esc(x)}" aria-pressed="${d.other.includes(x)}">${esc(x)}</button>`).join('')}</div>
-    <textarea class="vsel" id="v-other" style="margin-top:8px;min-height:70px" placeholder="Препарат, зона, дозировка, техника — например: биоревитализация, 2 мл, лицо">${esc(d.otherNote)}</textarea></div>
-   <label class="field" style="margin-top:4px"><span>Заметки визита</span><textarea id="v-note" placeholder="Реакция кожи, пожелания клиента, что учесть в следующий раз">${esc(d.note)}</textarea></label>`;
+    <textarea class="vsel" id="v-other" style="margin-top:8px;min-height:60px" placeholder="Что ещё выполнено — увидит клиент">${esc(d.otherNote)}</textarea></div>
+   <div class="vsec vdone"><p class="vh">Выполнено — так увидит клиент</p><div id="vdone">${vDoneHTML(d)}</div></div>
+   <label class="field" style="margin-top:4px"><span>Заметки визита · видите только вы</span><textarea id="v-note" placeholder="Реакция кожи, пожелания клиента, что учесть в следующий раз">${esc(d.note)}</textarea></label>`;
   else body=`<div class="grp">Рекомендации по состоянию кожи</div><div id="recs">${recsHTML(c)}</div>
    <div class="grp">Найти препарат</div><div class="gsearch"><input id="pq" type="search" autocomplete="off" placeholder="Название или артикул" value="${esc(d.pq)}" aria-label="Поиск препарата"></div><div id="pres">${pickHTML(c,d.pq)}</div>`;
   const nav=st<3?`<div class="wnav">${st>1?`<button class="btn ghost" data-vstep="${st-1}">Назад</button>`:''}<button class="btn red" data-vstep="${st+1}">Далее</button></div>`
     :`<div class="wnav"><button class="btn ghost" data-vstep="2">Назад</button><button class="btn red" data-vsave="${c.id}">Сохранить</button></div><div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-vsave="${c.id}" data-vsend="1">Сохранить и отправить итоги клиенту</button></div>`;
-  const hcB=st===3&&sklOk()?sklHcBlock(d,c):'';
+  const hcB=st===3?vHcBlock(d,c)+vNextBlock(d):'';
   return `<section class="intro" style="padding-bottom:4px"><h1>${s.vid?'Визит':'Новый визит'}</h1></section>${ind}${body}${hcB}${nav}
    ${s.vid?`<div class="cbtns" style="padding-top:18px"><button class="btn ghost sm danger" data-vdel="${c.id}|${s.vid}">Удалить визит</button></div>`:''}`;
 };
@@ -2760,10 +2825,12 @@ VIEWS.cplan=function(s){
   const k=planCalc(draft);
   return `<section class="phead"><p class="lbl">${[p._l.name,CATN[cm.cat]||''].filter(Boolean).map(esc).join(' · ')}</p><h1>${p._f==='my'?esc(p.name):nice(p.name)}</h1><div class="chips">${p.art?`<span class="k">арт. ${esc(p.art)}</span>`:''}${p.vol?`<span>${esc(p.vol)}</span>`:''}${p.when?`<span>${esc(p.when)}</span>`:''}${p._f==='my'?`<button class="k" data-item="${esc(p._id)}" style="cursor:pointer">${_t('Изменить препарат')}</button>`:''}</div></section>
   <label class="field"><span>Начало использования</span><input id="p-start" type="date" value="${draft.start}"></label>
+  <details class="pdet"><summary><span>Расход и частота</span><small>${esc(String(draft.dose).replace('.',','))} ${esc(cm.cat==='amp'?'амп.':cm.unit==='шт.'?'шт.':cm.unit==='г'?'г':'мл')} за раз · ${esc(freqName(draft.fpd).toLowerCase())} · ${draft.packs||1} уп. — по нормам KLAPP, можно не менять</small></summary>
   ${cm.cat==='serum'?`<label class="field"><span>Зона нанесения</span><select id="p-area"><option value="fn" ${draft.area!=='fnd'?'selected':''}>Лицо и шея — 0,5 мл</option><option value="fnd" ${draft.area==='fnd'?'selected':''}>Лицо, шея и декольте — 1 мл</option></select></label>`:''}
   <div class="field"><div class="row2"><label><span style="display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Расход за раз, ${esc(cm.cat==='amp'?'амп.':cm.unit==='шт.'?'шт.':cm.unit==='г'?'г':'мл')}</span><input id="p-dose" inputmode="decimal" value="${String(draft.dose).replace('.',',')}"></label>
    <label><span style="display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Упаковок</span><input id="p-packs" inputmode="numeric" value="${draft.packs||1}"></label></div></div>
   <label class="field"><span>Частота</span><select id="p-fpd">${FREQS.map(([f,n])=>`<option value="${f}" ${Math.abs(f-draft.fpd)<0.01?'selected':''}>${n}</option>`).join('')}${FREQS.some(q=>Math.abs(q[0]-draft.fpd)<0.01)?'':`<option value="${draft.fpd}" selected>${esc(freqName(draft.fpd))}</option>`}</select></label>
+  </details>
   <div class="calc" id="pcalc">${calcHTML(k,p)}</div>
   <div class="cbtns" style="padding-top:14px"><button class="btn red" data-psave="${c.id}|${pl?pl.id:''}|${esc(draft.item)}">Сохранить</button>${pl?`<button class="btn ghost" data-pdone="${c.id}|${pl.id}">Завершить</button><button class="btn ghost" data-pdel="${c.id}|${pl.id}" style="border-color:var(--red);color:var(--red)">Удалить</button>`:''}</div>
   <p class="snote" style="padding:12px 20px 0">Нормы расхода: крем — 0,5 мл (лицо и шея), крем для век — 0,2 мл, сыворотка — 0,5 мл (лицо и шея) или 1 мл (с декольте), маска — 4 мл (ночная несмываемая — 1 мл), кислотный пилинг — 1 мл, энзимный — 4 мл, ампулы — 1 шт. за раз. Для очищения, тоника, SPF и средств для тела заданы ориентировочные значения — уточните при необходимости.</p>`;
@@ -2785,7 +2852,7 @@ function shareText(c){
   const act=(c.plans||[]).filter(x=>x.status==='active').map(x=>({pl:x,p:itemById[x.item]})).filter(x=>x.p);
   const lines=act.map(x=>{const meta=[brandOf(x.p),x.p.art?'арт. '+x.p.art:''].filter(Boolean).join(', ');return `• ${x.p.name}${meta?' ('+meta+')':''} — ${freqName(x.pl.fpd).toLowerCase()}${x.p.when&&!/курс/i.test(x.p.when)?' ('+x.p.when.toLowerCase()+')':''}${x.p._f==='my'&&x.p.how?'\n  '+x.p.how:''}`;});
   const neutral=act.some(x=>x.p._f==='my');
-  return `${c.name}, ${neutral?_t('ваш домашний уход:'):'ваш домашний уход KLAPP:'}\n\n${lines.join('\n')}\n\nЕсли появится дискомфорт или вопросы — напишите мне.${proSign()?'\n'+proSign():''}`;
+  return `${firstName(c.name)}, ${neutral?_t('ваш домашний уход:'):'ваш домашний уход KLAPP:'}\n\n${lines.join('\n')}\n\nЕсли появится дискомфорт или вопросы — напишите мне.${proSign()?'\n'+proSign():''}`;
 }
 async function doShare(text){
   const cap=await window.__cap;
@@ -2856,7 +2923,11 @@ function cabClick(d,b){
   if(d.vnew){VDRAFT=null;go({tab:'cab',view:'cvisit',cid:d.vnew},state.view==='vpick');return true;}
   if(d.vopen){const [cid,vid]=d.vopen.split('|');VDRAFT=null;go({tab:'cab',view:'cvisit',cid,vid});return true;}
   if(d.psym){const i=PSYM.indexOf(d.psym);if(i>=0)PSYM.splice(i,1);else PSYM.push(d.psym);b.setAttribute('aria-pressed',i<0);buzz(6);$('#psres').innerHTML=psymRes();return true;}
-  if(d.oproc&&VDRAFT){const i=VDRAFT.other.indexOf(d.oproc);if(i>=0)VDRAFT.other.splice(i,1);else VDRAFT.other.push(d.oproc);b.setAttribute('aria-pressed',i<0);buzz(6);return true;}
+  if(d.oproc&&VDRAFT){const i=VDRAFT.other.indexOf(d.oproc);if(i>=0)VDRAFT.other.splice(i,1);else VDRAFT.other.push(d.oproc);b.setAttribute('aria-pressed',i<0);buzz(6);vDoneRef();return true;}
+  if(d.vhn&&VDRAFT){VDRAFT.hn=VDRAFT.hn===d.vhn?'':d.vhn;if(vHn(VDRAFT,cById(VDRAFT.cid))!=='y')VDRAFT.hc='';const w=$('#vhcw');if(w)w.outerHTML=vHcBlock(VDRAFT,cById(VDRAFT.cid));return true;}
+  if(d.vhb&&VDRAFT){VDRAFT.hc=VDRAFT.hc===d.vhb?'':d.vhb;document.querySelectorAll('[data-vhb]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.vhb===VDRAFT.hc));return true;}
+  if(d.vnk&&VDRAFT){VDRAFT.nx.k=VDRAFT.nx.k===d.vnk?'':d.vnk;const w=$('#vnxw');if(w)w.outerHTML=vNextBlock(VDRAFT);return true;}
+  if(d.vnd&&VDRAFT){VDRAFT.nx.d=VDRAFT.nx.d===+d.vnd?0:+d.vnd;VDRAFT.nx.dt='';const w=$('#vnxw');if(w)w.outerHTML=vNextBlock(VDRAFT);return true;}
   if('vproto' in d&&VDRAFT){VDRAFT.waitProto=1;PD=null;go({tab:'cab',view:'proto'});return true;}
   if(d.vstep&&VDRAFT){VDRAFT.step=+d.vstep;render(true);return true;}
   if(d.stl&&VDRAFT){const i=d.stl.indexOf('|'),k=d.stl.slice(0,i),v=d.stl.slice(i+1),on=VDRAFT.stl[k]===v; VDRAFT.stl[k]=on?'':v; buzz(6);
@@ -2867,11 +2938,11 @@ function cabClick(d,b){
     if(inPlan(c,item)){go({tab:'cab',view:'cplan',cid,pid:c.plans.find(p=>p.item===item&&p.status==='active').id});return true;}
     c.plans=c.plans||[]; c.plans.push(defaultPlan(item, VDRAFT&&VDRAFT.cid===cid?($('#v-date')||{}).value||todayS():todayS())); cabSave();
     b.setAttribute('aria-pressed','true'); b.innerHTML=I.check; toast('Добавлено в назначения'); return true;}
-  if(d.procadd){if(!VDRAFT.proc.includes(d.procadd)) VDRAFT.proc.push(d.procadd); $('#procs').innerHTML=procHTML(); $('#prres').innerHTML=''; const q=$('#prq'); if(q) q.value=''; return true;}
-  if(d.procdel){VDRAFT.proc=VDRAFT.proc.filter(x=>x!==d.procdel); $('#procs').innerHTML=procHTML(); return true;}
+  if(d.procadd){if(!VDRAFT.proc.includes(d.procadd)) VDRAFT.proc.push(d.procadd); $('#procs').innerHTML=procHTML(); vDoneRef(); $('#prres').innerHTML=''; const q=$('#prq'); if(q) q.value=''; return true;}
+  if(d.procdel){VDRAFT.proc=VDRAFT.proc.filter(x=>x!==d.procdel); $('#procs').innerHTML=procHTML(); vDoneRef(); return true;}
   if(d.vsave){const c=cById(d.vsave); if(!c) return true; c.visits=c.visits||[];
-    const v={id:VDRAFT.vid||uid(),date:VDRAFT.date||todayS(),sym:[...VDRAFT.sym],proc:[...VDRAFT.proc],note:(VDRAFT.note||'').trim(),proto:VDRAFT.proto||'',kit:VDRAFT.kit||'',other:[...VDRAFT.other],otherNote:(VDRAFT.otherNote||'').trim(),anam:VDRAFT.anam,stl:VDRAFT.stl,diag:VDRAFT.diag,hc:VDRAFT.hc||''};
-    try{if(sklOk()){sklAct('visit');if(v.hc){sklAct('hc');const L=sklAll();statEv('уход',(v.hc==='y'?'приобретён':'не приобретён')+' · Код доверия '+L.filter(l=>SKL.done[l.id]).length+'/'+L.length);}}}catch(e){}
+    const v={id:VDRAFT.vid||uid(),date:VDRAFT.date||todayS(),sym:[...VDRAFT.sym],proc:[...VDRAFT.proc],note:(VDRAFT.note||'').trim(),proto:VDRAFT.proto||'',kit:VDRAFT.kit||'',other:[...VDRAFT.other],otherNote:(VDRAFT.otherNote||'').trim(),anam:VDRAFT.anam,stl:VDRAFT.stl,diag:VDRAFT.diag,hn:vHn(VDRAFT,c),hc:vHn(VDRAFT,c)==='y'?VDRAFT.hc||'':'',q:vQClean(VDRAFT),nx:VDRAFT.nx&&(VDRAFT.nx.k||VDRAFT.nx.d||VDRAFT.nx.dt)?Object.assign({},VDRAFT.nx):null};
+    try{if(v.hc||v.hn==='n')statEv('уход',v.hn==='n'?'не назначен':v.hc==='y'?'приобретён':v.hc==='l'?'приобретёт позже':'не приобретён');if(sklOk()){sklAct('visit');if(v.hc)sklAct('hc');}}catch(e){}
     const i=c.visits.findIndex(x=>x.id===v.id); if(i>=0) c.visits[i]=v; else c.visits.push(v);
     VDRAFT=null; cabSave(); buzz(20); toast('Визит сохранён'); history.back(); if(d.vsend){setTimeout(()=>askFormat(visitJob(c,v)),250);} return true;}
   if(d.vdel){const [cid,vid]=d.vdel.split('|'); const c=cById(cid); if(c){const i=c.visits.findIndex(x=>x.id===vid);const v=c.visits[i];c.visits.splice(i,1);VDRAFT=null;cabSave();history.back();undoToast('Визит удалён',()=>{c.visits.splice(i,0,v);cabSave();render(false);});} return true;}
@@ -2886,6 +2957,7 @@ function cabClick(d,b){
   if(d.prestore){const [cid,pid]=d.prestore.split('|'); const c=cById(cid); const pl=c&&c.plans.find(x=>x.id===pid); if(pl){pl.status='active';pl.start=todayS();cabSave();render(true);} return true;}
   if(d.pdel){const [cid,pid]=d.pdel.split('|'); const c=cById(cid); if(c){const i=c.plans.findIndex(x=>x.id===pid);const pl=c.plans[i];c.plans.splice(i,1);cabSave();history.back();undoToast('Назначение удалено',()=>{c.plans.splice(i,0,pl);cabSave();render(false);});} return true;}
   if(d.rebuy){const [cid,pid]=d.rebuy.split('|'); const c=cById(cid); const pl=c&&c.plans.find(x=>x.id===pid); if(pl){crmRebuy(c,pl);pl.start=todayS();pl.rebuy=(pl.rebuy||0)+1;cabSave();render(false);toast('Отсчёт начат заново с сегодняшнего дня');} return true;}
+  if(d.cli2){const c=cById(d.cli2);if(c)cliSendSheet(c);return true;}
   if(d.share){const c=cById(d.share); if(c) askFormat(careJob(c)); return true;}
   if(d.vshare){const [cid,vid]=d.vshare.split('|');const c=cById(cid);const v=c&&(c.visits||[]).find(x=>x.id===vid);if(v)askFormat(visitJob(c,v));return true;}
   if('cexport' in d){doExport();return true;}
@@ -3182,7 +3254,11 @@ function cphView(cid,pid){const c=cById(cid),p=(CPH[cid]||[]).find(x=>x.id===pid
    <div class="fsz stsg"><button data-cphset="${esc(cid)}|${esc(pid)}|a" aria-pressed="${c.phA===pid}">Это «до»</button><button data-cphset="${esc(cid)}|${esc(pid)}|b" aria-pressed="${c.phB===pid}">Это «после»</button></div>
    <button class="btn ghost" data-cphdel="${esc(cid)}|${esc(pid)}" style="border-color:var(--red);color:var(--red)">Удалить фото</button><button class="cx2" data-sheetx>Закрыть</button>`);}
 function cphPair(c){const L=cphOf(c.id);if(L.length<2)return null;let a=L.find(p=>p.id===c.phA)||L[0],b=L.find(p=>p.id===c.phB)||L[L.length-1];if(a===b){a=L[0];b=L[L.length-1];}return [a,b];}
-async function cphCanvas(c){await fontsReady();const pr=cphPair(c);if(!pr)return null;const ims=await Promise.all(pr.map(p=>new Promise(ok=>{const im=new Image();im.onload=()=>ok(im);im.onerror=()=>ok(null);im.src=p.u;})));
+/* 4.41: «до и после» — тем же бланком, что и остальные памятки (стиль, подпись); старый рисунок — cphCanvas0 */
+async function cphCanvas(c){const pr=cphPair(c);if(!pr)return null;const ims=await Promise.all(pr.map(p=>new Promise(ok=>{const im=new Image();im.onload=()=>ok(im);im.onerror=()=>ok(null);im.src=p.u;})));
+  const days=dDiff(pr[0].d,pr[1].d);
+  return drawSheet({kicker:'До и после',title:firstName(c.name),sub:days>0?'Между снимками — '+days+' '+plural(days,'день','дня','дней'):'',pair:pr.map((p,i)=>({im:ims[i],t:(i?'После · ':'До · ')+fD(p.d)})),sections:[],foot:proFoot('Спасибо, что доверяете мне свою кожу.')});}
+async function cphCanvas0(c){await fontsReady();const pr=cphPair(c);if(!pr)return null;const ims=await Promise.all(pr.map(p=>new Promise(ok=>{const im=new Image();im.onload=()=>ok(im);im.onerror=()=>ok(null);im.src=p.u;})));
   const W=1080,P=40,G=16,cw=(W-2*P-G)/2,ch=Math.round(cw*1.33),H=150+ch+150,cv=document.createElement('canvas'),x=cv.getContext('2d');shSize(cv,x,W,H);
   x.fillStyle='#ffffff';x.fillRect(0,0,W,H);x.fillStyle='#111';x.font='500 44px Jost';x.fillText('До и после',P,86);x.fillStyle='#ff4438';x.fillRect(P,110,56,4);
   ims.forEach((im,i)=>{const X=P+i*(cw+G),Y=150;x.save();x.beginPath();if(x.roundRect)x.roundRect(X,Y,cw,ch,28);else x.rect(X,Y,cw,ch);x.clip();x.fillStyle='#eee';x.fillRect(X,Y,cw,ch);
@@ -3195,11 +3271,11 @@ async function cphCompare(cid){const c=cById(cid);if(!c)return;const cv=await cp
   sheet(`<b>До и после</b><p class="snote" style="margin:-4px 0 6px">Какие снимки сравнивать, можно выбрать: откройте фото и отметьте «до» или «после».</p><div class="recpv"><img src="${cv.toDataURL('image/jpeg',0.8)}" alt="До и после"></div>
    <button class="btn red" data-cphsend="${esc(cid)}">Отправить клиенту картинкой</button><button class="cx2" data-sheetx>Закрыть</button>`);}
 /* --- «Мой месяц» и цель недели --- */
-function crmMonth(ym){let v=0,nw=0,ct=0,rb=0,back=0;
+function crmMonth(ym){let v=0,nw=0,ct=0,rb=0,back=0,hn=0,hy=0;
   CAB.clients.forEach(c=>{if(String(c.created||'').slice(0,7)===ym)nw++;const L=c.log||[];
-    (c.visits||[]).forEach(x=>{if(String(x.date).slice(0,7)!==ym)return;v++;if(L.some(e=>e.k==='invite'&&e.d<=x.date&&dDiff(e.d,x.date)<=21))back++;});
+    (c.visits||[]).forEach(x=>{if(String(x.date).slice(0,7)!==ym)return;v++;if(x.hn==='y'){hn++;if(x.hc==='y')hy++;}if(L.some(e=>e.k==='invite'&&e.d<=x.date&&dDiff(e.d,x.date)<=21))back++;});
     L.forEach(e=>{if(String(e.d).slice(0,7)!==ym)return;if(e.k==='remind'||e.k==='invite')ct++;if(e.k==='rebuy'){rb++;if(e.by)back++;}});});
-  return {v,nw,ct,rb,back};}
+  return {v,nw,ct,rb,back,hn,hy};}
 function crmWeek(){const t=new Date(),wd=(t.getDay()+6)%7,mon=addD(todayS(),-wd);let n=0;
   CAB.clients.forEach(c=>{(c.visits||[]).forEach(x=>{if(x.date>=mon&&x.date<=todayS())n++;});(c.log||[]).forEach(e=>{if(e.d>=mon&&(e.k==='remind'||e.k==='invite'))n++;});});return n;}
 const CRM_GOAL=5;
@@ -3208,6 +3284,7 @@ function crmMonthHTML(){if(!CAB.clients.length)return '';const now=new Date(),ym
   const mn=now.toLocaleDateString('ru-RU',{month:'long'});
   return `<div class="crmm"><div class="crmh"><b>Мой ${esc(mn)}</b><span>в сравнении с прошлым месяцем</span></div>
    <div class="crmg">${[[M.v,Pm.v,plural(M.v,'визит','визита','визитов')],[M.nw,Pm.nw,plural(M.nw,'новый клиент','новых клиента','новых клиентов')],[M.ct,Pm.ct,plural(M.ct,'сообщение','сообщения','сообщений')+' клиентам'],[M.back,Pm.back,'вернулись по напоминанию']].map(([a,b,l])=>`<div><b>${a}${dl(a,b)}</b><span>${l}</span></div>`).join('')}</div>
+   ${M.hn?`<div class="crmw crmhc"><span>Домашний уход: назначен в ${M.hn} ${plural(M.hn,'визите','визитах','визитах')}, приобретён — ${M.hy}</span><b>${Math.round(M.hy/M.hn*100)}%</b></div>`:''}
    <div class="crmw"><span>Цель недели: ${CRM_GOAL} касаний — визиты и сообщения клиентам</span><b>${Math.min(w,CRM_GOAL)} из ${CRM_GOAL}${w>=CRM_GOAL?' ✓':''}</b><i><u style="width:${Math.max(3,pc)}%"></u></i></div></div>`;}
 /* опыт за работу с клиентами: визит 4, сообщение 3, докупка 5; не больше 400 всего */
 function crmXP(){let x=0;try{CAB.clients.forEach(c=>{x+=(c.visits||[]).length*4;(c.log||[]).forEach(e=>{x+=e.k==='rebuy'?5:3;});});}catch(e){}return Math.min(400,x);}
@@ -3232,7 +3309,7 @@ function crmClick(d,b){
   if(d.cphset){const [cid,pid,w]=d.cphset.split('|');const c=cById(cid);if(c){const key=w==='a'?'phA':'phB';c[key]=c[key]===pid?'':pid;cabSave();cphView(cid,pid);}return true;}
   if(d.cphdel){const [cid,pid]=d.cphdel.split('|');CPH[cid]=(CPH[cid]||[]).filter(p=>p.id!==pid);cphSave();const m=document.getElementById('fmtm');if(m)m.remove();render(false);toast('Фото удалено');return true;}
   if(d.cphcmp){cphCompare(d.cphcmp);return true;}
-  if(d.cphsend){const c=cById(d.cphsend);if(c){SHEET_JOB={title:'До и после',file:'do-i-posle-'+todayS(),short:'До и после',canvas:()=>cphCanvas(c)};runFormat('png');}return true;}
+  if(d.cphsend){const c=cById(d.cphsend);if(c&&cphPair(c))askFormat({doc:1,title:'До и после',file:'do-i-posle-'+todayS(),short:'До и после',canvas:()=>cphCanvas(c)});return true;}
   return false;}
 document.addEventListener('change',e=>{const t=e.target;if(!t||!t.dataset)return;
   if(t.dataset.cphadd){cphAdd(t.dataset.cphadd,t.files&&t.files[0]);t.value='';}
@@ -3245,7 +3322,8 @@ window.__klappCrm={month:()=>crmMonth(todayS().slice(0,7)),week:()=>crmWeek(),xp
    MB={cos:[{id,n,salon,city,phone,code,st:0..4,bd:'ММ-ДД',note,add:'ГГГГ-ММ-ДД',last,log:[{d,k,t}],orders:[{id,d,sum,items:[[арт,шт]],t}]}],
        waits:[{id,item,cid,d}], set:{days:21}}
    Менеджер и партнёр не видят кабинет косметолога; куратор видит оба (переключатель вверху Кабинета). Префикс mb. */
-const MB_KEY='klapp-mb';
+const MB_KEY=(()=>{try{const v=JSON.parse(localStorage.getItem('klapp-viewas')||'null');if(v&&(v.r==='p'||v.r==='r')){const k='klapp-mb@'+v.r;   /* 4.41: демо-база роли у куратора */
+  if(v.r==='p'&&localStorage.getItem(k)==null&&localStorage.getItem('klapp-mb'))localStorage.setItem(k,localStorage.getItem('klapp-mb'));return k;}}catch(e){}return 'klapp-mb';})();
 let MB=(()=>{let o=null;try{o=JSON.parse(localStorage.getItem(MB_KEY)||'null');}catch(e){}return o&&Array.isArray(o.cos)?o:{cos:[],waits:[],set:{days:21}};})();
 MB.waits=Array.isArray(MB.waits)?MB.waits:[];MB.set=Object.assign({days:21},MB.set||{});
 const mbSave=()=>{try{localStorage.setItem(MB_KEY,JSON.stringify(MB));}catch(e){toast('Не удалось сохранить — мало памяти');}try{syncNotifs();}catch(e){}};
@@ -3286,15 +3364,18 @@ function mbIs(c,seg){const s=mbSince(c);
 const mbDue=()=>MB.cos.filter(c=>mbIs(c,'due'));
 function mbBirth(c){if(!/^\d{2}-\d{2}$/.test(c.bd||''))return null;const t=new Date();let d=new Date(t.getFullYear(),+c.bd.slice(0,2)-1,+c.bd.slice(3));if(iso(d)<todayS())d=new Date(t.getFullYear()+1,d.getMonth(),d.getDate());return dDiff(todayS(),iso(d));}
 /* ---- главный экран ---- */
-function mbSwitch(s){if(mbRole()!=='k')return '';const m=s.cabm||LS('klapp-cabm','c');
+function mbSwitch(s){return vaSeg();
+  if(mbRole()!=='k')return '';const m=s.cabm||LS('klapp-cabm','c');
   return `<div class="seg mbsw" role="tablist"><button role="tab" aria-selected="${m!=='m'}" data-cabm="c">Кабинет косметолога</button><button role="tab" aria-selected="${m==='m'}" data-cabm="m">Кабинет менеджера</button></div>`;}
+/* 4.41: напоминание о копии — словами менеджера: база косметологов / партнёров, а не «клиенты» */
+const mbBkCard=()=>String(bkCard()||'').replace('Сохраните копию клиентов','Сохраните копию базы').replace('Карты клиентов хранятся','База ('+mbW('many')+', заказы, связь) хранится');
 VIEWS.mgr=function(s){setTop('',false);
   const seg=MB_SEG.some(x=>x[0]===s.mseg)?s.mseg:'all',q=norm(s.mq||'').trim(),sort=s.msort||'name';
   let L=MB.cos.filter(c=>mbIs(c,seg)&&(!q||mkMatch(q).match(norm([c.n,c.salon,c.city,c.phone,c.code].join(' ')))));
   L.sort(sort==='turn'?(a,b)=>mbTurnQ(b)-mbTurnQ(a):sort==='last'?(a,b)=>(mbSince(b)??1e4)-(mbSince(a)??1e4):(a,b)=>String(a.n).localeCompare(String(b.n),'ru'));
   const cnt=k=>MB.cos.filter(c=>mbIs(c,k)).length,w=mbWeek();
   return `${mbSwitch(s)}<section class="intro"><h1>Кабинет ${mbWho()}</h1><p>Ваши ${mbW('many')}, связь, заказы и ${mbW('goal')}. База хранится только на этом телефоне.</p></section>${mbReg()?mbRegionHTML():''}
-   ${bkCard()}
+   ${mbBkCard()}
    ${MB.cos.length?hint('mb1','Как вести базу','После каждого заказа нажмите «Вставить заказ» — приложение само разберёт сообщение из «Моего заказа» и посчитает, сколько '+mbW('dat')+(mbReg()?' осталось до плана квартала.':' осталось до следующей ступени.')):''}
    <div class="mbtop"><button class="btn red sm" data-mbpaste>${I.plus} Вставить заказ</button><button class="btn ghost sm" data-mbnew>${I.plus} ${mbW('add')}</button><button class="btn ghost sm" data-mbrep>Отчёт за месяц</button>${genOk()?'<button class="btn ghost sm" data-genopen>Анонс · сертификат</button>':''}</div>
    ${w.length?`<div class="grp">Неделя ${mbWho()} · ${w.length}</div><div class="mbweek">${w.slice(0,8).map(x=>`<button class="row" data-mbc="${esc(x.c.id)}"><span class="tx"><span class="nm">${esc(x.c.n)}</span><span class="sb">${esc(x.t)}</span></span><i class="mbtag mbt-${x.k}">${esc(x.l)}</i></button>`).join('')}</div>`:''}
@@ -3331,6 +3412,7 @@ VIEWS.mgrc=function(s){const c=mbCos(s.id);if(!c)return VIEWS.mgr({});setTop(c.n
     <div class="mbcs">${mbReg()?(k.plan?'План квартала '+mbRub(k.plan)+' · выполнено '+k.pct+'%':'План квартала не задан — впишите в «Изменить данные»'):k.st?'Ступень «'+esc(k.cur.n)+'»':'Не в программе лояльности'}</div>
     ${k.of?`<div class="bar"><i style="width:${pct}%"></i></div><div class="mbcn">${k.need>0?`До ${esc(k.goal)} осталось <b>${mbRub(k.need)}</b> · до ${fD(mbQEnd())}`:(mbReg()?'План квартала выполнен 🎉':`Условие ${esc(k.goal)} по обороту выполнено`)}</div>`:(mbReg()?'':'<div class="mbcn">Высшая ступень программы</div>')}
     ${mbReg()?mbPartnerFacts(c):''}
+    <div class="mbcn mbnote">Ориентир по заказам, внесённым в приложение. Официальный расчёт — в учёте KLAPP.</div>
     ${k.st&&k.keep>0?`<div class="mbcn mbkeep">Чтобы сохранить ступень, нужно ещё ${mbRub(k.keep)}</div>`:''}
     <div class="mbbtns"><button class="btn red sm" data-mbord="${esc(c.id)}">${I.plus} Заказ</button>${k.of&&k.need>0?`<button class="btn ghost sm" data-mbmsg="${esc(c.id)}|step">Мотивировать</button>`:''}${mbReg()&&genOk()?`<button class="btn ghost sm" data-mbsem="${esc(c.id)}">Анонс семинара</button>`:''}</div></div>
    ${f?`<p class="snote" style="padding:4px 20px">Заказывает в среднем раз в ${f.avg} ${plural(f.avg,'день','дня','дней')} · следующий заказ ожидается ${f.left<0?'— уже пора':'≈ '+fD(f.next)}</p>`:''}
@@ -3522,7 +3604,7 @@ document.addEventListener('input',e=>{const t=e.target;if(!t)return;
 window.__klappMb={get:()=>MB,parse:mbParse,calc:id=>mbCalc(mbCos(id)),week:()=>mbWeek().map(x=>[x.c.n,x.k]),role:mbRole,rep:mbRepText,
   set:o=>{MB=o;MB.waits=MB.waits||[];MB.set=Object.assign({days:21},MB.set||{});mbSave();}};
 /* менеджер и партнёр видят свой кабинет вместо кабинета косметолога; куратор — оба, с переключателем */
-{const _cab=VIEWS.cab;VIEWS.cab=function(s){const r=mbRole();if(mbOnly()||(r==='k'&&(s.cabm||LS('klapp-cabm','c'))==='m'))return VIEWS.mgr(s);const h=_cab.apply(this,arguments);return r==='k'?mbSwitch(s)+h:h;};
+{const _cab=VIEWS.cab;VIEWS.cab=function(s){if(mbOnly())return VIEWS.mgr(s);const h=_cab.apply(this,arguments);return isCuratorReal()?vaSeg()+h:h;};
  ['cclient','csearch','cvisit'].forEach(v=>{const f=VIEWS[v];if(f)VIEWS[v]=function(s){return mbOnly()?VIEWS.mgr({}):f.apply(this,arguments);};});
  const _due=cabDueCount;cabDueCount=function(){if(mbOnly())return mbDue().length;return _due();};}
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-mblog]');if(!a)return;const [cid,k]=a.dataset.mblog.split('|');mbLog(cid,k,'');setTimeout(()=>render(false),600);},true);
@@ -4168,7 +4250,7 @@ function protoText(p){
   return `${protoHasMy(p)?_t('Авторский протокол'):'Авторский протокол KLAPP'}: ${p.name}${p.goal?'\n'+p.goal:''}${prTotal(p)?'\nВремя: ≈ '+prTotal(p)+' мин':''}\n\n`+p.steps.map(st=>{const it=st.type!=='custom'?itemById[st.id]:null;n++;
     return `${n}. [${stepTag(st)}] ${it?it.name+([brandOf(it),it.art?'арт. '+it.art:''].filter(Boolean).length?' ('+[brandOf(it),it.art?'арт. '+it.art:''].filter(Boolean).join(', ')+')':''):(st.text||'Свой этап')}${st.min?' — '+st.min+' мин':''}${st.note?'\n   '+st.note:''}`;}).join('\n');
 }
-function protoJob(p){return {title:'Отправить протокол',file:protoHasMy(p)?'protokol':'klapp-protokol',text:protoText(p),short:p.name,canvas:()=>drawSheet({neutral:protoHasMy(p),kicker:'Авторский протокол'+(prTotal(p)?' · ≈ '+prTotal(p)+' мин':''),title:p.name,sub:p.goal||'',sections:[{h:'Этапы',items:p.steps.map((st,i)=>{const it=st.type!=='custom'?itemById[st.id]:null;return {n:i+1,ph:it&&it._f!=='my'?it._id:null,t:it?it.name:(st.text||'Свой этап'),s:[st.type==='my'?'':stepTag(st),it?[brandOf(it),it.art?'арт. '+it.art:''].filter(Boolean).join(', '):'',st.min?st.min+' мин':''].filter(Boolean).join(' · '),tag:st.note||''};})}],foot:(QZS.name?'Автор: '+QZS.name+'. ':'')+(protoHasMy(p)?'':'Протокол собран в KLAPP Pro.')})};}
+function protoJob(p){return {doc:1,title:'Отправить протокол',file:protoHasMy(p)?'protokol':'klapp-protokol',text:protoText(p),short:p.name,canvas:()=>drawSheet({neutral:protoHasMy(p),kicker:'Авторский протокол'+(prTotal(p)?' · ≈ '+prTotal(p)+' мин':''),title:p.name,sub:p.goal||'',sections:[{h:'Этапы',items:p.steps.map((st,i)=>{const it=st.type!=='custom'?itemById[st.id]:null;return {n:i+1,ph:it&&it._f!=='my'?it._id:null,t:it?it.name:(st.text||'Свой этап'),s:[st.type==='my'?'':stepTag(st),it?[brandOf(it),it.art?'арт. '+it.art:''].filter(Boolean).join(', '):'',st.min?st.min+' мин':''].filter(Boolean).join(' · '),tag:st.note||''};})}],foot:(QZS.name?'Автор: '+QZS.name+'. ':'')+(protoHasMy(p)?'':'Протокол собран в KLAPP Pro.')})};}
 function protoClick(d,b){
   if('pnew2' in d){PD=null;go({view:'proto'});return true;}
   if(d.pview){go({view:'protov',id:d.pview});return true;}
@@ -4226,10 +4308,10 @@ VIEWS.menu=function(s){const m=menuById[s.id];if(!m)return VIEWS.pick({mode:'pro
 function menuText(m){return `Протокол KLAPP: ${m.n}\n${m.sub}\nВремя: ${m.time} · курс: ${m.course} · ${m.freq}${m.by?'\nАвторский протокол: '+m.by:''}\n\n`+
   m.steps.map((st,i)=>`${i+1}. ${st.n} (${st.l}, арт. ${st.art})\n   ${st.h}`).join('\n')+
   (mHome(m).length?`\n\nДомашний уход:\n`+mHome(m).map(p=>`• ${p.name} (${p._l.name}, арт. ${p.art})${p.when?' — '+p.when.toLowerCase():''}`).join('\n'):'');}
-function menuJob(m){return {title:'Отправить протокол',file:'klapp-protokol-'+m.id,text:menuText(m),short:m.n,canvas:()=>drawSheet({kicker:'Протокол KLAPP · '+m.time,title:m.n,sub:m.sub+'. Курс: '+m.course+', '+m.freq.toLowerCase()+'.',
+function menuJob(m){return {doc:1,title:'Отправить протокол',file:'klapp-protokol-'+m.id,text:menuText(m),short:m.n,canvas:()=>drawSheet({kicker:'Протокол KLAPP · '+m.time,title:m.n,sub:m.sub+'. Курс: '+m.course+', '+m.freq.toLowerCase()+'.',
   sections:[{h:'Протокол',items:m.steps.map((st,i)=>{const it=mArt(st.art);return {n:i+1,ph:it?it._id:null,t:st.n,s:st.l+' · арт. '+st.art};})},{h:'Домашний уход',items:mHome(m).map(p=>({ph:p._id,t:p.name,s:[p._l.name,'арт. '+p.art,p.when||''].filter(Boolean).join(' · ')}))}],
   foot:'KLAPP Pro · по материалам бренда «Меню составных процедур».'})};}
-function menuHomeJob(m){const H=mHome(m);return {title:'Домашний уход',file:'klapp-uhod-'+todayS(),short:'Ваш домашний уход KLAPP',
+function menuHomeJob(m){const H=mHome(m);return {doc:1,title:'Домашний уход',file:'klapp-uhod-'+todayS(),short:'Ваш домашний уход KLAPP',
   text:`Ваш домашний уход после процедуры «${m.n}»\n\n`+H.map(p=>`• ${p.name} (${p._l.name}, арт. ${p.art})${p.when?' — '+p.when.toLowerCase():''}${p.how?'\n   '+cut(p.how,160):''}`).join('\n')+(proSign()?'\n\n'+proSign():''),
   canvas:()=>drawSheet({kicker:'Ваш домашний уход',title:'После процедуры «'+m.n+'»',sub:m.hn||'Вводите новые средства постепенно, днём используйте SPF.',sections:[{h:'Средства',items:H.map(p=>({ph:p._id,t:p.name,s:[p._l.name,p.when||''].filter(Boolean).join(' · ')}))}],foot:proFoot('Если появится дискомфорт — напишите мне.')})};}
 function menuClick(d){
@@ -4354,7 +4436,10 @@ const stkWaitBtn=ids=>`<button class="btn ghost" data-stkwait="${esc(ids.join(',
 window.__klappStock={waitText:ids=>stkWaitText(ids),bulk:l=>ordBulk(l),purged:()=>STK_RM.map(x=>x.art),of:id=>stkOf(itemById[id]),date:()=>STK&&STK.d,alts:id=>stkAlts(itemById[id]).map(x=>x.q._id)};
 /* ---------- карточки-картинки и PDF ---------- */
 async function fontsReady(){try{await Promise.all(['600 60px Jost','500 40px Jost','400 30px Jost','300 30px Jost','400 40px "Roboto Mono"','300 40px "Roboto Mono"'].map(f=>Promise.all([document.fonts.load(f,'Aa'),document.fonts.load(f,'Жя')])));}catch(e){}}
-function wrapLines(x,text,maxW){const words=String(text).split(/\s+/);const out=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){out.push(cur);cur=w;}else cur=t;}if(cur)out.push(cur);return out;}
+/* 4.41: висячие предлоги — короткое слово (в, к, с, на, за, для…) не остаётся в конце строки, а переносится вместе со следующим */
+const SHORTW=/^[«("„]?(?:[а-яё]{1,2}|для|без|под|над|при|про|через|из-за|из-под)$/i;
+function glueShort(ws){const o=[];for(let i=0;i<ws.length;i++){if(i<ws.length-1&&SHORTW.test(ws[i])){ws[i+1]=ws[i]+' '+ws[i+1];continue;}o.push(ws[i]);}return o;}
+function wrapLines(x,text,maxW){const words=glueShort(String(text).split(/\s+/).filter(Boolean));const out=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){out.push(cur);cur=w;}else cur=t;}if(cur)out.push(cur);return out;}
 /* 4.10: стиль бланка — по выбранному дизайну приложения (всегда светлый вариант: бланк уходит клиенту).
    «Классика» — белый лист как раньше; остальные — фон и цветные пятна дизайна, содержимое на светлой панели.
    Фирменное (красная шапка KLAPP, красные заголовки, чёрный подвал) остаётся; у обезличенного бланка — нет. */
@@ -4370,6 +4455,18 @@ function sheetPaint(x,W,H,L){if(!L)return false;x.fillStyle=L[0];x.fillRect(0,0,
   const B=[[.08,.06,.85,1],[.96,.24,.75,2],[.1,.62,.8,3],[.92,.92,.85,4]];
   B.forEach(([fx,fy,fr,i])=>{const cx=fx*W,cy=Math.min(fy*H,fy*2400),r=fr*W,g=x.createRadialGradient(cx,cy,0,cx,cy,r);g.addColorStop(0,L[i]);g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,W,H);});
   return true;}
+/* 4.41: документы из Кабинета и схемы (итоги визита, назначение, схема, протокол) — три стиля; тема приложения на бланк больше не влияет. «Моя рекомендация» и сторис — свои стили, без изменений */
+const DOC_ST={official:{n:'Официальный',sb:'Белый, красная шапка KLAPP'},clinic:{n:'Клиника',sb:'Строгий, светлый'},cream:{n:'Крем',sb:'Тёплая бумага'}};
+const docStyle=()=>{const v=LS('klapp-doc',null);return DOC_ST[v]?v:'official';};
+function setDocStyle(v){if(DOC_ST[v])LSset('klapp-doc',v);}
+const docSeg=(cur)=>`<div class="fsz stsg" role="group" aria-label="Стиль">${Object.keys(DOC_ST).map(k=>`<button data-docst="${k}" aria-pressed="${(cur||docStyle())===k}"><i class="stdot dst-${k}" aria-hidden="true"></i>${DOC_ST[k].n}</button>`).join('')}</div>`;
+function docLook(st){
+  if(st==='clinic')return {id:st,panel:1,bg:'#f3f5f5',card:'#ffffff',edge:'#e1e6e6',acc:'#4a5658',hf:'500 24px "Roboto Mono"',ink:'#1d2527',grey:'#5d6869',mute:'#8b9495',line:'#e1e6e6',hdr:'mono',
+    foot:{bg:'#ffffff',top:'#e1e6e6',who:'#4a5658',name:'#1d2527',sub:'#5d6869',note:'#8b9495',ring:'#ff4438',tag:'#8b9495',slog:'#4a5658',brand:'#ff4438'}};
+  if(st==='cream')return {id:st,panel:1,bg:'#f3ece3',card:'#fbf8f3',edge:'#e6dacb',acc:'#8a6f58',hf:'500 26px Jost',ink:'#1d1d1b',grey:'#665d55',mute:'#958a7f',line:'#e6dacb',hdr:'cream',
+    foot:{bg:'#1d1d1b',who:'#d9b99b',name:'#fff',sub:'#d8cfc4',note:'#a99d90',ring:'#d9b99b',tag:'#8a8076',slog:'#d9b99b',brand:'#a99d90'}};
+  return {id:'official',panel:0,bg:'#ffffff',acc:'#ff4438',hf:'500 26px Jost',ink:'#111111',grey:'#55554f',mute:'#8a8a85',line:'#e4e4e2',hdr:'red',
+    foot:{bg:'#111111',who:'#ff4438',name:'#fff',sub:'#c9c8c2',note:'#a5a49e',ring:'#ff4438',tag:'#6a6a64',slog:'#ff4438',brand:'#8a8a84'}};}
 const sheetRR=(x,X,Y,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h);};
 /* sheet: {kicker,title,sub,sections:[{h,items:[{t,s,tag}]}],foot,neutral} */
 async function drawSheet(sh){
@@ -4377,49 +4474,58 @@ async function drawSheet(sh){
   const sg=proSign(),SO=(typeof sigOpt==='function')?sigOpt():{ph:1,nm:1,ct:1,nk:1,off:0},PHO=(sh.foot&&sg&&sh.foot.indexOf(sg)===0&&!SO.off&&SO.ph)?await proPhotoImg():null;
   for(const sec of sh.sections) for(const it of sec.items) if(it.ph&&PH[it.ph]&&!it._ph){try{const im=new Image();im.src=PH[it.ph];await im.decode();it._ph=im;}catch(e){}}
   for(const sec of sh.sections) for(const it of sec.items) if(it.ic&&!it._img){try{const im=new Image();im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(it.ic.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" '));await im.decode();it._img=im;}catch(e){}}
-  const LK=sheetLook(),NT=!!sh.neutral,ACC=NT?'#1d1d1b':'#ff4438';
+  const DL=docLook(sh.style||docStyle()),LK=DL.panel?1:null,NT=!!sh.neutral,ACC=NT?'#1d1d1b':DL.acc,FC=DL.foot;
   const W=1080,P=LK?96:72,IW=W-2*P; const c=document.createElement('canvas'); const x=c.getContext('2d');
   const ops=[]; let y=0;
   const text=(t,font,color,lh,opts)=>{x.font=font;const ls=wrapLines(x,t,(opts&&opts.w)||IW);ls.forEach(l=>{ops.push({k:'t',t:l,f:font,c:color,y:y+lh*0.78,x:(opts&&opts.x)||P});y+=lh;});};
-  y=0; ops.push({k:'hdr'}); y=NT?236:LK?268:250;
-  if(sh.kicker){text(sh.kicker.toUpperCase(),'500 26px Jost',ACC,40);y+=6;}
-  text(sh.title,'400 54px "Roboto Mono"','#000',68); if(sh.sub){y+=8;text(sh.sub,'300 32px Jost','#55554f',44);}
+  y=0; ops.push({k:'hdr'}); y=NT?236:DL.hdr==='red'?250:DL.hdr==='mono'?236:252;
+  if(sh.kicker){text(sh.kicker.toUpperCase(),NT?'500 26px Jost':DL.hf,ACC,40);y+=6;}
+  text(sh.title,DL.id==='cream'?'400 58px Jost':'400 54px "Roboto Mono"',DL.ink,68); if(sh.sub){y+=8;text(sh.sub,'300 32px Jost',DL.grey,44);}
   y+=26;
-  for(const s of sh.sections){ if(!s.items.length) continue; y+=24; ops.push({k:'line',y}); y+=34; text(s.h.toUpperCase(),'500 26px Jost',ACC,40); y+=6;
-    s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,'500 34px Jost','#111',44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost','#55554f',38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"','#8a8a85',34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
+  if(sh.pair&&sh.pair.length===2){y+=18;const G=16,cw=(IW-G)/2,ch=Math.round(cw*1.33);ops.push({k:'pair',y,cw,ch,G});y+=ch+10;}
+  for(const s of sh.sections){ if(!s.items.length) continue; y+=24; ops.push({k:'line',y}); y+=34; text(DL.id==='cream'&&!NT?s.h:s.h.toUpperCase(),NT?'500 26px Jost':DL.hf,ACC,40); y+=6;
+    s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,'500 34px Jost',DL.ink,44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost',DL.grey,38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"',DL.mute,34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
   /* 4.8.3: подвал — как у «Моей рекомендации»: чёрная полоса, фото в красном кольце, «Ваш косметолог», имя, контакты, приписка */
   const F=(()=>{const sg=proSign(),f=sh.foot||'',sig=!!(sg&&f.indexOf(sg)===0),note=sig?f.slice(sg.length).replace(/^[.\s]+/,''):f,has=sig&&!SO.off&&(SO.nm||SO.ct||SO.nk||!!PHO);
     const D=136,TX=P+(PHO?D+40:0),TW=W-P-TX,L=[];let ty=0;
-    if(has){ty+=52;L.push({t:('Ваш '+signWho()).toUpperCase(),f:'500 19px Jost',c:NT?'#a5a49e':'#ff4438',y:ty,ls:'3px'});
-      const name=SO.nm?(QZS.name||PRO.salon||'').trim():'';if(name){ty+=48;x.font='500 34px Jost';L.push({t:wrapLines(x,name,TW)[0],f:'500 34px Jost',c:'#fff',y:ty});}
+    if(has){ty+=52;L.push({t:('Ваш '+signWho()).toUpperCase(),f:'500 19px Jost',c:NT?'#a5a49e':FC.who,y:ty,ls:'3px'});
+      const name=SO.nm?(QZS.name||PRO.salon||'').trim():'';if(name){ty+=48;x.font='500 34px Jost';L.push({t:wrapLines(x,name,TW)[0],f:'500 34px Jost',c:NT?'#fff':FC.name,y:ty});}
       const l2=[SO.nm&&QZS.name?PRO.salon:'',SO.ct?PRO.phone:'',SO.nk?PRO.link:''].map(v=>(v||'').trim()).filter(Boolean).join('  ·  ');
-      x.font='300 26px Jost';wrapLines(x,l2,TW).slice(0,2).forEach(l=>{ty+=(L.length===1?48:40);L.push({t:l,f:'300 26px Jost',c:'#c9c8c2',y:ty});});}
-    if(note){x.font='300 24px Jost';wrapLines(x,note,TW).forEach((l,i)=>{ty+=i?32:(has?44:56);L.push({t:l,f:'300 24px Jost',c:'#a5a49e',y:ty});});}
+      x.font='300 26px Jost';wrapLines(x,l2,TW).slice(0,2).forEach(l=>{ty+=(L.length===1?48:40);L.push({t:l,f:'300 26px Jost',c:NT?'#c9c8c2':FC.sub,y:ty});});}
+    if(note){x.font='300 24px Jost';wrapLines(x,note,TW).forEach((l,i)=>{ty+=i?32:(has?44:56);L.push({t:l,f:'300 24px Jost',c:NT?'#a5a49e':FC.note,y:ty});});}
     const h=Math.max(ty,PHO?40+D:0)+110;return {L,TX,D,h};})();
   y+=40; const yBody=y; ops.push({k:'foot',y}); y+=F.h;
   const HH=Math.max(1350,Math.ceil(y)); shSize(c,x,W,HH);
   {const fo=ops.find(o=>o.k==='foot');if(fo)fo.y=HH-F.h;}
-  if(!sheetPaint(x,W,HH,LK)){x.fillStyle='#fff'; x.fillRect(0,0,W,HH);}
-  else{const top=NT?36:214,bot=HH-F.h-24;x.save();x.shadowColor='rgba(40,30,30,.10)';x.shadowBlur=36;x.shadowOffsetY=10;x.fillStyle='rgba(255,255,255,.80)';sheetRR(x,P/2,top,W-P,bot-top,36);x.fill();x.restore();
-    x.strokeStyle='rgba(255,255,255,.95)';x.lineWidth=2;sheetRR(x,P/2,top,W-P,bot-top,36);x.stroke();}
+  x.fillStyle=DL.bg; x.fillRect(0,0,W,HH);
+  if(LK){const top=NT?36:DL.hdr==='mono'?196:206,bot=HH-F.h-24;x.fillStyle=DL.card;sheetRR(x,P/2,top,W-P,bot-top,DL.id==='clinic'?18:36);x.fill();
+    x.strokeStyle=DL.edge;x.lineWidth=2;sheetRR(x,P/2,top,W-P,bot-top,DL.id==='clinic'?18:36);x.stroke();}
   for(const o of ops){
     if(o.k==='hdr'){const dt=new Date().toLocaleDateString(typeof LOC!=='undefined'?LOC:'ru-RU',{day:'numeric',month:'long',year:'numeric'});
       if(NT){/* обезличенный: имя косметолога или салона вместо логотипа, без цвета бренда */
         const who=(PRO.salon||QZS.name||'').trim()||_t('Рекомендации косметолога'),sub2=PRO.salon&&QZS.name?QZS.name:'';x.textAlign='left';x.fillStyle='#1d1d1b';x.font='400 44px "Roboto Mono"';x.fillText(who||'',P,(LK?96:104));
         x.font='300 24px Jost';x.fillStyle='#6b6b66';if(sub2)x.fillText(sub2,P,(LK?136:144));x.textAlign='right';x.fillText(dt,W-P,(LK?96:104));x.textAlign='left';
         x.fillStyle=LK?'rgba(29,29,27,.14)':'#e4e4e2';x.fillRect(P,(LK?170:180),IW,2);}
-      else{if(LK){x.fillStyle='#ff4438';sheetRR(x,P/2,36,W-P,162,36);x.fill();}else{x.fillStyle='#ff4438';x.fillRect(0,0,W,190);}
-        const hx=LK?P:P,hy=LK?16:0;x.fillStyle='#fff';x.textAlign='left';x.font='600 64px Jost';x.fillText('KLAPP',hx,112+hy);x.font='400 22px Jost';x.fillText('S K I N   C A R E   S C I E N C E',hx,152+hy);
-        x.textAlign='right';x.font='300 26px Jost';x.fillText(dt,W-P,112+hy);x.textAlign='left';}}
+      else if(DL.hdr==='red'){x.fillStyle='#ff4438';x.fillRect(0,0,W,190);
+        x.fillStyle='#fff';x.textAlign='left';x.font='600 64px Jost';x.fillText('KLAPP',P,112);x.font='400 22px Jost';x.fillText('S K I N   C A R E   S C I E N C E',P,152);
+        x.textAlign='right';x.font='300 26px Jost';x.fillText(dt,W-P,112);x.textAlign='left';}
+      else if(DL.hdr==='mono'){x.fillStyle='#ff4438';x.fillRect(P,84,14,14);x.fillStyle=DL.ink;x.textAlign='left';x.font='500 40px Jost';x.fillText('KLAPP',P+30,104);
+        x.font='400 20px "Roboto Mono"';x.fillStyle=DL.mute;x.fillText('SKIN CARE SCIENCE',P+30,138);x.textAlign='right';x.font='400 24px "Roboto Mono"';x.fillText(dt,W-P,104);x.textAlign='left';
+        x.fillStyle=DL.line;x.fillRect(P,164,IW,2);}
+      else{x.fillStyle=DL.ink;x.textAlign='left';x.font='600 58px Jost';x.fillText('KLAPP',P,112);x.font='400 20px Jost';x.fillStyle=DL.acc;x.fillText('S K I N   C A R E   S C I E N C E',P,148);
+        x.textAlign='right';x.font='300 26px Jost';x.fillStyle=DL.grey;x.fillText(dt,W-P,112);x.textAlign='left';}}
     else if(o.k==='t'){x.font=o.f;x.fillStyle=o.c;x.fillText(o.t,o.x,o.y);}
-    else if(o.k==='line'){x.fillStyle=LK?'rgba(29,29,27,.10)':'#e4e4e2';x.fillRect(P,o.y,IW,2);}
+    else if(o.k==='pair'){sh.pair.forEach((p,i)=>{const X=P+i*(o.cw+o.G),Y=o.y;x.save();sheetRR(x,X,Y,o.cw,o.ch,24);x.clip();x.fillStyle=DL.line;x.fillRect(X,Y,o.cw,o.ch);
+        if(p.im){const k=Math.max(o.cw/p.im.width,o.ch/p.im.height);x.drawImage(p.im,X+(o.cw-p.im.width*k)/2,Y+(o.ch-p.im.height*k)/2,p.im.width*k,p.im.height*k);}x.restore();
+        x.font='500 24px Jost';const tw=x.measureText(p.t).width+40;x.fillStyle='rgba(17,17,17,.78)';sheetRR(x,X+14,Y+o.ch-64,tw,46,23);x.fill();x.fillStyle='#fff';x.fillText(p.t,X+34,Y+o.ch-33);});}
+    else if(o.k==='line'){x.fillStyle=NT?'#e4e4e2':DL.line;x.fillRect(P,o.y,IW,2);}
     else if(o.k==='dot'){if(o.ph){const T=o.y-24,S=96;x.fillStyle='#f2f2f0';if(x.roundRect){x.beginPath();x.roundRect(P,T,S,S,16);x.fill();}else x.fillRect(P,T,S,S);const r=Math.min((S-14)/o.ph.width,(S-14)/o.ph.height);const w=o.ph.width*r,h=o.ph.height*r;x.drawImage(o.ph,P+(S-w)/2,T+(S-h)/2,w,h);if(o.n){x.fillStyle=ACC;x.font='500 22px Jost';x.fillText(String(o.n),P+6,T+24);}}else if(o.img){x.drawImage(o.img,P,o.y-22,64,64);}else if(o.n){x.fillStyle=ACC;x.font='400 30px "Roboto Mono"';x.fillText(String(o.n),P,o.y+10);}else{x.fillStyle=ACC;x.beginPath();x.arc(P+12,o.y,7,0,Math.PI*2);x.fill();}}
-    else if(o.k==='foot'){x.fillStyle='#111111';x.fillRect(0,o.y,W,HH-o.y);
-      if(PHO){const cx=P+F.D/2,cy=o.y+40+F.D/2;x.save();x.beginPath();x.arc(cx,cy,F.D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(F.D/PHO.width,F.D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle=NT?'#ffffff':'#ff4438';x.lineWidth=3;x.beginPath();x.arc(cx,cy,F.D/2+6,0,Math.PI*2);x.stroke();}
+    else if(o.k==='foot'){x.fillStyle=NT?'#111111':FC.bg;x.fillRect(0,o.y,W,HH-o.y);if(!NT&&FC.top){x.fillStyle=FC.top;x.fillRect(0,o.y,W,2);}
+      if(PHO){const cx=P+F.D/2,cy=o.y+40+F.D/2;x.save();x.beginPath();x.arc(cx,cy,F.D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(F.D/PHO.width,F.D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();x.strokeStyle=NT?'#ffffff':FC.ring;x.lineWidth=3;x.beginPath();x.arc(cx,cy,F.D/2+6,0,Math.PI*2);x.stroke();}
       F.L.forEach(l=>{x.font=l.f;x.fillStyle=l.c;try{x.letterSpacing=l.ls||'0px';}catch(e){}x.fillText(l.t,F.TX,o.y+l.y);});try{x.letterSpacing='0px';}catch(e){}
-      {const tg=accTag();if(tg){x.font='300 16px Jost';x.fillStyle='#6a6a64';x.fillText('KLAPP Pro · '+tg,P,HH-14);}}
-      if(!NT){x.fillStyle='#ff4438';x.font='400 24px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,HH-44);
-      x.fillStyle='#8a8a84';x.font='500 20px Jost';x.textAlign='right';try{x.letterSpacing='4px';}catch(e){}x.fillText('KLAPP',W-P,HH-44);x.textAlign='left';try{x.letterSpacing='0px';}catch(e){}}}
+      {const tg=accTag();if(tg){x.font='300 16px Jost';x.fillStyle=NT?'#6a6a64':FC.tag;x.fillText('KLAPP Pro · '+tg,P,HH-14);}}
+      if(!NT){x.fillStyle=FC.slog;x.font='400 24px Jost';x.fillText('У вашей кожи много талантов. Мы раскроем их.',P,HH-44);
+      x.fillStyle=FC.brand;x.font='500 20px Jost';x.textAlign='right';try{x.letterSpacing='4px';}catch(e){}x.fillText('KLAPP',W-P,HH-44);x.textAlign='left';try{x.letterSpacing='0px';}catch(e){}}}
   }
   return c;
 }
@@ -4438,7 +4544,7 @@ async function drawRec(R){
   const LS=v=>{try{x.letterSpacing=v;}catch(e){}};
   const MONO=s=>`400 ${s}px "Roboto Mono"`;
   const setF=f=>{x.font=f;LS(/Roboto Mono/.test(f)?(-0.045*parseFloat(f.split(' ')[1]))+'px':'0px');};
-  const wrap=(t,f,w)=>{setF(f);const out=[];String(t||'').split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const wrap=(t,f,w)=>{setF(f);const out=[];String(t||'').split('\n').forEach(par=>{let line='';glueShort(par.split(/\s+/).filter(Boolean)).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
   const cl=t=>String(t||'').replace(/\s+([.,;:!?])/g,'$1').replace(/\s{2,}/g,' ').trim();
   ['name','sub','desc','how','nb','note','when'].forEach(k=>{if(R[k])R[k]=cl(R[k]);});
   if(R.effects)R.effects=R.effects.map(cl);if(R.actives)R.actives=R.actives.map(a=>({n:cl(a.n),t:cl(a.t)}));
@@ -4561,10 +4667,12 @@ const CARD_ST={
 const cardStyle=()=>{const v=LS('klapp-card','classic');return CARD_ST[v]?v:'classic';};
 function setCardStyle(v){if(CARD_ST[v])LSset('klapp-card',v);}
 const cardRR=(x,X,Y,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(X,Y,w,h,r);else x.rect(X,Y,w,h);};
-function cardBg(x,W,H,st){const P=CARD_ST[st]||CARD_ST.classic;x.fillStyle=P.paper;x.fillRect(0,0,W,H);
+/* 4.41: «Клиника» — только для документов клиенту (не для сторис) */
+const CARD_PAL={clinic:{n:'Клиника',paper:'#f3f5f5',panel:'#ffffff',ink:'#1d2527',grey:'#5d6869',mute:'#8b9495',line:'#e1e6e6',foot:'#1d2527',soft:'#eef2f2',sp:'#ffffff',edge:'#e1e6e6'}};
+function cardBg(x,W,H,st){const P=CARD_ST[st]||CARD_PAL[st]||CARD_ST.classic;x.fillStyle=P.paper;x.fillRect(0,0,W,H);
   if(st==='night'){const g=x.createRadialGradient(W*.84,110,10,W*.84,110,780);g.addColorStop(0,'rgba(255,68,56,.34)');g.addColorStop(1,'rgba(255,68,56,0)');x.fillStyle=g;x.fillRect(0,0,W,Math.min(H,1150));}
   if(st==='cream'){x.strokeStyle=P.line;x.lineWidth=2;x.strokeRect(30,30,W-60,H-60);}}
-function cardHero(x,X,Y,w,h,st){const P=CARD_ST[st];x.fillStyle=P.panel;cardRR(x,X,Y,w,h,40);x.fill();x.save();cardRR(x,X,Y,w,h,40);x.clip();
+function cardHero(x,X,Y,w,h,st){const P=CARD_ST[st]||CARD_PAL[st];x.fillStyle=P.panel;cardRR(x,X,Y,w,h,40);x.fill();x.save();cardRR(x,X,Y,w,h,40);x.clip();
   if(st==='cream'){x.fillStyle='#ece2d6';x.beginPath();x.arc(X+w/2,Y+h/2,Math.min(w,h)*.42,0,Math.PI*2);x.fill();}
   if(st==='night'){const g=x.createRadialGradient(X+w/2,Y+h*.55,10,X+w/2,Y+h*.55,Math.max(w,h)*.62);g.addColorStop(0,'rgba(255,68,56,.42)');g.addColorStop(1,'rgba(255,68,56,0)');x.fillStyle=g;x.fillRect(X,Y,w,h);}
   x.restore();if(P.edge){x.strokeStyle=P.edge;x.lineWidth=2;cardRR(x,X,Y,w,h,40);x.stroke();}}
@@ -4746,11 +4854,13 @@ const cardStyleBadge=(st,R)=>st==='night'?(R.kind==='kit'?'Процедура в
 
 /* --- «Совет эксперта» --- */
 let TIP=null;
+/* 4.41: две первых фразы описания — целиком, без обрезки «X — » (раньше срез шёл по длине укороченной фразы и рвал слово) */
+function sent2(t){t=String(t||'').trim();const a=sentEnd(t);if(a<=0||a>=t.length)return t;const r=t.slice(a).trim(),b=sentEnd(r);return (t.slice(0,a).trim()+' '+(b>0?r.slice(0,b):r).trim()).trim();}
 function tipFact(src){let term='',text='',kicker='',tags=[];
   const g=src&&src.indexOf('g:')===0?gById[src.slice(2)]:null;
-  if(g){term=g.n;text=cut(firstSent(g.d)+(g.d.length>firstSent(g.d).length?' '+firstSent(g.d.slice(firstSent(g.d).length).trim()):''),300);kicker=D.gcats[g.c]||'';}
+  if(g){term=g.n;text=cut(sent2(g.d),300);kicker=D.gcats[g.c]||'';}
   else{const F=factPool();const n=dayN();const f=n%2===0?F.A[(n/2)%F.A.length]:F.B[((n-1)/2)%F.B.length];kicker=f.c||'';
-    const gg=f.g&&gById[f.g];if(gg){term=gg.n;text=cut(firstSent(gg.d),300);}else{const m=String(f.t).match(/^(.{3,60}?)(?: — |: )(.+)$/);if(m){term=m[1];text=m[2].charAt(0).toUpperCase()+m[2].slice(1);}else{term='Знаете ли вы?';text=f.t;}}}
+    const gg=f.g&&gById[f.g];if(gg){term=gg.n;text=cut(sent2(gg.d),300);}else{const m=String(f.t).match(/^(.{3,60}?)(?: — |: )(.+)$/);if(m){term=m[1];text=m[2].charAt(0).toUpperCase()+m[2].slice(1);}else{term='Знаете ли вы?';text=f.t;}}}
   return {term,text,kicker,tags};}
 function tipAsk(src){const fact=(src==='fact'||String(src).indexOf('g:')===0)?tipFact(src):null;
   TIP={tpl:fact?'fact':(STORY_T[src]&&src!=='product'?src:'quote'),fact:fact||tipFact('fact')};
@@ -4783,8 +4893,10 @@ function storyClick(d,b){
   if(d.tipsty){if(isDemo()){toast('Сторис — с кодом доступа');return true;}tipAsk(d.tipsty);return true;}
   if(d.tiptpl&&TIP){TIP.tpl=d.tiptpl;document.querySelectorAll('[data-tiptpl]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.tiptpl===TIP.tpl));const f=$('#tipf');if(f){f.innerHTML=tipFields();tipBind();}tipPreview();return true;}
   if(d.sigo){const o=sigOpt();if(d.sigo==='off')o.off=!o.off;else o[d.sigo]=!o[d.sigo];LSset('klapp-sigo',{ph:o.ph?1:0,nm:o.nm?1:0,ct:o.ct?1:0,nk:o.nk?1:0,off:o.off?1:0});
-    const w=$('#sigw');if(w)w.innerHTML=sigSeg();if($('#tipf'))tipPreview();else if($('#recpv')&&RECF.id)recPreview(RECF.id);return true;}
+    const w=$('#sigw');if(w)w.innerHTML=sigSeg();if($('#rfpv'))rfPreview();else if($('#tipf'))tipPreview();else if($('#recpv')&&RECF.id)recPreview(RECF.id);return true;}
   if(d.recsts){LSset('klapp-sts',d.recsts);document.querySelectorAll('[data-recsts]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.recsts===d.recsts));if($('#recpv')&&RECF.id)recPreview(RECF.id);return true;}
+  if(d.docst){setDocStyle(d.docst);document.querySelectorAll('[data-docst]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.docst===d.docst));
+    if($('#rfpv'))rfPreview();else if($('#recpv')&&RECF.id)recPreview(RECF.id);else render(false);return true;}
   if(d.recst){setCardStyle(d.recst);document.querySelectorAll('[data-recst]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.recst===d.recst));
     if($('#tipf'))tipPreview();else if($('#recpv')&&RECF.id)recPreview(RECF.id);else render(false);return true;}
   if(d.recfmt){RECF.fmt=d.recfmt;document.querySelectorAll('[data-recfmt]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.recfmt===RECF.fmt));
@@ -4877,7 +4989,7 @@ function schJob(sc,o){o=o||{};const r=schProds(sc,'r').filter(i=>i.p),x=schProds
   const it=i=>({t:`${i.p.name} — ${i.p._l.name}`,s:ln(i),ph:i.p._id});
   const tl=i=>`${i.p.name} (${i.p._l.name}, арт. ${i.a})${ln(i)?' — '+ln(i):''}`;
   const txt=`Схема домашнего ухода: ${sc.title}\n${sc.note?sc.note+'\n':''}\nКаждый день:\n${r.map((i,k)=>`${k+1}. ${tl(i)}`).join('\n')}\n\nДополнительно, курсами и по графику:\n${x.map(i=>`• ${tl(i)}`).join('\n')}\n\n${proFoot(note)}`;
-  return {title:'Схема клиенту',file:'klapp-shema',short:'Схема ухода: '+sc.title,text:txt,
+  return {doc:1,title:'Схема клиенту',file:'klapp-shema',short:'Схема ухода: '+sc.title,text:txt,
    canvas:()=>drawSheet({kicker:'Схема домашнего ухода',title:sc.title,sub:sc.note||'',sections:[{h:'Каждый день — утро и вечер',items:r.map(it)},{h:'Дополнительно — курсами и по графику',items:x.map(it)}],foot:proFoot(note)})};}
 function schForm(title){const sc=schByTitle(title);if(!sc)return;
   const r=schProds(sc,'r').filter(i=>i.p),x=schProds(sc,'x').filter(i=>i.p);if(SCHF.title!==title)SCHF={title,note:SCH_NOTE};
@@ -4886,7 +4998,6 @@ function schForm(title){const sc=schByTitle(title);if(!sc)return;
   m.innerHTML=`<div class="fmtc rfc" role="dialog" aria-label="Рекомендации клиенту"><b>Рекомендации клиенту</b><p class="snote" style="margin:0">Коротко: когда и как применять. Ваши правки запомнятся для этих средств.</p>
    <div class="rf-sc"><p class="sublbl">Каждый день</p>${r.map((i,k)=>row(i,k+1)).join('')}${x.length?`<p class="sublbl">Дополнительно</p>${x.map(i=>row(i,'+')).join('')}`:''}
    <div class="rf-it"><div class="rf-h"><span>Совет в конце</span></div><textarea rows="2" maxlength="240" id="rfnote">${esc(SCHF.note)}</textarea></div></div>
-   <div id="sigw">${sigSeg()}</div>
    <button class="btn red" data-rfgo="${esc(title)}">Далее</button><button class="cx2" data-fmt="x">Отмена</button></div>`;
   document.body.appendChild(m);}
 function schFormGo(title){const sc=schByTitle(title);if(!sc)return;const lines={};
@@ -5011,9 +5122,14 @@ async function shareFile(name,mime,base64,text){
 }
 /* меню: картинка / PDF / текст */
 let SHEET_JOB=null;
+/* 4.41: документ клиенту — одно окно для всех: так увидит клиент (превью), стиль, подпись, формат */
 function askFormat(job){SHEET_JOB=job;let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';
-  m.innerHTML=`<div class="fmtc" role="dialog" aria-label="Формат отправки"><b>${esc(job.title||'Отправить')}</b><button class="btn red" data-fmt="png">Картинка</button><button class="btn" data-fmt="pdf">PDF</button>${job.text?'<button class="btn ghost" data-fmt="txt">Текстом</button>':''}<button class="cx2" data-fmt="x">Отмена</button></div>`;
-  document.body.appendChild(m);}
+  const doc=!!job.doc;
+  m.innerHTML=`<div class="fmtc${doc?' rfdoc':''}" role="dialog" aria-label="Формат отправки"><b>${esc(job.title||'Отправить')}</b>${doc?`<p class="snote" style="margin:0">Так увидит клиент:</p><div id="rfpv" class="rfpv" aria-live="polite"><span class="snote">Готовлю…</span></div>${job.parts&&job.parts.length?`<div class="rfparts" role="group" aria-label="Что войдёт">${job.parts.map(([k,n,c])=>`<button data-rfpart="${k}" aria-pressed="${!job.off[k]}">${esc(n)}${c?` · ${c}`:''}</button>`).join('')}<span class="snote">Состояние кожи и заметки — только в карте клиента</span></div>`:''}${docSeg()}<div id="sigw">${sigSeg()}</div>`:''}<button class="btn red" data-fmt="png">Картинка</button><button class="btn" data-fmt="pdf">PDF</button>${job.text?'<button class="btn ghost" data-fmt="txt">Текстом</button>':''}<button class="cx2" data-fmt="x">Отмена</button></div>`;
+  document.body.appendChild(m);if(doc)rfPreview();}
+async function rfPreview(){const box=document.getElementById('rfpv'),job=SHEET_JOB;if(!box||!job||!job.canvas)return;const n=rfPreview.n=(rfPreview.n||0)+1;
+  try{const c=await job.canvas();if(n!==rfPreview.n||!document.getElementById('rfpv'))return;const t=document.createElement('canvas'),k=420/c.width;t.width=420;t.height=Math.round(c.height*k);t.getContext('2d').drawImage(c,0,0,t.width,t.height);
+    box.innerHTML=`<img alt="Предпросмотр документа для клиента" src="${t.toDataURL('image/jpeg',.82)}">`;}catch(e){box.innerHTML='';}}
 async function runFormat(f){const m=document.getElementById('fmtm');if(m)m.remove();const job=SHEET_JOB;SHEET_JOB=null;if(!job||f==='x')return;statEv('отправка',[job.title,job.short].filter(Boolean).join(': ').slice(0,150)+' · '+f+(typeof RECF!=='undefined'&&/Сторис|рекомендац/i.test(job.title||'')?' · '+(/Сторис/.test(job.title||'')&&typeof storyStyle==='function'?storyStyle():cardStyle()):''));
   if(f==='txt'){doShare(job.text);return;}
   toast('Готовлю файл…');const c=await job.canvas();
@@ -5031,20 +5147,30 @@ function careSections(c){
 /* 4.10: в назначениях или на визите есть препараты других брендов — бланк обезличенный, в стиле косметолога */
 const careNeutral=c=>hasMy((c.plans||[]).filter(x=>x.status==='active').map(x=>x.item));
 const visitNeutral=(c,v)=>{const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;return careNeutral(c)||hasMy(v.proc||[])||!!(pr&&protoHasMy(pr));};
-function careJob(c){const nt=careNeutral(c);return {title:'Назначение для клиента',file:(nt?'uhod-':'klapp-uhod-')+todayS(),text:shareText(c),short:nt?'Ваш домашний уход':'Ваш домашний уход KLAPP',
-  canvas:()=>drawSheet({neutral:nt,kicker:'Ваш домашний уход',title:c.name,sub:'Средства подобраны под состояние вашей кожи. Вводите новые средства постепенно, днём используйте SPF.',sections:careSections(c),foot:proFoot('Если появится дискомфорт — напишите мне.')})};}
+/* 4.41: клиенту — только имя; состояние кожи и заметки остаются в карте */
+const firstName=n=>String(n||'').trim().split(/\s+/)[0]||'';
+function careJob(c){const nt=careNeutral(c);return {doc:1,title:'Назначение для клиента',file:(nt?'uhod-':'klapp-uhod-')+todayS(),text:shareText(c),short:nt?'Ваш домашний уход':'Ваш домашний уход KLAPP',
+  canvas:()=>drawSheet({neutral:nt,kicker:'Ваш домашний уход',title:firstName(c.name),sub:'Средства подобраны под состояние вашей кожи. Вводите новые средства постепенно, днём используйте SPF.',sections:careSections(c),foot:proFoot('Если появится дискомфорт — напишите мне.')})};}
+const vqLine=q=>q?[q.n?q.n+(q.u?' '+q.u:''):'',q.z].filter(Boolean).join(' · '):'';
+function visitDone(c,v){const q=v.q||{},L=[];
+  if(v.kit&&itemById[v.kit])L.push({ph:v.kit,t:'Процедурный набор «'+itemById[v.kit].sub+'»',s:[itemById[v.kit]._l.name,vqLine(q.kit)].filter(Boolean).join(' · ')});
+  const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;if(pr)L.push({t:'Процедура «'+pr.name+'»',s:vqLine(q.proto)});
+  (v.proc||[]).forEach(id=>{const it=itemById[id];if(it)L.push({ph:it._f!=='my'?id:null,t:it._f==='kit'?'Процедурный набор «'+it.sub+'»':it.name,s:[brandOf(it),vqLine(q['p:'+id])].filter(Boolean).join(' · ')});});
+  (v.other||[]).forEach(t=>L.push({t,s:vqLine(q['o:'+t])}));if(v.otherNote)L.push({t:v.otherNote});return L;}
+const NXK={check:'Чек-ап',proc:'Процедура'};
+function visitNext(v){const nx=v.nx;if(!nx)return null;const dt=vNxDate(v.date,nx);const t=[NXK[nx.k]||'Следующий визит',nx.d?'через '+nx.d+' '+(nx.d%10===1&&nx.d%100!==11?'день':nx.d%10>=2&&nx.d%10<=4&&(nx.d%100<10||nx.d%100>=20)?'дня':'дней'):''].filter(Boolean).join(' ');return {t,s:dt?fD(dt):''};}
 function visitJob(c,v){
   const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;
-  const nt=visitNeutral(c,v);
-  const procItems=pr?pr.steps.map((st,i)=>{const it=st.type!=='custom'?itemById[st.id]:null;return {n:i+1,ph:it&&it._f!=='my'?it._id:null,t:it?it.name:(st.text||'Свой этап'),s:[it?brandOf(it):'',st.min?st.min+' мин':''].filter(Boolean).join(' · ')};})
-    :(v.proc||[]).map((id,i)=>{const it=itemById[id];return it?{n:i+1,t:it._f==='kit'?'Процедурный набор «'+it.sub+'»':it.name,s:brandOf(it)}:null;}).filter(Boolean);
-  const kitI=v.kit&&itemById[v.kit]?[{ph:v.kit,t:'Процедурный набор «'+itemById[v.kit].sub+'»',s:itemById[v.kit]._l.name}]:[];
-  const othI=(v.other||[]).map(t=>({t})).concat(v.otherNote?[{t:v.otherNote}]:[]);
-  const syms=(v.sym||[]).map(x=>symById[x]?symById[x].n:'').filter(Boolean);
-  return {title:'Итоги визита',file:(nt?'vizit-':'klapp-vizit-')+v.date,short:'Итоги визита',
-    text:`${c.name}, итоги визита ${fD(v.date)}:\n${syms.length?'Состояние кожи: '+syms.join(', ')+'\n':''}${pr?'Процедура: '+pr.name+'\n':''}\n`+shareText(c),
-    canvas:()=>drawSheet({neutral:nt,kicker:'Итоги визита · '+fD(v.date),title:c.name,sub:pr?('Процедура: '+pr.name):'',sections:[{h:'Состояние кожи',items:syms.map(s=>({t:s}))},{h:'Процедурный набор',items:kitI},{h:pr?'Этапы процедуры':'Процедура',items:procItems},{h:'Другие процедуры',items:othI}].concat(careSections(c).map(s=>({h:'Домашний уход · '+s.h.toLowerCase(),items:s.items}))).concat(v.note?[{h:'Заметки',items:[{t:v.note}]}]:[]),
-      foot:proFoot('Сохраните эту памятку — по ней удобно ухаживать за кожей до следующего визита.')})};
+  const nt=visitNeutral(c,v),done=visitDone(c,v),care=careSections(c),hasCare=care.some(s=>s.items.length),nx=visitNext(v);
+  const parts=[['done','Выполнено',done.length]].concat(hasCare?[['care','Домашний уход',care.reduce((n,s)=>n+s.items.length,0)]]:[]).concat(nx?[['next','Следующий визит',1]]:[]);
+  const job={doc:1,title:'Итоги визита',file:(nt?'vizit-':'klapp-vizit-')+v.date,short:'Итоги визита',parts,off:{}};
+  const on=k=>!job.off[k];
+  const careOn=()=>hasCare&&on('care');
+  job.textf=()=>`${firstName(c.name)}, итоги визита ${fD(v.date)}:\n${on('done')&&done.length?'Выполнено:\n'+done.map(i=>'• '+i.t+(i.s?' — '+i.s:'')).join('\n')+'\n':''}${on('next')&&nx?'\nСледующий визит: '+nx.t+(nx.s?', '+nx.s:'')+'\n':''}${careOn()?'\n'+shareText(c):''}`;
+  Object.defineProperty(job,'text',{get:job.textf,enumerable:true});
+  job.canvas=()=>drawSheet({neutral:nt,kicker:'Итоги визита · '+fD(v.date),title:firstName(c.name),sub:'',sections:[{h:'Выполнено',items:on('done')?done:[]}].concat(careOn()?care.map(s=>({h:'Домашний уход · '+s.h.toLowerCase(),items:s.items})):[]).concat(on('next')&&nx?[{h:'Следующий визит',items:[nx]}]:[]),
+      foot:proFoot(careOn()?'Если появится дискомфорт — напишите мне.':'Сохраните эту памятку и покажите её на следующем визите.')});
+  return job;
 }
 /* для проверок: картинка бланка */
 window.__klappSheet=async(k,a,b)=>{const c=cById(a);const j=k==='care'?careJob(c):k==='visit'?visitJob(c,(c.visits||[]).find(v=>v.id===b)):k==='proto'?protoJob(PROTOS.find(p=>p.id===a)):null;if(!j)return null;const cv=await j.canvas();return {url:cv.toDataURL('image/jpeg',.82),text:j.text,file:j.file};};
@@ -5133,7 +5259,7 @@ function honorsJob(){const h=honors();
   if(QZS.secret&&QZS.secret.gold) items.unshift({ic:gerhardSVG(64,'gold'),t:'Золотой Герхард',s:'Секретная награда: путь от Clean & Active до Exo|Gen пройден'});
   if(QZS.secret&&QZS.secret.gerhard) items.unshift({ic:gerhardSVG(64),t:'Бриллиантовый Герхард',s:'Секретная награда: 100% в большом тесте с первой попытки'});
   const jokes=[];if(h.zero)jokes.push({ic:awSVG('zero','',64),t:JOKES.zero.n+(h.zero>1?' × '+h.zero:''),s:JOKES.zero.d});if(h.low)jokes.push({ic:awSVG('low','',64),t:JOKES.low.n+(h.low>1?' × '+h.low:''),s:JOKES.low.d});
-  return {title:'Доска почёта',file:'klapp-nagrady-'+todayS(),short:'Мои награды KLAPP Pro',
+  return {doc:1,title:'Доска почёта',file:'klapp-nagrady-'+todayS(),short:'Мои награды KLAPP Pro',
    text:`KLAPP Pro — доска почёта${mgrSign()?'\n'+mgrSign():''}\n\n`+(items.map(i=>i.ic?`• ${i.t}:\n   ${i.s}`:`${i.t} · ${i.s}\n`).join('\n')||'Наград пока нет')+(jokes.length?'\n\nОсобые номинации: '+jokes.map(j=>j.t).join(', '):''),
    canvas:()=>drawSheet({kicker:'Доска почёта',title:QZS.name||'Специалист KLAPP',sub:`Наград: ${h.list.length} · пройдено тестов: ${QZS.att.length}`,sections:[{h:'Награды',items:items},{h:'Особые номинации',items:jokes}],foot:'KLAPP Pro · тесты на понимание ассортимента: составы, активы, эффекты, подбор.'})};}
 
@@ -5404,7 +5530,7 @@ VIEWS.home=function(){
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Pro · версия 4.40</p>`;
+   <p class="foot">KLAPP Pro · версия 4.41</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -6196,7 +6322,7 @@ async function genDraw(tpl,o){await fontsReady();o=o||{};
   const RED='#FF4438',INK='#111111';
   const LSx=v=>{try{x.letterSpacing=v;}catch(e){}};
   const setF=(f,ls)=>{x.font=f;LSx(ls||'0px');};
-  const wrap=(t,f,w,ls)=>{setF(f,ls);const out=[];String(t||'').split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const wrap=(t,f,w,ls)=>{setF(f,ls);const out=[];String(t||'').split('\n').forEach(par=>{let line='';glueShort(par.split(/\s+/).filter(Boolean)).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
   /* текст с переносом: целиком, без «…» — при нехватке места кегль уменьшается */
   const T=(t,f,col,X,Y,w,lh,op={})=>{t=String(t||'');if(op.up)t=t.toUpperCase();const m=f.match(/^(\S+) ([\d.]+)px (.+)$/);let sz=+m[2],ls=op.ls?op.ls*sz+'px':'0px',L=wrap(t,f,w,ls),k=1;
     while(op.max&&L.length>op.max&&k>0.55){k*=0.94;sz=Math.round(+m[2]*k);ls=op.ls?op.ls*sz+'px':'0px';L=wrap(t,m[1]+' '+sz+'px '+m[3],w,ls);}
@@ -6589,7 +6715,7 @@ function sklItemBlock(p){const ph=sklPhrase(p);return `<div class="skl-ib"><span
 /* в визите: подсказка по стилю клиентки; «не приобретён» — через 3 дня кабинет напомнит написать */
 function sklVisitHint(c){const t=c&&SKL_T.find(x=>x.id===c.ptype);return t?`<p class="skl-vh"><b>${esc(t.n)}:</b> ${esc(t.say)}</p>`:`<p class="skl-vh"><b>Фраза дня:</b> «${esc(sklPhraseDay())}»</p>`;}
 
-function sklFollow(){const out=[];(CAB.clients||[]).forEach(c=>{const v=(c.visits||[]).slice().sort((a,b)=>a.date<b.date?1:-1)[0];if(!v||v.hc!=='n')return;
+function sklFollow(){const out=[];(CAB.clients||[]).forEach(c=>{const v=(c.visits||[]).slice().sort((a,b)=>a.date<b.date?1:-1)[0];if(!v||(v.hc!=='n'&&v.hc!=='l'))return;
   const dd=dDiff(v.date,todayS());if(dd<3||dd>21)return;if((c.log||[]).some(e=>e.k==='hc'&&e.ref===v.id))return;out.push({c,v,dd});});return out;}
 {const _cab=VIEWS.cab;VIEWS.cab=function(s){const h=_cab.apply(this,arguments);try{if(!sklOk()||!CAB.clients)return h;const L=sklFollow();if(!L.length)return h;
   const b=`<div class="grp">Код доверия · спросить о коже · ${L.length}</div>`+L.map(({c,v,dd})=>`<div class="skl-fu"><span><b>${esc(c.name)}</b><small>визит ${fD(v.date)} · домашний уход не приобретён · ${dd} ${plural(dd,'день','дня','дней')} назад</small></span><button class="btn ghost sm" data-crmmsg="${esc(c.id)}|hc|${esc(v.id)}">Написать</button></div>`).join('');
@@ -6699,7 +6825,7 @@ let OTA_BUSY=false;
 const otaRoot=()=>{const c=cUrl();return c?c.replace(/content\/?$/,''):'';};
 const otaGet=()=>{try{return JSON.parse(localStorage.getItem('klapp-ota')||'null');}catch(e){return null;}};
 const otaPut=o=>{try{localStorage.setItem('klapp-ota',JSON.stringify(o));}catch(e){}};
-const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.40';}catch(e){return '4.40';}};
+const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.41';}catch(e){return '4.41';}};
 async function otaVerify(text,sigB64){
   const key=await crypto.subtle.importKey('jwk',OTA_PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
   const sig=Uint8Array.from(atob(sigB64),c=>c.charCodeAt(0));
@@ -6717,7 +6843,7 @@ async function codeCheck(manual){
     const r=await fetch(root+'code/manifest.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('manifest '+r.status);
     const m=await r.json();LSset('klapp-code-check',Date.now());
     if(!m||!m.ver||!m.file||!m.sha256||!m.sig)throw new Error('manifest');
-    if(verCmp(m.ver,'4.40')<=0){if(manual)toast('Код приложения — последней версии');return;}
+    if(verCmp(m.ver,'4.41')<=0){if(manual)toast('Код приложения — последней версии');return;}
     if(m.apk_min&&verCmp(apkVer(),m.apk_min)<0){if(manual)toast('Для версии '+m.ver+' нужен новый APK — попросите его у менеджера');return;}
     const o=otaGet();
     if(o&&o.ver===m.ver){if(o.state==='bad'){if(manual)toast('Версия '+m.ver+' не запустилась на этом телефоне — ждём исправления');return;}otaBanner(m.ver);return;}
@@ -6749,7 +6875,7 @@ async function codeCheck(manual){
 if(window.androidBridge){setTimeout(()=>codeCheck(false),6000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')codeCheck(false);});
   setInterval(()=>{if(document.visibilityState==='visible')codeCheck(false);},3*60*1000);}   /* 4.28: и пока приложение просто открыто */
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='4.40'.split('.').slice(0,2).join('.');
+const VERMIN='4.41'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -6767,9 +6893,14 @@ hintWrap('myl','myl','Мои препараты','Добавьте средст�
 hintWrap('honors','honors','Награды','Медали — за тесты по линиям, кубки — за категории, корона — за большой тест. Ниже — коллекция линий: линия собрана, когда вы открыли все её препараты и наборы и сдали тест по ней на 75% и выше.');
 hintWrap('run','run','Процедура по шагам','На каждом этапе — препарат, техника и таймер. Экран не гаснет, пока идёт процедура. «Следующий этап» — переход дальше.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'4.37':[['Схема клиенту — с вашими словами','Перед отправкой схемы домашнего ухода открываются короткие рекомендации к каждому средству: поправьте текст, и он запомнится. Совет в конце — тоже ваш.'],['Подпись на схеме и назначении','Как у сторис: фото, имя, контакты и ник можно включать и выключать, есть «Инкогнито».'],['Точнее замены','Крем для шеи больше не предлагается вместо крема для лица, а «Регулятор акне» меняется только на средства для жирной кожи. Тексты «как применять» — без кабинетных слов и обрезанных фраз.']],'4.35':[['Чистые анонсы','Телефон больше не подставляется сам, а пустые поля не оставляют на афише подписей вроде «Город» или «Запись». Шаблонов анонса теперь семь.']],'4.34':[['Генератор анонсов — удобнее','Пустые поля остаются пустыми — можно дописать от руки. Лента шаблонов больше не перепрыгивает к первому.'],['Кабинет регионального менеджера','Региональные партнёры с планом закупки на квартал: выполнение по каждому и по региону, рейтинг, доля в обороте, анонс семинара для партнёра.']],'4.33':[['Семь стилей сторис','У сторис о продукте теперь семь стилей: Этикетка, Крем, Ночь, Журнал, Клиника, Стекло и Постер. В «Ночи» свечение — в цвет упаковки средства.']],'4.32':[['Анонсы и сертификаты','Для тренеров, партнёров и региональных менеджеров — генератор афиш семинаров (8 вариантов в стиле бренда) и сертификатов участникам: название, дата, время, город, тренер с фото и подписью. PNG и PDF, сертификаты на всю группу — одним файлом.']],'4.31':[['Кабинет менеджера и партнёра','У менеджеров и партнёров KLAPP — свой кабинет: база косметологов, «Неделя менеджера», заказы с калькулятором «до ступени осталось…», вставка заказа из мессенджера в одно касание, отметка «Ждут» у препаратов не в наличии и отчёт за месяц.'],['Чище упаковки','Наборы ампул Skin Boost больше не обрезаются «лохмотьями».']],'4.30':[['Сторис без обрезанного текста','Название препарата и описание теперь помещаются целиком: длинное название переносится по смыслу, а под ним — короткая фраза о средстве во всех трёх стилях.'],['Сторис для «Let it glow»','Рождественскую коллекцию теперь можно отправить не только карточкой, но и сторис.']],'4.29':[['Клиент за пять секунд','В Кабинете введите имя и нажмите «Добавить» — карта готова, детали можно внести позже. В карте клиента — кнопки «Позвонить», WhatsApp и Telegram.'],['Готовые сообщения клиентам','У назначения, которое заканчивается, и у приглашения на процедуру — «Написать клиенту»: три варианта текста на выбор, отправка в мессенджер в одно касание. Потом отметьте итог: докупила, записалась или не ответила.'],['Фото «до и после»','Добавляйте фото в карту клиента и отправляйте сравнение «до и после» одной картинкой. Фото хранятся только на вашем телефоне и входят в резервную копию.'],['Мой месяц','Вверху Кабинета — сводка: визиты, новые клиенты, сообщения и кто вернулся по напоминанию. И цель недели — пять касаний с клиентами. За работу с клиентами тоже начисляется опыт.']],'4.28':[['Обновления приходят сами','Приложение проверяет обновления при каждом открытии и каждые несколько минут, пока открыто. Раньше — не чаще раза в 6 часов.'],['Запуск быстрее','Картинки коллекции и фото тренеров вынесены из приложения в отдельные файлы: оно стало заметно легче.'],['«Жду поступления»','У препарата, которого нет на складе, появилась кнопка — она напишет менеджеру, что вы ждёте поставку.'],['Cell Pro в подборе','Линия Cell Pro теперь предлагается и при обезвоженности, тусклом тоне, усталости, морщинах и фотостарении.']],'4.27':[['Мои протоколы — отдельной вкладкой','В «Подборе» → Профуход теперь три подвкладки: «По шагам», «Протоколы» (готовые KLAPP) и «Мои протоколы».'],['Клиенты — в таблицу','В Кабинете под списком клиентов — «Выгрузить клиентов таблицей»: Excel с листами «Клиенты», «Визиты», «Назначения» или CSV.'],['Копия раз в неделю','На Android приложение раз в неделю напомнит уведомлением сохранить копию клиентов. Согласие клиента на обработку данных теперь — одна галочка в карте клиента.'],['Статистика — с вашего согласия','Приложение может отправлять в KLAPP статистику использования: когда и сколько вы им пользуетесь, тесты, факт заказа без состава. Данные клиентов не передаются никогда. Согласие можно отозвать в Настройках.']],'4.26':[['Готовые протоколы KLAPP','В «Подборе» → Профуход → «Протоколы» — 18 протоколов из «Меню составных процедур»: шаги, режим процедуры с таймером, заказ всех препаратов в одно касание и домашний уход к каждому протоколу. Любой можно скопировать в свои и поменять.'],['Подпись на свой выбор','В карточках и сторис можно выбрать, что показать: фото, имя, контакты, ник — или «Инкогнито» без личных данных. Имя клиента на карточке теперь склоняется: «для Аллы».'],['Только то, что есть на складе','Если добавить в заказ схему или протокол, а части средств нет на складе, появится окно с заменами. Без замены отсутствующее в заказ не попадёт, а из старого заказа такие позиции убираются.'],['Путь опыта','Без участия в программе лояльности в «Наградах» показывается путь опыта в приложении: Ученик → Практик → Знаток → Виртуоз.']],'4.25':[['Три стиля карточек','«Моя рекомендация» теперь бывает в трёх стилях: Классика, Крем и Ночь. Стиль выбирается прямо при отправке или в Настройках.'],['Сторис для клиентов','Из карточки препарата или набора можно сделать сторис 1080×1920 — с фото, вашим именем и ником. А «Совет эксперта» — цитата, вопрос клиента или факт дня — собирается в Настройках, из факта дня на главной и из статьи энциклопедии.'],['Новые награды','Новая медаль, кубок или корона появляются со вспышкой. И ещё шесть скрытых наград — их условия секрет, ищите сами.']],'4.24':[['Новый «Подбор»','Три раздела — Профуход, Наборы и Дом, в каждом свои подвкладки: шаги процедуры и протоколы, все наборы и наборы по задаче, подбор по состоянию, по задаче и схемы. Из процедур и наборов — кнопка «Рекомендовать домашний уход».'],['Названия наборов','Шесть наборов называются как на коробке: ASA Peel Face Treatment, Caviar Power Treatment, Cell Pro Balancing, Firming и Lifting Treatment, Retinol MLP Treatment.']],'4.23':[['Наличие на складе','Если препарата нет на складе KLAPP, в карточке и списках видна плашка «нет в наличии» или «скоро в продаже» с датой. Вместо «В заказ» — подбор замены, которая есть в наличии.'],['В схемах и заказе','Отсутствующие средства отмечены в схемах ухода и в «Моём заказе» — рядом кнопка «замена».']],'4.22':[['Ступени опыта','За тесты, вопрос дня и карточки растёт ваш опыт: Ученик → Практик → Знаток → Виртуоз. Ступень видна на «Наградах» и на главной.'],['Программа лояльности','Если вы пока не участвуете в программе KLAPP, вместо «Моего пути» — вкладка «Программа лояльности»: ступени, условия и что они дают.'],['Подсказка на главной','Под быстрыми кнопками — подсказка под вашу роль: что посмотреть или сделать дальше.'],['Имена в падежах','Напоминания и сообщения склоняют имя клиента: «Пора напомнить Анне Смирновой».']],'4.21':[['Быстрее и без случайного зума','Экраны переключаются быстрее, «Стекло» и «Аврора» легче для телефона. Страница больше не увеличивается двумя пальцами и не «тянется» на краях.'],['Клиенты в поиске','Поиск на главной находит и клиентов из кабинета — по имени или телефону.'],['Вопрос дня','После ответа сворачивается в тонкую плашку — нажмите, чтобы развернуть. «Мой путь» теперь стоит после «Наград».'],['Идеи и отзывы','В Настройках — «Предложить улучшение» и «Оставить отзыв»: письмо уйдёт разработчику.'],['Составы по упаковкам','A Classic (802/1802, 803/1803, 809/1809, 830/1811, 1806, 1825) и «Супер Липид» 954/1954 сверены с актуальными упаковками: в них нет лилиаля и лирала.']],'4.20':[['Ошибка — сразу разработчику','Нашли неточность в карточке → «Сообщите»: письмо уйдёт разработчику приложения. Ошибку в работе приложения — Настройки → «Сообщить об ошибке».'],['iPhone: как не потерять данные','Короткий ответ в Настройках → «Как пользоваться». Главное — открывайте приложение значком и сохраняйте копию раз в неделю.']],'4.19':[['Для профи — во всём каталоге','Во всех 145 препаратах и 13 наборах — разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Откройте любую карточку → «Для профи».']],'4.18':[['Для профи в наборах','Во всех 13 процедурных наборах — логика протокола, курс и продолжение дома, что учесть по составу (с номерами шагов) и фраза для клиента.'],['По составу — в каждой карточке','Во всех препаратах блок «Для профи» показывает, на что обратить внимание по составу: отдушка и аллергены, масла орехов, пшеница, ретиноиды, кислоты и другое.']],'4.17':[['Для профи','В карточках ASA Peel и Niacinamide появился блок «Для профи»: разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Пробуем на двух линиях — расскажите, удобно ли.'],['Ингредиенты подробнее','В «Подробнее» у каждого из 656 компонентов INCI — рассказ для косметолога.']],'4.16':[['Ингредиенты подробнее','В каталоге состава у компонентов INCI в «Подробнее» теперь рассказ для косметолога: что это, как работает, кому подходит и на что обратить внимание. Ниже — данные официальной базы ЕС, как раньше. Описаны все 656 компонентов: у активов — подробно, у технических — коротко, что делает в формуле.'],['Составы по упаковкам','Составы 1840, 957, 958 и 1958 сверены с актуальными упаковками.'],['Адвент-календарь Let it glow','Исправлен состав: вместо маски в календаре крем «День и ночь» Retinol MLP, 20 мл.']],'4.15':[['Чёткие картинки','Памятки, рекомендации и результаты тестов теперь отправляются вдвое чётче — 2160 точек по ширине. PDF — тоже. Совет: в Telegram отправляйте «как файл», в WhatsApp включайте HD — тогда мессенджер не пережмёт картинку.'],['Секретные статусы знаний','За опыт в приложении — тесты, вопрос дня, карточки — теперь открываются скрытые статусы. Какие — узнаете, когда дойдёте.'],['Мой путь','Обучение — три базовых семинара: «Профессиональные препараты», «Процедурные наборы», «Домашний уход». После аттестации — «Отправить отчёт менеджеру».']]};
+const WHATSNEW={'4.41':[['Итоги визита — по-новому','В карточке клиента — что выполнено: количество, единицы и зоны, и следующий визит. Состояние кожи и заметки остаются только в карте клиента, а на карточке — только имя.'],['Одна кнопка «Клиенту»','В карте клиента — итоги визита, домашний уход и «до и после» в одном месте. Перед отправкой — превью, выбор того, что войдёт, стиль и подпись.'],['Три стиля памяток','Официальный, Клиника и Крем — для итогов визита, назначений, схем и протоколов. Выбор — прямо при отправке, он запомнится.'],['Домашний уход в визите','Отметьте, назначен ли уход и приобретён ли он: да, позже или нет. В «Моём месяце» появится ваш процент.']],'4.37':[['Схема клиенту — с вашими словами','Перед отправкой схемы домашнего ухода открываются короткие рекомендации к каждому средству: поправьте текст, и он запомнится. Совет в конце — тоже ваш.'],['Подпись на схеме и назначении','Как у сторис: фото, имя, контакты и ник можно включать и выключать, есть «Инкогнито».'],['Точнее замены','Крем для шеи больше не предлагается вместо крема для лица, а «Регулятор акне» меняется только на средства для жирной кожи. Тексты «как применять» — без кабинетных слов и обрезанных фраз.']],'4.35':[['Чистые анонсы','Телефон больше не подставляется сам, а пустые поля не оставляют на афише подписей вроде «Город» или «Запись». Шаблонов анонса теперь семь.']],'4.34':[['Генератор анонсов — удобнее','Пустые поля остаются пустыми — можно дописать от руки. Лента шаблонов больше не перепрыгивает к первому.'],['Кабинет регионального менеджера','Региональные партнёры с планом закупки на квартал: выполнение по каждому и по региону, рейтинг, доля в обороте, анонс семинара для партнёра.']],'4.33':[['Семь стилей сторис','У сторис о продукте теперь семь стилей: Этикетка, Крем, Ночь, Журнал, Клиника, Стекло и Постер. В «Ночи» свечение — в цвет упаковки средства.']],'4.32':[['Анонсы и сертификаты','Для тренеров, партнёров и региональных менеджеров — генератор афиш семинаров (8 вариантов в стиле бренда) и сертификатов участникам: название, дата, время, город, тренер с фото и подписью. PNG и PDF, сертификаты на всю группу — одним файлом.']],'4.31':[['Кабинет менеджера и партнёра','У менеджеров и партнёров KLAPP — свой кабинет: база косметологов, «Неделя менеджера», заказы с калькулятором «до ступени осталось…», вставка заказа из мессенджера в одно касание, отметка «Ждут» у препаратов не в наличии и отчёт за месяц.'],['Чище упаковки','Наборы ампул Skin Boost больше не обрезаются «лохмотьями».']],'4.30':[['Сторис без обрезанного текста','Название препарата и описание теперь помещаются целиком: длинное название переносится по смыслу, а под ним — короткая фраза о средстве во всех трёх стилях.'],['Сторис для «Let it glow»','Рождественскую коллекцию теперь можно отправить не только карточкой, но и сторис.']],'4.29':[['Клиент за пять секунд','В Кабинете введите имя и нажмите «Добавить» — карта готова, детали можно внести позже. В карте клиента — кнопки «Позвонить», WhatsApp и Telegram.'],['Готовые сообщения клиентам','У назначения, которое заканчивается, и у приглашения на процедуру — «Написать клиенту»: три варианта текста на выбор, отправка в мессенджер в одно касание. Потом отметьте итог: докупила, записалась или не ответила.'],['Фото «до и после»','Добавляйте фото в карту клиента и отправляйте сравнение «до и после» одной картинкой. Фото хранятся только на вашем телефоне и входят в резервную копию.'],['Мой месяц','Вверху Кабинета — сводка: визиты, новые клиенты, сообщения и кто вернулся по напоминанию. И цель недели — пять касаний с клиентами. За работу с клиентами тоже начисляется опыт.']],'4.28':[['Обновления приходят сами','Приложение проверяет обновления при каждом открытии и каждые несколько минут, пока открыто. Раньше — не чаще раза в 6 часов.'],['Запуск быстрее','Картинки коллекции и фото тренеров вынесены из приложения в отдельные файлы: оно стало заметно легче.'],['«Жду поступления»','У препарата, которого нет на складе, появилась кнопка — она напишет менеджеру, что вы ждёте поставку.'],['Cell Pro в подборе','Линия Cell Pro теперь предлагается и при обезвоженности, тусклом тоне, усталости, морщинах и фотостарении.']],'4.27':[['Мои протоколы — отдельной вкладкой','В «Подборе» → Профуход теперь три подвкладки: «По шагам», «Протоколы» (готовые KLAPP) и «Мои протоколы».'],['Клиенты — в таблицу','В Кабинете под списком клиентов — «Выгрузить клиентов таблицей»: Excel с листами «Клиенты», «Визиты», «Назначения» или CSV.'],['Копия раз в неделю','На Android приложение раз в неделю напомнит уведомлением сохранить копию клиентов. Согласие клиента на обработку данных теперь — одна галочка в карте клиента.'],['Статистика — с вашего согласия','Приложение может отправлять в KLAPP статистику использования: когда и сколько вы им пользуетесь, тесты, факт заказа без состава. Данные клиентов не передаются никогда. Согласие можно отозвать в Настройках.']],'4.26':[['Готовые протоколы KLAPP','В «Подборе» → Профуход → «Протоколы» — 18 протоколов из «Меню составных процедур»: шаги, режим процедуры с таймером, заказ всех препаратов в одно касание и домашний уход к каждому протоколу. Любой можно скопировать в свои и поменять.'],['Подпись на свой выбор','В карточках и сторис можно выбрать, что показать: фото, имя, контакты, ник — или «Инкогнито» без личных данных. Имя клиента на карточке теперь склоняется: «для Аллы».'],['Только то, что есть на складе','Если добавить в заказ схему или протокол, а части средств нет на складе, появится окно с заменами. Без замены отсутствующее в заказ не попадёт, а из старого заказа такие позиции убираются.'],['Путь опыта','Без участия в программе лояльности в «Наградах» показывается путь опыта в приложении: Ученик → Практик → Знаток → Виртуоз.']],'4.25':[['Три стиля карточек','«Моя рекомендация» теперь бывает в трёх стилях: Классика, Крем и Ночь. Стиль выбирается прямо при отправке или в Настройках.'],['Сторис для клиентов','Из карточки препарата или набора можно сделать сторис 1080×1920 — с фото, вашим именем и ником. А «Совет эксперта» — цитата, вопрос клиента или факт дня — собирается в Настройках, из факта дня на главной и из статьи энциклопедии.'],['Новые награды','Новая медаль, кубок или корона появляются со вспышкой. И ещё шесть скрытых наград — их условия секрет, ищите сами.']],'4.24':[['Новый «Подбор»','Три раздела — Профуход, Наборы и Дом, в каждом свои подвкладки: шаги процедуры и протоколы, все наборы и наборы по задаче, подбор по состоянию, по задаче и схемы. Из процедур и наборов — кнопка «Рекомендовать домашний уход».'],['Названия наборов','Шесть наборов называются как на коробке: ASA Peel Face Treatment, Caviar Power Treatment, Cell Pro Balancing, Firming и Lifting Treatment, Retinol MLP Treatment.']],'4.23':[['Наличие на складе','Если препарата нет на складе KLAPP, в карточке и списках видна плашка «нет в наличии» или «скоро в продаже» с датой. Вместо «В заказ» — подбор замены, которая есть в наличии.'],['В схемах и заказе','Отсутствующие средства отмечены в схемах ухода и в «Моём заказе» — рядом кнопка «замена».']],'4.22':[['Ступени опыта','За тесты, вопрос дня и карточки растёт ваш опыт: Ученик → Практик → Знаток → Виртуоз. Ступень видна на «Наградах» и на главной.'],['Программа лояльности','Если вы пока не участвуете в программе KLAPP, вместо «Моего пути» — вкладка «Программа лояльности»: ступени, условия и что они дают.'],['Подсказка на главной','Под быстрыми кнопками — подсказка под вашу роль: что посмотреть или сделать дальше.'],['Имена в падежах','Напоминания и сообщения склоняют имя клиента: «Пора напомнить Анне Смирновой».']],'4.21':[['Быстрее и без случайного зума','Экраны переключаются быстрее, «Стекло» и «Аврора» легче для телефона. Страница больше не увеличивается двумя пальцами и не «тянется» на краях.'],['Клиенты в поиске','Поиск на главной находит и клиентов из кабинета — по имени или телефону.'],['Вопрос дня','После ответа сворачивается в тонкую плашку — нажмите, чтобы развернуть. «Мой путь» теперь стоит после «Наград».'],['Идеи и отзывы','В Настройках — «Предложить улучшение» и «Оставить отзыв»: письмо уйдёт разработчику.'],['Составы по упаковкам','A Classic (802/1802, 803/1803, 809/1809, 830/1811, 1806, 1825) и «Супер Липид» 954/1954 сверены с актуальными упаковками: в них нет лилиаля и лирала.']],'4.20':[['Ошибка — сразу разработчику','Нашли неточность в карточке → «Сообщите»: письмо уйдёт разработчику приложения. Ошибку в работе приложения — Настройки → «Сообщить об ошибке».'],['iPhone: как не потерять данные','Короткий ответ в Настройках → «Как пользоваться». Главное — открывайте приложение значком и сохраняйте копию раз в неделю.']],'4.19':[['Для профи — во всём каталоге','Во всех 145 препаратах и 13 наборах — разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Откройте любую карточку → «Для профи».']],'4.18':[['Для профи в наборах','Во всех 13 процедурных наборах — логика протокола, курс и продолжение дома, что учесть по составу (с номерами шагов) и фраза для клиента.'],['По составу — в каждой карточке','Во всех препаратах блок «Для профи» показывает, на что обратить внимание по составу: отдушка и аллергены, масла орехов, пшеница, ретиноиды, кислоты и другое.']],'4.17':[['Для профи','В карточках ASA Peel и Niacinamide появился блок «Для профи»: разбор формулы, место в уходе и сочетания, что учесть по составу и готовая фраза для клиента. Пробуем на двух линиях — расскажите, удобно ли.'],['Ингредиенты подробнее','В «Подробнее» у каждого из 656 компонентов INCI — рассказ для косметолога.']],'4.16':[['Ингредиенты подробнее','В каталоге состава у компонентов INCI в «Подробнее» теперь рассказ для косметолога: что это, как работает, кому подходит и на что обратить внимание. Ниже — данные официальной базы ЕС, как раньше. Описаны все 656 компонентов: у активов — подробно, у технических — коротко, что делает в формуле.'],['Составы по упаковкам','Составы 1840, 957, 958 и 1958 сверены с актуальными упаковками.'],['Адвент-календарь Let it glow','Исправлен состав: вместо маски в календаре крем «День и ночь» Retinol MLP, 20 мл.']],'4.15':[['Чёткие картинки','Памятки, рекомендации и результаты тестов теперь отправляются вдвое чётче — 2160 точек по ширине. PDF — тоже. Совет: в Telegram отправляйте «как файл», в WhatsApp включайте HD — тогда мессенджер не пережмёт картинку.'],['Секретные статусы знаний','За опыт в приложении — тесты, вопрос дня, карточки — теперь открываются скрытые статусы. Какие — узнаете, когда дойдёте.'],['Мой путь','Обучение — три базовых семинара: «Профессиональные препараты», «Процедурные наборы», «Домашний уход». После аттестации — «Отправить отчёт менеджеру».']]};
 function sheet(html){let m=document.getElementById('fmtm');if(m)m.remove();m=document.createElement('div');m.id='fmtm';m.className='fmtm';m.innerHTML=`<div class="fmtc" role="dialog">${html}</div>`;document.body.appendChild(m);m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-sheetx]'))m.remove();});return m;}
-function whatsNew(){const L=WHATSNEW[VERMIN];if(!L)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.40</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+/* 4.41: «Что нового» — все версии после последней увиденной (раньше показывалась только текущая,
+   и при выпуске без записи — например, 4.38–4.40 — новости 4.37 никто не видел). Не больше 6 пунктов, новые сверху. */
+const vNum=v=>{const [a,b]=String(v).split('.');return (+a||0)*1000+(+b||0);};
+const WN_KEYS=()=>Object.keys(WHATSNEW).filter(k=>vNum(k)<=vNum(VERMIN)).sort((a,b)=>vNum(b)-vNum(a));
+function wnItems(from){const ks=WN_KEYS().filter(k=>from?vNum(k)>vNum(from):true);const L=[];(ks.length?ks:WN_KEYS().slice(0,1)).forEach(k=>WHATSNEW[k].forEach(x=>L.push(x)));return L.slice(0,6);}
+function whatsNew(from){const L=wnItems(from);if(!L.length)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.41</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB=[
  {ic:'brand',t:'KLAPP Pro',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -6790,24 +6921,24 @@ function onbShow(){let o=document.getElementById('onb');if(o)o.remove();o=docume
   draw();}
 function firstRun(){if(accStart(firstRun))return;if(isDemo())return;const used=CAB.clients.length||QZS.att.length||RECENT.length||ORD.items.length||Object.keys(DQ.days||{}).length;
   if(!LS('klapp-onb','')){if(used){LSset('klapp-onb',VERMIN);}else{onbShow();return;}}
-  if(LS('klapp-seen-ver','')!==VERMIN){LSset('klapp-seen-ver',VERMIN);if(used)whatsNew();}}
+  if(LS('klapp-seen-ver','')!==VERMIN){const was=LS('klapp-seen-ver','');LSset('klapp-seen-ver',VERMIN);if(used&&wnItems(was).length&&WN_KEYS().some(k=>vNum(k)>vNum(was||'0')))whatsNew(was);}}
 VIEWS.settings=function(){setTop('Настройки',true);
-  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.40</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
-  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.40${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
+  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.41</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
+  return `<section class="intro"><h1>Настройки</h1><p>Имя, менеджер, контакты для клиентов, оформление и помощь.</p><p class="verline">KLAPP Pro · версия 4.41${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
   ${accSettings()}${statSettings()}<div class="grp">Профиль</div><label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">Имя появится в заказе менеджеру и на доске почёта.</p>
   ${settings39()}
   ${lookHTML()}${fontHTML()}${contentHTML()}
   <div class="grp">Помощь</div>
   <button class="row" data-open="help"><span class="tx"><span class="nm">Как пользоваться</span><span class="sb">Короткие ответы на частые вопросы</span></span>${I.go}</button>
   <button class="row" data-onb><span class="tx"><span class="nm">Знакомство с приложением</span><span class="sb">Четыре экрана о главном</span></span>${I.go}</button>
-  ${WHATSNEW[VERMIN]?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового в версии 4.40</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
+  ${WN_KEYS().length?`<button class="row" data-wnew><span class="tx"><span class="nm">Что нового</span><span class="sb">Главные изменения</span></span>${I.go}</button>`:''}
   <button class="row" data-bugapp><span class="tx"><span class="nm">Сообщить об ошибке</span><span class="sb">Письмо разработчику: что случилось и где</span></span>${I.go}</button>
   <button class="row" data-ideaapp><span class="tx"><span class="nm">Предложить улучшение</span><span class="sb">Чего не хватает в работе — идея уйдёт разработчику</span></span>${I.go}</button>
   <button class="row" data-revapp><span class="tx"><span class="nm">Оставить отзыв</span><span class="sb">Что нравится, что мешает — коротко, своими словами</span></span>${I.go}</button>
   <button class="row" data-hreset><span class="tx"><span class="nm">Вернуть подсказки</span><span class="sb">Снова показать объяснения в разделах</span></span>${I.go}</button>
   <div class="grp">Сообщество и бренд</div>${tgLine()}
   <button class="row" data-am2="brand"><span class="tx"><span class="nm">О бренде KLAPP</span><span class="sb">История, философия, контакты</span></span>${I.go}</button>
-  <p class="foot">KLAPP Pro · версия 4.40</p>`;};
+  <p class="foot">KLAPP Pro · версия 4.41</p>`;};
 const HELP=[
  ['Как завести клиента и провести визит','Кабинет → «Новый клиент» → имя и тип кожи → «Сохранить». В карте клиента — «Визит и диагностика»: три шага — состояние кожи, процедура, домашний уход. Обязательно только состояние кожи, остальное по желанию.'],
  ['Как приложение напоминает о докупке','Назначение знает норму расхода средства и считает, когда оно закончится. За несколько дней до конца клиент появится в списке «Пора напомнить» в Кабинете, а на телефон в 10:00 придёт уведомление.'],
@@ -6854,6 +6985,21 @@ const ACC_RE=/KP1\.([A-Za-z0-9_-]{8,900})\.([A-Za-z0-9_-]{86})/;
 const DEMO_VIEWS=new Set(['catalog','lines','line','item','search','spec','step','settings','help','locked']);   /* 4.15.5: без энциклопедии активов и INCI */
 const DEMO_KEYS=new Set(['back','cs','cs2','hint','hintbox','item','jump','line','lineh','seg','tab','anch','step','spec','mode','q','scht','thm','uiset','uihue','fsz']);
 let ACC=LS('klapp-acc',null);
+/* 4.41: куратор — «Смотреть как»: приложение ведёт себя как у выбранной роли (в памяти, код не меняется); у менеджерских ролей — свои демо-базы */
+const VIEWAS_L=[['c','Косметолог'],['cp','В программе'],['m','Менеджер'],['p','Партнёр'],['r','Региональный'],['t','Тренер']];
+let ACC0=ACC,VIEWAS=null;
+(()=>{try{const v=LS('klapp-viewas',null);if(ACC&&ACC.r==='k'&&v&&VIEWAS_L.some(x=>x[0]===v.r)){VIEWAS=v;
+  ACC=Object.assign({},ACC,{r:v.r==='cp'?'c':v.r,st:v.r==='cp'?(+v.st>=1&&+v.st<=4?+v.st:2):v.r==='c'?0:ACC.st,np:v.r==='c'?1:0,tr:v.r==='t'?1:0});}
+  else if(v)localStorage.removeItem('klapp-viewas');}catch(e){}})();
+const isCuratorReal=()=>!!(ACC0&&ACC0.r==='k'&&ACC&&ACC.c===ACC0.c);
+function viewAs(r,st){try{if(!r)localStorage.removeItem('klapp-viewas');else LSset('klapp-viewas',{r,st:st||0});}catch(e){}location.reload();}
+const vaSeg=()=>{if(!isCuratorReal())return '';const cur=VIEWAS?VIEWAS.r:'';const st=VIEWAS&&VIEWAS.r==='cp'?(+VIEWAS.st||2):0;
+  return `<div class="vaw"><span class="vak">Смотреть как</span><div class="vas" role="group" aria-label="Смотреть как">${[['','Куратор'],...VIEWAS_L].map(([k,n])=>`<button data-viewas="${k||'-'}" aria-pressed="${cur===k}">${n}</button>`).join('')}</div>${cur==='cp'?`<div class="vas" role="group" aria-label="Ступень">${['I','II','III','IV'].map((n,i)=>`<button data-viewst="${i+1}" aria-pressed="${st===i+1}">Ступень ${n}</button>`).join('')}</div>`:''}</div>`;};
+function vaBar(){if(!VIEWAS||!isCuratorReal()||document.getElementById('vabar'))return;const n=(VIEWAS_L.find(x=>x[0]===VIEWAS.r)||[])[1]||'';const b=document.createElement('button');b.id='vabar';b.dataset.viewas='-';
+  b.innerHTML=`Вы смотрите как: <b>${esc(n)}${VIEWAS.r==='cp'?' · ступень '+['I','II','III','IV'][(+VIEWAS.st||2)-1]:''}</b> · вернуться`;document.body.appendChild(b);}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-viewas],[data-viewst]');if(!b)return;e.stopPropagation();e.preventDefault();
+  if(b.dataset.viewst){viewAs('cp',+b.dataset.viewst);return;}const r=b.dataset.viewas;viewAs(r==='-'?'':r,r==='cp'?2:0);},true);
+if(document.readyState!=='loading')setTimeout(vaBar,0);else document.addEventListener('DOMContentLoaded',vaBar);
 /* строки из памяти: и в JSON-кавычках, и без (проверки пишут без) */
 const accGet=k=>{try{const v=localStorage.getItem(k);if(v==null)return '';try{const j=JSON.parse(v);return j==null?'':String(j);}catch(e){return v;}}catch(e){return '';}};
 const accB64=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;};
@@ -6915,7 +7061,7 @@ if(ACC&&ACC.c)accVerify(ACC.c).then(r=>{if(!r.ok&&!r.soft){ACC=null;LSset('klapp
 const ACC_TERMS_HTML=`<ol class="accterms">
 <li><b>KLAPP Pro — рабочий инструмент косметолога-партнёра KLAPP.</b> Полный доступ открывается персональным кодом, который выдаёт менеджер KLAPP на ограниченный срок. Без кода доступен только просмотр каталога.</li>
 <li><b>Код личный.</b> Его нельзя передавать другим людям. Имя и салон из кода показываются в приложении и на документах, которые оно создаёт.</li>
-<li><b>Материалы приложения</b> — тексты, фото, протоколы, схемы, тесты — нельзя копировать, публиковать и передавать третьим лицам. Установочный файл и ссылку на приложение не распространяйте: новым коллегам их выдаёт менеджер KLAPP.</li>
+<li><b>Карточки и сторис — для ваших клиентов и соцсетей.</b> Рекомендации, сторис, памятки, схемы и итоги визита, которые создаёт приложение, можно отправлять клиентам и публиковать у себя — для этого они и сделаны. Нельзя выкладывать и передавать третьим лицам сами материалы приложения целиком: каталог, протоколы, тесты, разборы составов. Ссылкой на приложение (gru-pro.ru) можно делиться с коллегами: полный доступ им откроет только личный код от менеджера KLAPP.</li>
 <li><b>Сведения о препаратах справочные</b> и не заменяют инструкцию производителя и решение специалиста. Противопоказания проверяйте перед назначением.</li>
 <li><b>Данные клиентов хранятся только на вашем телефоне</b> и уходят из него только по вашему действию (отправка, резервная копия). Согласие клиента на обработку персональных данных (152-ФЗ) оформляйте сами — бланк есть в карточке клиента.</li>
 <li><b>Доступ может быть прекращён</b> при нарушении этих условий или окончании сотрудничества.</li></ol>`;
@@ -6941,6 +7087,7 @@ function accCodeScreen(after,why){const o=accOverlay(),m=accMode();
   const tryIt=async()=>{if(busy)return;busy=true;const b=o.querySelector('[data-accok]');b.disabled=true;er.textContent='Проверяю…';const r=await accVerify(ta.value);b.disabled=false;busy=false;
     if(!r.ok){er.textContent=r.why;buzz(20);return;}
     ACC={c:r.c,k:r.p.k,i:String(r.p.i),n:r.p.n||'',s:r.p.s||'',d:r.p.d||'',e:r.p.e,t:todayS(),st:+r.p.st>=1&&+r.p.st<=4?+r.p.st:0,tr:+r.p.tr===1?1:0,ml:typeof r.p.ml==='string'&&/^https:\/\//.test(r.p.ml)?r.p.ml.slice(0,300):'',r:/^[cmtpkr]$/.test(r.p.r||'')?r.p.r:'',np:r.p.st===0?1:0};LSset('klapp-acc',ACC);LSset('klapp-grace','');
+    ACC0=ACC;VIEWAS=null;try{localStorage.removeItem('klapp-viewas');}catch(e){}const vb=document.getElementById('vabar');if(vb)vb.remove();
     er.textContent='';ta.blur();accClose();toast(`Доступ открыт ${accUntil(ACC.e)}`);buzz(12);
     render(false);accWarn(()=>{if(after)setTimeout(()=>after(true),350);else if(!LS('klapp-onb',''))setTimeout(onbShow,350);else trnCheckHi();});};
   o.querySelector('[data-accok]').onclick=tryIt;
@@ -7031,7 +7178,7 @@ function statCount(k){if(!statOn())return;STS.cnt[k]=(STS.cnt[k]||0)+1;}
 function statEv(t,d){try{if(typeof sklOnEv==='function')sklOnEv(t,d);}catch(e){}if(!statOn())return;STQ.push([new Date().toISOString(),t,String(d==null?'':d).slice(0,200)]);if(STQ.length>400)STQ=STQ.slice(-400);LSset(STAT_Q,STQ);if(STQ.length>=25)statSend();}
 let statBusy=false;
 function statSend(beacon){if(!statOn()||!STQ.length||statBusy||navigator.onLine===false)return;
-  const batch=STQ.slice(0,200),body=JSON.stringify({k:STAT_KEY,u:{i:ACC.i,n:ACC.n||'',s:ACC.s||'',r:(typeof accRole==='function'&&accRole())||'',st:ACC.st||''},v:'4.40',pl:statPl(),ev:batch});
+  const batch=STQ.slice(0,200),body=JSON.stringify({k:STAT_KEY,u:{i:ACC.i,n:ACC.n||'',s:ACC.s||'',r:(typeof isCuratorReal==='function'&&isCuratorReal()?'k':typeof accRole==='function'&&accRole())||'',st:ACC.st||''},v:'4.41',pl:statPl(),ev:batch});
   const done=()=>{STQ=STQ.slice(batch.length);LSset(STAT_Q,STQ);LSset('klapp-stat-last',Date.now());};
   if(beacon&&navigator.sendBeacon){try{if(navigator.sendBeacon(STAT_URL,new Blob([body],{type:'text/plain'})))done();}catch(e){}return;}
   statBusy=true;fetch(STAT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body,keepalive:body.length<60000}).then(done).catch(()=>{}).finally(()=>{statBusy=false;});}
@@ -7085,7 +7232,7 @@ function openExt(url){const now=Date.now();if(now-EXT_T<1500)return;EXT_T=now;
 const DEV_MAIL='grudnyaks@gmail.com';
 function devInfo(){const ua=navigator.userAgent||'';const os=/iPhone|iPad/.test(ua)?'iOS '+((ua.match(/OS (\d+[_\d]*)/)||[])[1]||'').replace(/_/g,'.'):/Android/.test(ua)?'Android '+((ua.match(/Android ([\d.]+)/)||[])[1]||''):'браузер';
   const how=window.androidBridge?'приложение':(navigator.standalone||matchMedia('(display-mode: standalone)').matches)?'значок на экране':'вкладка браузера';
-  return `Версия приложения: 4.40\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
+  return `Версия приложения: 4.41\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
 function devMail(subj,body){openExt('mailto:'+DEV_MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body));}
 let PRO=LS('klapp-pro',{salon:'',phone:'',link:''});
 const proSign=()=>[QZS.name?'Ваш '+signWho()+': '+QZS.name:'',PRO.salon,PRO.phone,PRO.link].map(x=>(x||'').trim()).filter(Boolean).join(' · ');
@@ -7103,7 +7250,7 @@ function settings39(){const ch=MGR.ch;const ph=ch==='tg'?'@username в Telegram'
   ${stStyleSeg()}
   <div class="cbtns" style="padding-top:4px"><button class="btn ghost sm" data-tipsty="quote">Сторис «Совет эксперта»</button></div>
   <div class="grp">Резервная копия</div><p class="snote" style="padding:0 20px">${esc(bkLine())}. В копию входят карты клиентов (с отметками о согласии), протоколы, мои препараты, ваши правки схем ухода, заказ и сравнение, избранное, тесты, награды и рекорд игры, карточки и вопросы дня, ваши контакты, фото, менеджер и настройки вида.</p>
-  <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button></div>`;}
+  <div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-cexport>Сохранить копию</button><label class="btn ghost sm" style="cursor:pointer">Загрузить из файла<input type="file" accept="application/json,.json" data-cimport hidden></label></div>`;}
 document.addEventListener('change',e=>{const t=e.target;if(!t||!t.id)return;
   if(t.id==='pro-photo-in'){proPhotoSet(t.files&&t.files[0]);t.value='';return;}
   if(t.id.startsWith('mgr-')){MGR[t.id.slice(4)]=t.value.trim();LSset('klapp-mgr',MGR);if(t.id==='mgr-ch')render(false);else toast('Менеджер сохранён');}
@@ -7158,6 +7305,7 @@ document.addEventListener('click',e=>{
   if(cliExpClick(d)) return;
   if(statClick(d)) return;
   if(cabClick(d,b)) return;
+  if(d.rfpart&&SHEET_JOB&&SHEET_JOB.off){const k=d.rfpart;SHEET_JOB.off[k]=!SHEET_JOB.off[k];b.setAttribute('aria-pressed',!SHEET_JOB.off[k]);rfPreview();return;}
   if(d.fmt){runFormat(d.fmt);return;}
   if(storyClick(d,b))return;
   if(d.offx){const X=LS('klapp-offx',[]);if(!X.includes(d.offx)){X.push(d.offx);LSset('klapp-offx',X.slice(-50));}render(false);return;}
@@ -7261,7 +7409,7 @@ new MutationObserver(()=>{
 /* 3.11.4: плашка «Вышла новая версия» для сайта (window.klappNewVer — для проверок) */
 window.klappNewVer=function(){newVerBanner();};
 function newVerBanner(){if(document.getElementById('nvb'))return;
-  var cur='4.40';
+  var cur='4.41';
   function show(v){if(v&&v===cur)return;var b=document.createElement('div');b.id='nvb';b.className='nvb';b.setAttribute('role','status');
     b.innerHTML='<span class="tx"><b>Вышла новая версия'+(v?' '+v:'')+'</b><small>Обновление займёт секунду</small></span><button type="button" class="nvbgo">Обновить</button><button type="button" class="nvbx" aria-label="Позже">×</button>';
     b.querySelector('.nvbgo').onclick=function(){location.reload();};b.querySelector('.nvbx').onclick=function(){b.remove();};document.body.appendChild(b);}
