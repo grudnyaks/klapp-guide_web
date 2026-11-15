@@ -1931,6 +1931,12 @@ function setTop(title,back,extra){
   top.innerHTML=(back?`<button class="back" aria-label="Назад" data-back>${I.back}</button><div class="ttl">${esc(title)}</div>`:`<div class="brand"><b>KLAPP</b><span>skin care science</span></div>`)+(extra||(back?'':icons));
 }
 let GLOW_ON=false,SWIPE_DIR=0;
+/* 4.41: типографика экрана — неразрывный пробел после коротких предлогов и союзов, чтобы они не висели в конце строки */
+const NBSP_RE=/(^|[\s(«"„—–])((?:[вВкКсСуУоОиИаАяЯ]|во|Во|ко|Ко|со|Со|на|На|по|По|за|За|из|Из|от|От|до|До|не|Не|ни|Ни|но|Но|об|Об|для|Для|без|Без|под|Под|над|Над|при|При|про|Про)) +/g;
+function typoNbsp(root){try{if(!root||root.nodeType!==1)return;if(root.closest&&root.closest('textarea,script,style,code,pre,[contenteditable]'))return;
+  const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentNode;return p&&/^(TEXTAREA|SCRIPT|STYLE|CODE|PRE|OPTION)$/.test(p.nodeName)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  let n;while((n=tw.nextNode())){const v=n.nodeValue;if(v.length>3&&v.indexOf(' ')>=0){const w=v.replace(NBSP_RE,'$1$2 ').replace(NBSP_RE,'$1$2 ');if(w!==v)n.nodeValue=w;}}}catch(e){}}
+try{new MutationObserver(ms=>{for(const m of ms)for(const a of m.addedNodes)if(a.nodeType===1)typoNbsp(a);}).observe(document.documentElement,{childList:true,subtree:true});}catch(e){}
 function render(fresh){
   const due=cabDueCount();
   const curTab=TABMAP[state.tab]||state.tab;
@@ -4430,7 +4436,10 @@ const stkWaitBtn=ids=>`<button class="btn ghost" data-stkwait="${esc(ids.join(',
 window.__klappStock={waitText:ids=>stkWaitText(ids),bulk:l=>ordBulk(l),purged:()=>STK_RM.map(x=>x.art),of:id=>stkOf(itemById[id]),date:()=>STK&&STK.d,alts:id=>stkAlts(itemById[id]).map(x=>x.q._id)};
 /* ---------- карточки-картинки и PDF ---------- */
 async function fontsReady(){try{await Promise.all(['600 60px Jost','500 40px Jost','400 30px Jost','300 30px Jost','400 40px "Roboto Mono"','300 40px "Roboto Mono"'].map(f=>Promise.all([document.fonts.load(f,'Aa'),document.fonts.load(f,'Жя')])));}catch(e){}}
-function wrapLines(x,text,maxW){const words=String(text).split(/\s+/);const out=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){out.push(cur);cur=w;}else cur=t;}if(cur)out.push(cur);return out;}
+/* 4.41: висячие предлоги — короткое слово (в, к, с, на, за, для…) не остаётся в конце строки, а переносится вместе со следующим */
+const SHORTW=/^[«("„]?(?:[а-яё]{1,2}|для|без|под|над|при|про|через|из-за|из-под)$/i;
+function glueShort(ws){const o=[];for(let i=0;i<ws.length;i++){if(i<ws.length-1&&SHORTW.test(ws[i])){ws[i+1]=ws[i]+' '+ws[i+1];continue;}o.push(ws[i]);}return o;}
+function wrapLines(x,text,maxW){const words=glueShort(String(text).split(/\s+/).filter(Boolean));const out=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){out.push(cur);cur=w;}else cur=t;}if(cur)out.push(cur);return out;}
 /* 4.10: стиль бланка — по выбранному дизайну приложения (всегда светлый вариант: бланк уходит клиенту).
    «Классика» — белый лист как раньше; остальные — фон и цветные пятна дизайна, содержимое на светлой панели.
    Фирменное (красная шапка KLAPP, красные заголовки, чёрный подвал) остаётся; у обезличенного бланка — нет. */
@@ -4535,7 +4544,7 @@ async function drawRec(R){
   const LS=v=>{try{x.letterSpacing=v;}catch(e){}};
   const MONO=s=>`400 ${s}px "Roboto Mono"`;
   const setF=f=>{x.font=f;LS(/Roboto Mono/.test(f)?(-0.045*parseFloat(f.split(' ')[1]))+'px':'0px');};
-  const wrap=(t,f,w)=>{setF(f);const out=[];String(t||'').split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const wrap=(t,f,w)=>{setF(f);const out=[];String(t||'').split('\n').forEach(par=>{let line='';glueShort(par.split(/\s+/).filter(Boolean)).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
   const cl=t=>String(t||'').replace(/\s+([.,;:!?])/g,'$1').replace(/\s{2,}/g,' ').trim();
   ['name','sub','desc','how','nb','note','when'].forEach(k=>{if(R[k])R[k]=cl(R[k]);});
   if(R.effects)R.effects=R.effects.map(cl);if(R.actives)R.actives=R.actives.map(a=>({n:cl(a.n),t:cl(a.t)}));
@@ -6311,7 +6320,7 @@ async function genDraw(tpl,o){await fontsReady();o=o||{};
   const RED='#FF4438',INK='#111111';
   const LSx=v=>{try{x.letterSpacing=v;}catch(e){}};
   const setF=(f,ls)=>{x.font=f;LSx(ls||'0px');};
-  const wrap=(t,f,w,ls)=>{setF(f,ls);const out=[];String(t||'').split('\n').forEach(par=>{let line='';par.split(/\s+/).filter(Boolean).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
+  const wrap=(t,f,w,ls)=>{setF(f,ls);const out=[];String(t||'').split('\n').forEach(par=>{let line='';glueShort(par.split(/\s+/).filter(Boolean)).forEach(word=>{const tr=line?line+' '+word:word;if(x.measureText(tr).width<=w||!line)line=tr;else{out.push(line);line=word;}});if(line)out.push(line);});return out;};
   /* текст с переносом: целиком, без «…» — при нехватке места кегль уменьшается */
   const T=(t,f,col,X,Y,w,lh,op={})=>{t=String(t||'');if(op.up)t=t.toUpperCase();const m=f.match(/^(\S+) ([\d.]+)px (.+)$/);let sz=+m[2],ls=op.ls?op.ls*sz+'px':'0px',L=wrap(t,f,w,ls),k=1;
     while(op.max&&L.length>op.max&&k>0.55){k*=0.94;sz=Math.round(+m[2]*k);ls=op.ls?op.ls*sz+'px':'0px';L=wrap(t,m[1]+' '+sz+'px '+m[3],w,ls);}
