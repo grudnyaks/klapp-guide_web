@@ -17,7 +17,7 @@
    Скачанная обязана подтвердить нормальный запуск (__otaOk) за 12 с, иначе — пометка «плохая» и мгновенный возврат на встроенную.
    Жёсткий сбой без подтверждения: после 2 попыток версия помечается плохой. Новый APK сам отменяет скачанное (Capacitor сбрасывает путь). */
 (function(){var W=window,ls,ss;try{ls=W.localStorage;ss=W.sessionStorage;}catch(e){return;}
- var BV='4.58',K='klapp-ota';
+ var BV='4.59',K='klapp-ota';
  function cmp(a,b){a=String(a).split('.').map(Number);b=String(b).split('.').map(Number);for(var i=0;i<Math.max(a.length,b.length);i++){var x=a[i]||0,y=b[i]||0;if(x!==y)return x>y?1:-1;}return 0;}
  function get(){try{return JSON.parse(ls.getItem(K)||'null');}catch(e){return null;}}
  function put(o){try{ls.setItem(K,JSON.stringify(o));}catch(e){}}
@@ -834,7 +834,7 @@ button.card{padding:16px 20px}button.card .tags{margin:8px 0 0 36px}
 .colc{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:16px;border:1px solid var(--line);text-align:left}
 .colc.done{background:var(--hl);border-color:transparent}.colc .cr{position:relative;display:grid;place-items:center}.colc .cr b{position:absolute;font-size:12px;font-family:"Roboto Mono",monospace}
 .colc .cn{font-weight:600}.colc small{font-size:11.5px;color:var(--muted)}
-.fcst{display:flex;gap:6px;padding:4px 20px 6px}.fcst span{flex:1;min-width:0;padding:10px 8px;border-radius:12px;background:var(--chip);font-size:12.5px;color:var(--muted)}.fcst b{display:block;font-family:"Roboto Mono",monospace;font-size:20px;color:var(--ink);font-weight:400}
+.fcst{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px 20px 6px}.fcst span{min-width:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--chip);font-size:12.5px;line-height:1.25;color:var(--muted)}.fcst b{font-family:"Roboto Mono",monospace;font-size:20px;color:var(--ink);font-weight:400}
 .fc{margin:6px 20px 0;perspective:1200px;cursor:pointer}.fcin{position:relative;min-height:280px;transition:transform .5s;transform-style:preserve-3d}.fc.flip .fcin{transform:rotateY(180deg)}.fc:not(.flip) .fcb,.fc.flip .fcf{pointer-events:none;visibility:hidden;transition:visibility 0s .25s}.fc .fcf,.fc .fcb{transition:visibility 0s .25s}
 .fcf,.fcb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px}
 .fcf{background:var(--dark-chip);color:var(--dark-chip-ink)}.fcb{background:var(--hl);color:var(--hl-ink);transform:rotateY(180deg)}
@@ -1186,6 +1186,10 @@ html.glowmode .tabs button,:root.glowmode[data-ui] .tabs button{color:rgba(255,2
 .vq{padding:8px 0;border-top:1px solid var(--line,#e4e4e2)}.vq:first-child{border-top:0}.vq b{display:block;font-weight:500;font-size:14px;margin-bottom:6px}
 .vqr{display:flex;gap:6px}.vqr input,.vqr select{min-width:0;flex:1;font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#ddd);background:var(--card,#fff);color:inherit}
 .vqr input[data-vq$="|n"]{flex:0 0 76px}.vqr select{flex:0 0 72px}
+.vqr{flex-wrap:wrap}.vqz{display:flex;gap:6px;flex:1 1 100%;min-width:0}.vqz input{flex:1;min-width:0}.vqz .btn{flex:0 0 auto;margin:0}
+.vnote textarea{min-height:190px;resize:vertical}
+#v-rec{min-height:96px;resize:vertical}
+.mmr{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line,#e4e4e2)}.mmr .tx{flex:1;min-width:0}.mmr .tx b{display:block;font-weight:500;font-size:15px}.mmr .tx small{color:var(--muted);font-size:12.5px}.mmr .btn{flex:0 0 auto;margin:0}
 .vhc{margin:14px 20px 0;padding:12px 14px;border-radius:16px;background:var(--card,#fff);border:1px solid var(--line,#e4e4e2);display:grid;gap:8px}
 .vhr{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.vhr>span{font-size:14px}.vhr .fsz{margin:0}
 .rfparts{display:flex;flex-wrap:wrap;gap:6px}.rfparts button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line,#ddd);background:transparent;color:inherit}
@@ -1848,6 +1852,9 @@ textarea.genin{resize:vertical;line-height:1.4}select.genin+input.genin{margin-t
 .calfree{margin:6px 0}
 .vhc .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .calcell.on b,.cald.on b{opacity:1;color:#fff}
+/* 4.59: крупный шрифт — кнопки «через, дней» переносятся, дата и время не вылезают за карточку */
+.vhc .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.vhc .row2 input{width:100%;min-width:0;box-sizing:border-box}
+.vhr .stsg{flex-wrap:wrap;max-width:100%}
 </style>
 <script>
 (function(){var r=document.documentElement,mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
@@ -1915,7 +1922,7 @@ window.__klappBars=function(color,dark){window.__cap.then(function(c){if(c&&c.SB
 /* ---------- обновление базы без пересборки: загрузчик (с 3.6) ----------
    Скачанная база хранится в IndexedDB «klapp-content»: content = {cv,date,notes,data}, photos = {id:{h,u}}.
    Используется, только если она новее встроенной и не помечена как сбойная. */
-window.__KC={url:'https://app.gru-pro.ru/content/',cv:'202611211448',date:'2026-11-21',app:'4.58',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"baea594fa8704f3f","home:A9002":"686c510fae30a79d","home:A9003":"3f4988ecfa179240","home:A9004":"a4262e20efdad012","home:A9006":"19761a20e1b28607","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"33ae1b1455bcc050","home:A9008":"423288ad3b1f6e0a"}};
+window.__KC={url:'https://app.gru-pro.ru/content/',cv:'202611211448',date:'2026-11-21',app:'4.59',phh:{"pro:830":"62038eec48f75f26","pro:812":"93ff6babdef05ede","pro:802":"7afbd94278ab8e59","pro:809":"c8a8360fe7f03a3f","pro:803":"c859b635371a8b31","home:1802":"b8624bf7b428b7fb","home:1809":"953e01961a0d1def","home:1803":"5039963b4f641162","home:1806":"7442b8baad96f9f0","home:1810":"fd9f9a83c2a2232e","home:1811":"9e7aaafd0eb5ea11","home:1825":"3249e03cf78471d6","kit:834":"c20424783284eac4","home:1840":"47f320f967b2ec93","home:1844":"a7248a6c3f64ea38","kit:811":"f46ab047539f5938","pro:386":"789ea75e9b54638e","pro:384":"0aacdd05dc2c086a","pro:382":"8fe9bd3fa43fb07f","home:1312":"ab78ae28a65073cc","pro:512":"c0b8c6eb97afbeb3","pro:513":"50fbaa96de436fce","home:1514":"6aa32a861eb70513","home:1512":"10b311102e3f974d","home:1513":"b6566542e53892cf","home:1509":"79730ae52367405d","kit:516":"6da27620aeb33cee","home:7212":"3a3dd6db044e01b1","home:2523":"3792fbaa60b8783a","home:2563":"7ea73f743138c359","home:2564":"3b99baa5ddbd9e65","kit:507":"2b38454dd76f94d4","home:C9001":"a1d815105a82e087","home:C9002":"86ecc5450ef04019","home:C9003":"191206ecfe9246c1","home:C9004":"707a9306d6f1b633","home:C9005":"7ba664526fec952d","home:C9006":"0a68831909d99887","home:C9007":"e1300fdc5ec5dda1","home:C9008":"5c3eef4fbc74e622","home:C9009":"238eea7d1f1cd499","kit:C9016P":"fc7a9e9ee37bcbc0","kit:C9017P":"b23f6e600667ed0b","kit:C9018P":"09d03d66e7d12ab6","pro:202":"a8631fe8da3f97cd","pro:204":"d911b6755e7a7918","pro:215":"92b59f05a04a35ea","pro:124":"bd52e3a2c26affb8","home:1202":"2785b3fa1850033e","home:1205":"d474f414e902209d","home:1206":"5338da3c7d76d55b","home:1214":"2f4b05c75c069679","home:A9100":"56562fe67ce4e8ec","home:A9101":"545bd87a06d0717c","home:A9102":"10c2490c800ef8be","home:A9103":"59a3ef24d53a2901","home:A9104":"57300479bec9d084","home:5102":"163dd6113f742bc5","pro:551":"e3f10946e0d359b1","home:2530":"1e049290772e88f3","home:2560 / 2561":"90fba07e6ca2ac91","kit:533":"bec704b49ad9c554","pro:C4014P":"30d5918f3e916a40","home:C4001":"7c09a0c5a4313f5c","pro:718":"43e5597ce056fbd5","pro:706":"0440437ee2870abb","pro:707":"6d541773c20a1a94","pro:709":"3c73269c8326d619","home:1706":"833dafdb0a5b1c15","home:1707":"ebf8312bf261ea0e","home:1708":"4244ed893567e8ba","home:1703":"29398edf76b22b07","home:1715":"84d1849706dc72a9","home:1705":"ed0a07c7c95dd952","home:1713":"f1b896e69833a5ad","kit:710":"718ad83599c94f96","home:4361":"32b91943677ebff1","home:4362":"f7ffb1ab4a2c7f7f","pro:C1001P":"3c76080fab9285eb","pro:C1002P":"3beb1a6451901a49","pro:C1005P":"518dc3f5374bfed3","pro:Y1003P":"9fe953d33b3b3d20","home:C1001":"0ed94608b3321da5","home:C1002":"47d853ffc8789924","home:C1005":"ef7d66322b486c71","home:Y1001":"86d5873b245a44ba","home:Y1002":"663723ec84c0d65e","home:Y1003":"054062bca8e089e8","home:C6002":"88d44e0548b67172","home:C6004":"0b37a82594e48ee0","home:Y6001":"a942f01b4c7da04b","pro:C3105P":"604541c9f38ca26b","home:C3102":"0337120060f560b5","home:C3103":"af9815fa59aab218","home:C3105":"fdf9fb1d19a05b3e","pro:113":"9981d76a6a3f8372","pro:114":"31a2cad712239e96","pro:116":"37a70c1d47308814","pro:115":"56d69b9527f4c7cb","home:1113":"2f6f330f3a395df9","home:1114":"1549824b12769398","home:1115":"2bc02d711f20b253","home:4306":"99683fac54d5c641","home:4308":"2578ac2c9b64f8c6","kit:307":"f33435530288ac42","home:C2001":"b0ddcec35b5f6977","home:C2002":"d9388ed71bb3dc53","home:C2003":"75f849047c0d9e1e","home:C2007":"1e09890158fced79","kit:C2016":"3718fc7a0b5ad8a6","home:A9001":"baea594fa8704f3f","home:A9002":"686c510fae30a79d","home:A9003":"3f4988ecfa179240","home:A9004":"a4262e20efdad012","home:A9006":"19761a20e1b28607","home:A9007":"d85e004cca9e6ad1","home:A9009":"186712af7ccf0f73","home:A9010":"297acaa3af555d1a","home:A9011":"77e7ddcf0dbaeea6","home:1190":"528a8b95af236ac4","home:1191":"5a2a1b0ee87fc5f2","home:2505":"3495044a9f4cbd6a","home:2015":"cb2ab758c873c8ff","home:2016":"5df2427f55f119c8","home:2018":"f1bb63cc6bdd2e49","kit:225":"28d7656c3dd2600e","pro:171":"5963f2dd7eee879f","pro:172":"7fda894c7b048ac6","pro:173":"d42d4d3d119531f9","pro:174":"5289879690b7b0a2","pro:175":"5784547080abeb6d","pro:176":"e76d90b497bb4337","home:171":"28df08b2f2312a48","home:172":"d5541992de50f531","home:173":"91a1a8e5ac9c4943","home:174":"ecff20f40111b5f8","home:175":"632172fa1d8e3dcb","home:176":"cb398dae98736112","home:C3005":"06e490a7525d626f","pro:957":"f0b1b8ef5e6162b1","pro:963":"86876d7d66f6f9dd","pro:954":"d3d7a2d9374eacc7","pro:958":"e2cf174de6fa15d3","pro:960":"e8991102381e26ec","home:1954":"c5da4f49c6bca704","home:1958":"64d7f7ae4f98a28c","kit:660":"c19703ebf6bc6e1d","pro:110":"fa52a9575c5f2428","pro:392":"57d9433585ac8e0d","pro:393":"f07568f4ca12c0ef","pro:394":"174ffde4251ee91a","pro:HC305":"18307b0118272d6f","pro:HC306":"a490923c0084d268","pro:HC310":"46116596a7f95549","pro:A9117P":"778f55cb403ad5bf","home:C4003":"1cec50211fe69037","home:A9005":"33ae1b1455bcc050","home:A9008":"423288ad3b1f6e0a"}};
 window.__kcDB=function(){return new Promise(function(res,rej){try{var r=indexedDB.open('klapp-content',1);r.onupgradeneeded=function(){r.result.createObjectStore('kv');};r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};}catch(e){rej(e);}});};
 window.__kcGet=function(k){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=function(){res(t.result);};t.onerror=function(){rej(t.error);};});});};
 window.__kcSet=function(k,v){return window.__kcDB().then(function(db){return new Promise(function(res,rej){var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=function(){res();};tx.onerror=function(){rej(tx.error);};});});};
@@ -2894,7 +2901,7 @@ function vDone(d){const L=[];if(d.kit&&itemById[d.kit])L.push(['kit','Проце
   (d.proc||[]).forEach(id=>{const it=itemById[id];if(it)L.push(['p:'+id,it._f==='kit'?'Процедурный набор «'+it.sub+'»':it.name,1]);});
   (d.other||[]).forEach(t=>L.push(['o:'+t,t,1]));return L;}
 function vDoneHTML(d){const L=vDone(d);if(!L.length)return '<p class="snote" style="margin:0">Отметьте выше, что выполнялось, — здесь появятся строки для клиента.</p>';
-  return L.map(([k,t,qn])=>{const q=d.q[k]||{},u=q.u!=null?q.u:vUnitDef(k);return `<div class="vq"><b>${esc(t)}</b><div class="vqr">${qn?`<input type="text" inputmode="decimal" maxlength="6" data-vq="${esc(k)}|n" value="${esc(q.n||'')}" placeholder="кол-во" aria-label="Количество: ${esc(t)}"><select data-vq="${esc(k)}|u" aria-label="Единица">${['',...VUNIT].map(x=>`<option value="${x}" ${u===x?'selected':''}>${x||'—'}</option>`).join('')}</select>`:''}<input type="text" list="vzl" maxlength="60" data-vq="${esc(k)}|z" value="${esc(q.z||'')}" placeholder="зона" aria-label="Зона: ${esc(t)}"></div></div>`;}).join('')+`<datalist id="vzl">${VZONES.map(z=>`<option value="${z}">`).join('')}</datalist>`;}
+  return L.map(([k,t,qn])=>{const q=d.q[k]||{},u=q.u!=null?q.u:vUnitDef(k);return `<div class="vq"><b>${esc(t)}</b><div class="vqr">${qn?`<input type="text" inputmode="decimal" maxlength="6" data-vq="${esc(k)}|n" value="${esc(q.n||'')}" placeholder="кол-во" aria-label="Количество: ${esc(t)}"><select data-vq="${esc(k)}|u" aria-label="Единица">${['',...VUNIT].map(x=>`<option value="${x}" ${u===x?'selected':''}>${x||'—'}</option>`).join('')}</select>`:''}<span class="vqz"><input type="text" maxlength="120" data-vq="${esc(k)}|z" value="${esc(q.z||'')}" placeholder="зоны через запятую" aria-label="Зоны: ${esc(t)}"><button class="btn ghost sm" data-vzone="${esc(k)}">Зоны</button></span></div></div>`;}).join('');}
 function vDoneRef(){const w=document.getElementById('vdone');if(w&&VDRAFT)w.innerHTML=vDoneHTML(VDRAFT);}
 function vQClean(d){const o={};vDone(d).forEach(([k])=>{const q=d.q[k]||{},u=q.u!=null?q.u:vUnitDef(k);const r={n:(q.n||'').trim(),u,z:(q.z||'').trim()};if(r.n||r.z)o[k]=r;});return o;}
 document.addEventListener('input',e=>{const a=e.target.dataset&&e.target.dataset.vq;if(!a||!VDRAFT)return;const i=a.lastIndexOf('|'),k=a.slice(0,i),f=a.slice(i+1);(VDRAFT.q[k]=VDRAFT.q[k]||{})[f]=e.target.value;});
@@ -2921,7 +2928,7 @@ function cliSendSheet(c){const lv=(c.visits||[]).slice().sort((x,y)=>x.date<y.da
 let VDRAFT=null;
 VIEWS.cvisit=function(s){
   const c=cById(s.cid); if(!c) return VIEWS.cab({});
-  if(!VDRAFT||VDRAFT.cid!==c.id||VDRAFT.vid!==(s.vid||'')){const v=s.vid?(c.visits||[]).find(x=>x.id===s.vid):null;VDRAFT={cid:c.id,vid:s.vid||'',date:v?v.date:todayS(),sym:v?[...(v.sym||[])]:[],proc:v?[...(v.proc||[])]:[],note:v?v.note||'':'',proto:v?v.proto||'':'',kit:v?v.kit||'':'',other:v?[...(v.other||[])]:[],otherNote:v?v.otherNote||'':'',anam:Object.assign({},v&&v.anam||{}),stl:Object.assign({},v&&v.stl||{}),diag:Object.assign({},v&&v.diag||{}),hc:v?v.hc||'':'',hn:v?v.hn||'':'',q:JSON.parse(JSON.stringify(v&&v.q||{})),nx:Object.assign({},v&&v.nx||{}),pq:'',step:1};}
+  if(!VDRAFT||VDRAFT.cid!==c.id||VDRAFT.vid!==(s.vid||'')){const v=s.vid?(c.visits||[]).find(x=>x.id===s.vid):null;VDRAFT={cid:c.id,vid:s.vid||'',date:v?v.date:todayS(),sym:v?[...(v.sym||[])]:[],proc:v?[...(v.proc||[])]:[],note:v?v.note||'':'',proto:v?v.proto||'':'',kit:v?v.kit||'':'',other:v?[...(v.other||[])]:[],otherNote:v?v.otherNote||'':'',anam:Object.assign({},v&&v.anam||{}),stl:Object.assign({},v&&v.stl||{}),diag:Object.assign({},v&&v.diag||{}),hc:v?v.hc||'':'',hn:v?v.hn||'':'',q:JSON.parse(JSON.stringify(v&&v.q||{})),nx:Object.assign({},v&&v.nx||{}),rec:v?v.rec||'':'',memo:JSON.parse(JSON.stringify(v&&v.memo||[])),pq:'',step:1};}
   const d=VDRAFT, st=d.step||1;
   setTop(c.name+' · визит',true);
   const steps=['Состояние кожи','Процедура','Домашний уход'];
@@ -2939,12 +2946,12 @@ VIEWS.cvisit=function(s){
    <div class="vsec"><p class="vh">Другие процедуры и манипуляции</p><div class="syms" style="padding:0">${OTHER_PROC.map(x=>`<button data-oproc="${esc(x)}" aria-pressed="${d.other.includes(x)}">${esc(x)}</button>`).join('')}</div>
     <textarea class="vsel" id="v-other" style="margin-top:8px;min-height:60px" placeholder="Что ещё выполнено — увидит клиент">${esc(d.otherNote)}</textarea></div>
    <div class="vsec vdone"><p class="vh">Выполнено — так увидит клиент</p><div id="vdone">${vDoneHTML(d)}</div></div>
-   <label class="field" style="margin-top:4px"><span>Заметки визита · видите только вы</span><textarea id="v-note" placeholder="Реакция кожи, пожелания клиента, что учесть в следующий раз">${esc(d.note)}</textarea></label>`;
+   <label class="field vnote" style="margin-top:4px"><span>Заметки для себя · клиент их не увидит</span><textarea id="v-note" rows="8" placeholder="Реакция кожи, пожелания клиента, что учесть в следующий раз">${esc(d.note)}</textarea></label>`;
   else body=`<div class="grp">Рекомендации по состоянию кожи</div><div id="recs">${recsHTML(c)}</div>
    <div class="grp">Найти препарат</div><div class="gsearch"><input id="pq" type="search" autocomplete="off" placeholder="Название или артикул" value="${esc(d.pq)}" aria-label="Поиск препарата"></div><div id="pres">${pickHTML(c,d.pq)}</div>`;
   const nav=st<3?`<div class="wnav">${st>1?`<button class="btn ghost" data-vstep="${st-1}">Назад</button>`:''}<button class="btn red" data-vstep="${st+1}">Далее</button></div>`
     :`<div class="wnav"><button class="btn ghost" data-vstep="2">Назад</button><button class="btn red" data-vsave="${c.id}">Сохранить</button></div><div class="cbtns" style="padding-top:8px"><button class="btn ghost sm" data-vsave="${c.id}" data-vsend="1">Сохранить и отправить итоги клиенту</button></div>`;
-  const hcB=st===3?vHcBlock(d,c)+vNextBlock(d):'';
+  const hcB=st===3?vHcBlock(d,c)+vNextBlock(d)+vRecBlock(d)+memoBlock(d):'';
   return `<section class="intro" style="padding-bottom:4px"><h1>${s.vid?'Визит':'Новый визит'}</h1></section>${ind}${body}${hcB}${nav}
    ${s.vid?`<div class="cbtns" style="padding-top:18px"><button class="btn ghost sm danger" data-vdel="${c.id}|${s.vid}">Удалить визит</button></div>`:''}`;
 };
@@ -3027,7 +3034,7 @@ async function doShare(text){
   try{await navigator.clipboard.writeText(text);toast('Назначение скопировано');}catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Назначение скопировано');}catch(_){}t.remove();}
 }
 async function doExport(){BK.last=Date.now();BK.snooze=0;LSset('klapp-backup',BK);syncNotifs();setTimeout(()=>render(false),800);
-  const data=JSON.stringify({app:'klapp-guide',v:2,saved:new Date().toISOString(),clients:CAB.clients,protocols:PROTOS,my:MY,favorites:favs,tests:QZS,order:ORD,daily:DQ,cards:FC,seen:[...SEEN],advent:ADV,pro:PRO,prophoto:PROPH||'',mgr:MGR,mb:MB,compare:CMP,schemes:SCHX,mysch:MYS,path:PTH,trainer:{done:TRN.done},team:(typeof TEAM!=='undefined'?TEAM:null),recent:LS('klapp-recent',[]),cph:CPH,
+  const data=JSON.stringify({app:'klapp-guide',v:2,saved:new Date().toISOString(),clients:CAB.clients,protocols:PROTOS,my:MY,favorites:favs,tests:QZS,order:ORD,daily:DQ,cards:FC,seen:[...SEEN],advent:ADV,pro:PRO,prophoto:PROPH||'',mgr:MGR,mb:MB,compare:CMP,schemes:SCHX,mysch:MYS,path:PTH,trainer:{done:TRN.done},team:(typeof TEAM!=='undefined'?TEAM:null),memos:(typeof MEMO!=='undefined'?MEMO:[]),recent:LS('klapp-recent',[]),cph:CPH,
     prefs:{theme:TH,ui:UIX,hue:LS('klapp-ui-hue',345),fs:FS,card:cardStyle(),hints:HINTS,onb:LS('klapp-onb',null)}},null,1);
   const name='klapp-guide-backup-'+todayS()+'.json';
   const cap=await window.__cap;
@@ -3060,6 +3067,7 @@ function doImport(file){
       if(o.path&&typeof o.path==='object'){mergeDone(PTH.done,o.path.done);pthSave();}
       if(o.trainer&&typeof o.trainer==='object'){mergeDone(TRN.done,o.trainer.done);trnSave();}
       if(o.team&&typeof o.team==='object'&&typeof TEAM!=='undefined'){Object.assign(TEAM.les,o.team.les||{});for(const k in (o.team.q||{}))TEAM.q[k]=Math.max(TEAM.q[k]||0,+o.team.q[k]||0);if(!TEAM.start&&o.team.start)TEAM.start=o.team.start;teamSave();}   /* 4.57: обучение команды — в копии */
+      if(Array.isArray(o.memos)&&typeof MEMO!=='undefined'){o.memos.forEach(m=>{if(m&&typeof m.t==='string'&&typeof m.x==='string'&&!MEMO.some(z=>z.id===m.id))MEMO.push({id:String(m.id||uid()).slice(0,40),t:m.t.slice(0,80),x:m.x.slice(0,3000)});});memoSave();}   /* 4.59: свои памятки */
       if(Array.isArray(o.mysch)){const have=new Set(MYS.map(x=>x.title));mysClean(o.mysch).forEach(x=>{if(!have.has(x.title)&&!(D.schemes||[]).some(b=>b.title===x.title)){MYS.push(x);have.add(x.title);}});mysSave();}
       if(o.schemes&&typeof o.schemes==='object'){Object.keys(o.schemes).forEach(k=>{if(!SCHX[k]&&o.schemes[k]&&typeof o.schemes[k]==='object')SCHX[k]=o.schemes[k];});schSave();}
       if(Array.isArray(o.compare)&&!CMP.length){o.compare.filter(id=>itemById[id]).slice(0,3).forEach(id=>CMP.push(id));try{cmpSave();}catch(e){}}
@@ -3108,7 +3116,7 @@ function cabClick(d,b){
   if(d.procadd){if(!VDRAFT.proc.includes(d.procadd)) VDRAFT.proc.push(d.procadd); $('#procs').innerHTML=procHTML(); vDoneRef(); $('#prres').innerHTML=''; const q=$('#prq'); if(q) q.value=''; return true;}
   if(d.procdel){VDRAFT.proc=VDRAFT.proc.filter(x=>x!==d.procdel); $('#procs').innerHTML=procHTML(); vDoneRef(); return true;}
   if(d.vsave){const c=cById(d.vsave); if(!c) return true; c.visits=c.visits||[];
-    const v={id:VDRAFT.vid||uid(),date:VDRAFT.date||todayS(),sym:[...VDRAFT.sym],proc:[...VDRAFT.proc],note:(VDRAFT.note||'').trim(),proto:VDRAFT.proto||'',kit:VDRAFT.kit||'',other:[...VDRAFT.other],otherNote:(VDRAFT.otherNote||'').trim(),anam:VDRAFT.anam,stl:VDRAFT.stl,diag:VDRAFT.diag,hn:vHn(VDRAFT,c),hc:vHn(VDRAFT,c)==='y'?VDRAFT.hc||'':'',q:vQClean(VDRAFT),nx:VDRAFT.nx&&(VDRAFT.nx.k||VDRAFT.nx.d||VDRAFT.nx.dt)?Object.assign({},VDRAFT.nx):null};
+    const v={id:VDRAFT.vid||uid(),date:VDRAFT.date||todayS(),sym:[...VDRAFT.sym],proc:[...VDRAFT.proc],note:(VDRAFT.note||'').trim(),proto:VDRAFT.proto||'',kit:VDRAFT.kit||'',other:[...VDRAFT.other],otherNote:(VDRAFT.otherNote||'').trim(),anam:VDRAFT.anam,stl:VDRAFT.stl,diag:VDRAFT.diag,hn:vHn(VDRAFT,c),hc:vHn(VDRAFT,c)==='y'?VDRAFT.hc||'':'',q:vQClean(VDRAFT),nx:VDRAFT.nx&&(VDRAFT.nx.k||VDRAFT.nx.d||VDRAFT.nx.dt)?Object.assign({},VDRAFT.nx):null,rec:(VDRAFT.rec||'').trim(),memo:(VDRAFT.memo||[]).filter(m=>m&&m.x)};
     try{if(v.hc||v.hn==='n')statEv('уход',v.hn==='n'?'не назначен':v.hc==='y'?'приобретён':v.hc==='l'?'приобретёт позже':'не приобретён');if(sklOk()){sklAct('visit');if(v.hc)sklAct('hc');}}catch(e){}
     const i=c.visits.findIndex(x=>x.id===v.id); if(i>=0) c.visits[i]=v; else c.visits.push(v);
     VDRAFT=null; cabSave(); buzz(20); toast('Визит сохранён'); history.back(); if(d.vsend){setTimeout(()=>askFormat(visitJob(c,v)),250);} return true;}
@@ -4120,6 +4128,90 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
     closeSheet();if(navigator.share){navigator.share({text:txt}).catch(()=>{});}else{try{navigator.clipboard.writeText(txt);toast('Текст скопирован');}catch(_){}}return;}
 },true);
 window.__klappVS={text:(ref,tpl)=>{const E=calEv(ref);return E?vsText(E,tpl):'';},ics:ref=>{const E=calEv(ref);return E?vsIcs(E):'';}};
+/* 4.59: конец визита — свободные рекомендации клиенту и памятки (готовые и свои); зоны выбираются списком, несколько через запятую.
+   Памятка сохраняется в визите копией текста (v.memo=[{id,t,x}]): правка или удаление памятки позже не меняет уже отправленные итоги. */
+const MEMO_READY=[
+ {id:'r:clean',t:'После чистки лица',x:`Первые 12 часов — без декоративной косметики.
+Не трогайте лицо руками и ничего не выдавливайте.
+Первые сутки — без бани, сауны, бассейна и спорта.
+Умывайтесь мягким очищающим средством, без скрабов.
+Дни 1–3: тоник, сыворотка и крем из назначенного ухода, днём — SPF 50.
+С 4-го дня — обычный домашний уход.
+Пилинг — не раньше чем через 5–7 дней; ретиноиды и кислоты — после полного заживления.`},
+ {id:'r:peel',t:'После пилинга',x:`Покраснение, стянутость и шелушение в первые дни — нормальная реакция кожи.
+Не снимайте и не сдирайте шелушащиеся частички — кожа обновится сама.
+Умывайтесь мягким средством без скрабов; кожу промакивайте, не трите.
+Пока кожа шелушится — без кислот, ретиноидов и скрабов.
+Каждый день — SPF 50, даже в пасмурную погоду; без загара и солярия 2 недели.
+2–3 дня — без бани, сауны, бассейна и интенсивного спорта.
+Если появятся пузыри, корочки или сильное жжение — сразу напишите мне.`},
+ {id:'r:elpor',t:'После электропорации',x:`Лёгкое покраснение проходит за 30–60 минут.
+24 часа — без солнца, бани, сауны и интенсивных нагрузок.
+24 часа — без кислот и скрабов.
+Каждый день — SPF 30 и выше, особенно на время курса.`},
+ {id:'r:inj',t:'После инъекционной процедуры',x:`Небольшие папулы, отёчность и покраснение в местах уколов проходят за 1–3 дня; возможны синяки.
+В первые сутки не трогайте и не массируйте зону, не наносите декоративную косметику.
+2–3 дня — без бани, сауны, бассейна, спорта и алкоголя.
+2 недели — без загара, солярия и пилингов; днём — SPF.
+Если отёк нарастает, появилась сильная боль или изменился цвет кожи — сразу напишите мне.`},
+ {id:'r:btx',t:'После ботулинотерапии',x:`4 часа — не ложитесь и не наклоняйтесь надолго.
+В первые сутки не трогайте, не массируйте и не растирайте зону уколов.
+1–2 дня — без бани, сауны, спорта и алкоголя.
+Эффект появляется через 3–7 дней, полностью — к 14-му дню.
+Контрольный визит — через 2 недели.`},
+ {id:'r:needle',t:'После микронидлинга',x:`Покраснение и ощущение лёгкого загара держатся 1–2 дня.
+Первые сутки — без декоративной косметики; наносите только назначенные средства.
+5–7 дней — без кислот, ретиноидов и скрабов.
+Каждый день — SPF 50; без загара и солярия 2 недели.
+2–3 дня — без бани, сауны, бассейна и спорта.`}];
+let MEMO=[];setTimeout(()=>{try{const m=LS('klapp-memo',[]);if(Array.isArray(m))MEMO.push(...m);}catch(e){}},0);   /* LS объявлен позже по порядку склейки */
+function memoSave(){LSset('klapp-memo',MEMO);}
+const memoAll=()=>MEMO_READY.concat(MEMO);
+const memoItems=x=>String(x||'').split(/\n+/).map(l=>l.replace(/^[\s•·\-–—*]+/,'').trim()).filter(Boolean).map(t=>({t,p:1}));
+const memoOn=(d,id)=>(d.memo||[]).some(m=>m.id===id);
+function vRecBlock(d){return `<div class="vhc"><label class="field" style="padding:0"><span>Рекомендации клиенту · войдут в итоги визита</span><textarea id="v-rec" rows="4" placeholder="Своими словами, каждая с новой строки: например, «Пить больше воды», «Наносить SPF перед выходом»">${esc(d.rec||'')}</textarea></label></div>`;}
+function memoBlock(d){const L=memoAll(),extra=(d.memo||[]).filter(m=>!L.some(z=>z.id===m.id));
+  return `<div class="vhc" id="vmemow"><div class="vhr"><span>Памятка клиенту</span><button class="btn ghost sm" data-memolist>Мои памятки</button></div>
+   <div class="syms" style="padding:0" role="group" aria-label="Памятки">${L.concat(extra).map(m=>`<button data-memo="${esc(m.id)}" aria-pressed="${memoOn(d,m.id)}">${esc(m.t)}</button>`).join('')}</div>
+   <p class="snote" style="margin:0">Выбранные памятки войдут в итоги визита. Готовые можно поправить под себя: «Мои памятки» → «Изменить».</p></div>`;}
+function memoRef(){const w=document.getElementById('vmemow');if(w&&VDRAFT)w.outerHTML=memoBlock(VDRAFT);}
+/* список своих и готовых памяток */
+function memoListSheet(){const row=(m,own)=>`<div class="mmr"><span class="tx"><b>${esc(m.t)}</b><small>${esc(memoItems(m.x).length)} ${plural(memoItems(m.x).length,'пункт','пункта','пунктов')}${own?' · моя':' · готовая'}</small></span><button class="btn ghost sm" data-memoed="${esc(m.id)}">${own?'Изменить':'Изменить копию'}</button></div>`;
+  sheet(`<b>Мои памятки</b><p class="snote" style="margin:-4px 0 6px">Готовые памятки — образец; «Изменить копию» сохранит вашу версию. Свои памятки входят в резервную копию.</p>
+   ${MEMO.map(m=>row(m,1)).join('')}${MEMO_READY.map(m=>row(m,0)).join('')}
+   <button class="btn red" data-memoed="new">${I.plus} Новая памятка</button><button class="cx2" data-sheetx>Закрыть</button>`);}
+function memoEditSheet(id){const own=MEMO.find(m=>m.id===id),rd=MEMO_READY.find(m=>m.id===id),m=own||rd||{t:'',x:''};
+  sheet(`<b>${own?'Памятка':rd?'Своя версия памятки':'Новая памятка'}</b><p class="snote" style="margin:-4px 0 6px">Каждый пункт — с новой строки. Клиент увидит заголовок и пункты в итогах визита.</p>
+   <label class="vf"><span>Название</span><input id="mmt" maxlength="60" value="${esc(rd&&!own?m.t:m.t)}" placeholder="Например, После массажа"></label>
+   <label class="vf"><span>Пункты</span><textarea id="mmx" class="crmtxt" rows="9" placeholder="Что делать и чего избегать — по пункту в строке">${esc(m.x)}</textarea></label>
+   <button class="btn red" data-memosave="${esc(own?own.id:rd?'from:'+rd.id:'')}">Сохранить</button>${own?`<button class="btn ghost danger" data-memodel="${esc(own.id)}">Удалить</button>`:''}<button class="cx2" data-sheetx>Отмена</button>`);}
+/* выбор зон: несколько через запятую */
+let VZK='';
+const vzList=k=>String(((VDRAFT&&VDRAFT.q[k])||{}).z||'').split(/\s*,\s*/).map(z=>z.trim()).filter(Boolean);
+function vzSheet(k){VZK=k;const cur=vzList(k),all=VZONES.concat(cur.filter(z=>!VZONES.includes(z)));
+  sheet(`<b>Зоны</b><p class="snote" style="margin:-4px 0 6px">Отметьте все, что обрабатывали. Свою зону впишите в поле — через запятую.</p>
+   <div class="syms" style="padding:0" role="group" aria-label="Зоны">${all.map(z=>`<button data-vzt="${esc(z)}" aria-pressed="${cur.includes(z)}">${esc(z)}</button>`).join('')}</div>
+   <button class="btn red" data-sheetx style="margin-top:12px">Готово</button>`);}
+function vzSet(k,list){if(!VDRAFT)return;(VDRAFT.q[k]=VDRAFT.q[k]||{}).z=list.join(', ');
+  document.querySelectorAll('input[data-vq]').forEach(i=>{if(i.dataset.vq===k+'|z')i.value=VDRAFT.q[k].z;});}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-memo],[data-memolist],[data-memoed],[data-memosave],[data-memodel],[data-vzone],[data-vzt]');if(!b)return;e.preventDefault();e.stopPropagation();const d=b.dataset;
+  if(d.vzone){vzSheet(d.vzone);return;}
+  if(d.vzt!=null){const l=vzList(VZK),i=l.indexOf(d.vzt);if(i>=0)l.splice(i,1);else l.push(d.vzt);vzSet(VZK,l);b.setAttribute('aria-pressed',i<0);return;}
+  if(d.memo&&VDRAFT){VDRAFT.memo=VDRAFT.memo||[];const i=VDRAFT.memo.findIndex(m=>m.id===d.memo);
+    if(i>=0)VDRAFT.memo.splice(i,1);else{const m=memoAll().find(z=>z.id===d.memo);if(m)VDRAFT.memo.push({id:m.id,t:m.t,x:m.x});}
+    b.setAttribute('aria-pressed',i<0);return;}
+  if('memolist' in d){memoListSheet();return;}
+  if(d.memoed){memoEditSheet(d.memoed==='new'?'':d.memoed);return;}
+  if('memosave' in d){const t=(($('#mmt')||{}).value||'').trim(),x=(($('#mmx')||{}).value||'').trim();if(!t||!x){toast('Впишите название и хотя бы один пункт');return;}
+    let id=d.memosave;const from=id.indexOf('from:')===0?id.slice(5):'';
+    if(!id||from){id='u:'+uid();MEMO.push({id,t:t.slice(0,60),x:x.slice(0,3000)});
+      if(from&&VDRAFT){const j=(VDRAFT.memo||[]).findIndex(m=>m.id===from);if(j>=0)VDRAFT.memo[j]={id,t,x};}}
+    else{const m=MEMO.find(z=>z.id===id);if(m){m.t=t.slice(0,60);m.x=x.slice(0,3000);}const j=VDRAFT?(VDRAFT.memo||[]).findIndex(z=>z.id===id):-1;if(j>=0)VDRAFT.memo[j]={id,t,x};}
+    memoSave();toast('Памятка сохранена');memoListSheet();memoRef();return;}
+  if(d.memodel){const i=MEMO.findIndex(m=>m.id===d.memodel);if(i>=0){MEMO.splice(i,1);memoSave();}if(VDRAFT)VDRAFT.memo=(VDRAFT.memo||[]).filter(m=>m.id!==d.memodel);toast('Памятка удалена');memoListSheet();memoRef();return;}
+},true);
+document.addEventListener('input',e=>{if(e.target.id==='v-rec'&&VDRAFT)VDRAFT.rec=e.target.value;});
+window.__klappMemo={ready:()=>MEMO_READY.map(m=>m.id),own:()=>MEMO,draft:()=>VDRAFT&&{rec:VDRAFT.rec,memo:VDRAFT.memo,q:VDRAFT.q}};
 /* ---------- тесты на знание ассортимента ---------- */
 const QZ_KEY='klapp-quiz-v1';
 let QZS={name:'',att:[]};
@@ -5000,11 +5092,11 @@ async function drawSheet(sh){
   y+=26;
   if(sh.pair&&sh.pair.length===2){y+=18;const G=16,cw=(IW-G)/2,ch=Math.round(cw*1.33);ops.push({k:'pair',y,cw,ch,G});y+=ch+10;}
   for(const s of sh.sections){ if(!s.items.length) continue; y+=24; ops.push({k:'line',y}); y+=34; text(DL.id==='cream'&&!NT?s.h:s.h.toUpperCase(),NT?'500 26px Jost':DL.hf,ACC,40); y+=6;
-    s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,'500 34px Jost',DL.ink,44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost',DL.grey,38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"',DL.mute,34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
+    s.items.forEach((it,i)=>{const y0=y; const ind=it._ph?116:it._img?84:56; ops.push({k:'dot',y:y0+22,n:it.n,img:it._img,ph:it._ph}); text(it.t,it.p?'300 30px Jost':'500 34px Jost',DL.ink,it.p?40:44,{x:P+ind,w:IW-ind}); if(it.s){text(it.s,'300 28px Jost',DL.grey,38,{x:P+ind,w:IW-ind});} if(it.tag){text(it.tag,'400 24px "Roboto Mono"',DL.mute,34,{x:P+ind,w:IW-ind});} if(it._img&&y<y0+70)y=y0+70; if(it._ph&&y<y0+104)y=y0+104; y+=16;});}
   /* 4.8.3: подвал — как у «Моей рекомендации»: чёрная полоса, фото в красном кольце, «Ваш косметолог», имя, контакты, приписка */
   const F=(()=>{const sg=proSign(),f=sh.foot||'',sig=!!(sg&&f.indexOf(sg)===0),note=sig?f.slice(sg.length).replace(/^[.\s]+/,''):f,has=sig&&!SO.off&&(SO.nm||SO.ct||SO.nk||!!PHO);
     const D=136,TX=P+(PHO?D+40:0),TW=W-P-TX,L=[];let ty=0;
-    if(has){ty+=52;L.push({t:('Ваш '+signWho()).toUpperCase(),f:'500 19px Jost',c:NT?'#a5a49e':FC.who,y:ty,ls:'3px'});
+    if(has){ty+=52;L.push({t:signRole().toUpperCase(),f:'500 19px Jost',c:NT?'#a5a49e':FC.who,y:ty,ls:'3px'});
       const name=SO.nm?(QZS.name||PRO.salon||'').trim():'';if(name){ty+=48;x.font='500 34px Jost';L.push({t:wrapLines(x,name,TW)[0],f:'500 34px Jost',c:NT?'#fff':FC.name,y:ty});}
       const l2=[SO.nm&&QZS.name?PRO.salon:'',SO.ct?PRO.phone:'',SO.nk?PRO.link:''].map(v=>(v||'').trim()).filter(Boolean).join('  ·  ');
       x.font='300 26px Jost';wrapLines(x,l2,TW).slice(0,2).forEach(l=>{ty+=(L.length===1?48:40);L.push({t:l,f:'300 26px Jost',c:NT?'#c9c8c2':FC.sub,y:ty});});}
@@ -5165,7 +5257,7 @@ async function drawRec(R){
   if(hasSign){let TX=P;
     if(PHO){const D=136,cx=P+D/2,cy=FY+96;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.closePath();x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();
       x.strokeStyle=ACC;x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();TX=P+D+40;}
-    const TW2=W-P-TX;setF('500 19px Jost');LS('3px');x.fillStyle=ACC;x.fillText(('Ваш '+signWho()).toUpperCase(),TX,FY+52);LS('0px');
+    const TW2=W-P-TX;setF('500 19px Jost');LS('3px');x.fillStyle=ACC;x.fillText(signRole().toUpperCase(),TX,FY+52);LS('0px');
     if(s.name||s.salon){setF('500 34px Jost');x.fillStyle='#fff';x.fillText(wrap(s.name||s.salon,'500 34px Jost',TW2)[0],TX,FY+100);}
     const l2=[s.name?s.salon:'',s.phone,s.link].filter(Boolean).join('  ·  ');setF('300 26px Jost');x.fillStyle='#c9c8c2';
     const ls=wrap(l2,'300 26px Jost',TW2);ls.slice(0,2).forEach((l,i)=>x.fillText(l,TX,FY+144+i*34));}
@@ -5230,25 +5322,28 @@ async function drawStory(S){await fontsReady();
   const caps=(t,f,col,X,Y,ls,al)=>{setF(f);LSp(ls||'4px');x.fillStyle=col;x.textAlign=al||'left';x.fillText(String(t).toUpperCase(),X,Y);x.textAlign='left';LSp('0px');};
   const fit=(im,X,Y,w,h,sh)=>{if(!im)return;const k=Math.min(w/im.width,h/im.height);const iw=im.width*k,ih=im.height*k;x.save();if(sh){x.shadowColor=sh;x.shadowBlur=70;x.shadowOffsetY=26;}x.drawImage(im,X+(w-iw)/2,Y+(h-ih)/2,iw,ih);x.restore();};
   const logo=(col,sub)=>{setF('600 58px Jost');x.fillStyle=col;x.fillText('KLAPP',P,236);setF('400 17px Jost');LSp('5px');x.fillStyle=sub;x.fillText('SKIN CARE SCIENCE',P+2,268);LSp('0px');};
-  const sg=S.sign||{},who=(sg.name||sg.salon||'').trim(),roleL=signWho()==='косметолог'?'':'ваш '+signWho(),whoR=who&&roleL?who+' · '+roleL:who,hd=storyHandle(sg),hda=storyAll(sg),PHO=S.photo||null;
+  const sg=S.sign||{},who=(sg.name||sg.salon||'').trim(),roleK=signRole().toUpperCase(),whoR=who,hd=storyHandle(sg),hda=storyAll(sg),PHO=S.photo||null;
   const sign=(Y,ink,sub)=>{if(!who&&!PHO&&!hda)return;let TX=P;const D=112;
     if(PHO||who){const cx=P+D/2,cy=Y+D/2;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();
       if(PHO){const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);}
       else{x.fillStyle=RED;x.fillRect(cx-D/2,cy-D/2,D,D);setF('500 40px Jost');x.fillStyle='#fff';x.textAlign='center';x.fillText(who.split(/\s+/).slice(0,2).map(w=>w.charAt(0)).join('').toUpperCase(),cx,cy+14);x.textAlign='left';}
       x.restore();if(PHO){x.strokeStyle=RED;x.lineWidth=3;x.beginPath();x.arc(cx,cy,D/2+6,0,Math.PI*2);x.stroke();}TX=P+D+32;}
-    const l1=whoR||hda,l2=who?(hda||(sg.name&&sg.salon?sg.salon:'ваш '+signWho())):'';
-    setF('500 38px Jost');x.fillStyle=ink;x.fillText(lines(l1,'500 38px Jost',W-P-TX,1)[0]||'',TX,Y+(l2?48:68));
-    if(l2){setF('400 32px Jost');x.fillStyle=sub;x.fillText(lines(l2,'400 32px Jost',W-P-TX,1)[0]||'',TX,Y+94);}};
+    const l1=whoR||hda,l2=who?(hda||(sg.name&&sg.salon?sg.salon:'')):'';
+    /* 4.59: роль всегда отдельной строкой над именем — как на карточках («Ваш косметолог», «Ваш менеджер»…) */
+    setF('500 20px Jost');LSp('3px');x.fillStyle=RED;x.fillText(roleK,TX,Y+(l2?14:30));LSp('0px');
+    setF('500 38px Jost');x.fillStyle=ink;x.fillText(lines(l1,'500 38px Jost',W-P-TX,1)[0]||'',TX,Y+(l2?60:80));
+    if(l2){setF('400 32px Jost');x.fillStyle=sub;x.fillText(lines(l2,'400 32px Jost',W-P-TX,1)[0]||'',TX,Y+104);}};
   /* 4.29: подпись в сторис «Продукт» — фото (или инициалы), имя и контакты; без подписи — запасной текст */
-  const pill=(bg,stroke,ink,accent,fallback)=>{const Y=1650,Hh=120;x.fillStyle=bg;cardRR(x,P,Y,IW,Hh,60);x.fill();if(stroke){x.strokeStyle=stroke;x.lineWidth=2;x.stroke();}
+  const pill=(bg,stroke,ink,accent,fallback)=>{const sgd=!!(who||PHO||hda),Y=sgd?1636:1650,Hh=sgd?148:120;x.fillStyle=bg;cardRR(x,P,Y,IW,Hh,60);x.fill();if(stroke){x.strokeStyle=stroke;x.lineWidth=2;x.stroke();}
     if(!who&&!PHO&&!hda){setF('400 32px Jost');x.fillStyle=ink;x.fillText(lines(fallback,'400 32px Jost',IW-88,1)[0]||'',P+44,Y+71);return;}
     let TX=P+44;if(PHO||who){const D=88,cx=P+16+D/2,cy=Y+Hh/2;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();
       if(PHO){const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);}
       else{x.fillStyle=RED;x.fillRect(cx-D/2,cy-D/2,D,D);setF('500 32px Jost');x.fillStyle='#fff';x.textAlign='center';x.fillText(who.split(/\s+/).slice(0,2).map(w=>w.charAt(0)).join('').toUpperCase(),cx,cy+11);x.textAlign='left';}
       x.restore();TX=P+16+D+24;}
     const mw=W-P-36-TX,l1=whoR||hda,l2=who?hda:'';
-    if(l2){setF('500 32px Jost');x.fillStyle=ink;x.fillText(lines(l1,'500 32px Jost',mw,1)[0]||'',TX,Y+52);setF('400 28px Jost');x.fillStyle=accent;x.fillText(lines(l2,'400 28px Jost',mw,1)[0]||'',TX,Y+92);}
-    else{setF('500 34px Jost');x.fillStyle=who?ink:accent;x.fillText(lines(l1,'500 34px Jost',mw,1)[0]||'',TX,Y+72);}};
+    setF('500 18px Jost');LSp('3px');x.fillStyle=accent;x.fillText(roleK,TX,l2?Y+40:Y+56);LSp('0px');
+    if(l2){setF('500 32px Jost');x.fillStyle=ink;x.fillText(lines(l1,'500 32px Jost',mw,1)[0]||'',TX,Y+82);setF('400 28px Jost');x.fillStyle=accent;x.fillText(lines(l2,'400 28px Jost',mw,1)[0]||'',TX,Y+120);}
+    else{setF('500 34px Jost');x.fillStyle=who?ink:accent;x.fillText(lines(l1,'500 34px Jost',mw,1)[0]||'',TX,Y+100);}};
   const R=Object.assign({},S.R||{}),T=S.tip||{};if(R.kind==='kit'&&R.sub)R.name=R.sub;
   /* 4.30: длинное название — линия (или тип средства) на одной строке, имя препарата на другой */
   const nmT=(f,w)=>{const n=cl(R.name);if(wrap(n,f,w).length<=1)return n;const L=cl(R.line);
@@ -5319,8 +5414,9 @@ async function drawStory(S){await fontsReady();
       const room=(PHO?1560:1604)-y-30,fb=note?fitT([note],IW-40,room,[40,36,32,29]):fitT(hookC(),IW-40,room,[40,36,33]);
       if(fb){y+=30;txt(fb.t,fb.f,PL.grey,fb.lh,W/2,y,IW-40,{al:'center'});}
       if(PHO){const D=84,cx=W/2,cy=1622;x.save();x.beginPath();x.arc(cx,cy,D/2,0,Math.PI*2);x.clip();const k=Math.max(D/PHO.width,D/PHO.height);x.drawImage(PHO,cx-PHO.width*k/2,cy-PHO.height*k/2,PHO.width*k,PHO.height*k);x.restore();}else{x.fillStyle=RED;x.fillRect(W/2-30,1640,60,4);}
-      if(who){setF('500 36px Jost');x.fillStyle=PL.ink;x.textAlign='center';x.fillText(lines(whoR,'500 36px Jost',IW,1)[0],W/2,1706);}
-      if(hda){setF('400 32px Jost');x.fillStyle=RED;x.textAlign='center';x.fillText(lines(hda,'400 32px Jost',IW,1)[0],W/2,who?1752:1706);}
+      if(who||hda||PHO){setF('500 19px Jost');LSp('3px');x.fillStyle=RED;x.textAlign='center';x.fillText(roleK,W/2,1696);LSp('0px');}
+      if(who){setF('500 36px Jost');x.fillStyle=PL.ink;x.textAlign='center';x.fillText(lines(whoR,'500 36px Jost',IW,1)[0],W/2,1742);}
+      if(hda){setF('400 32px Jost');x.fillStyle=RED;x.textAlign='center';x.fillText(lines(hda,'400 32px Jost',IW,1)[0],W/2,who?1786:1742);}
       setF('400 20px "Roboto Mono"');LSp('5px');x.fillStyle=PL.mute;x.textAlign='center';x.fillText('MADE IN GERMANY',W/2,1836);x.textAlign='left';LSp('0px');}
     else{x.fillStyle=PL.paper;x.fillRect(0,0,W,H);
       logo('#fff','rgba(255,255,255,.6)');caps(cl(S.badge)||'Рекомендую','500 27px Jost',RED,P,350,'5px');
@@ -5428,7 +5524,7 @@ async function sigData(){const o=sigOpt();if(o.off)return {sign:{name:'',salon:'
 function sigSeg(){const o=sigOpt(),av=[['ph','Фото',!!PROPH],['nm','Имя',!!(QZS.name||PRO.salon||(signWho()!=='косметолог'&&ACC&&ACC.n))],['ct','Контакты',!!PRO.phone],['nk','Ник',!!PRO.link]].filter(a=>a[2]);
   if(!av.length)return '<p class="snote">Имя, контакты, ник и фото для подписи — в Настройках, «Мои контакты для клиентов».</p>';
   return `<div class="sigo" role="group" aria-label="Подпись"><span>Подпись:</span>${av.map(([k,l])=>`<button data-sigo="${k}" aria-pressed="${!o.off&&o[k]}" ${o.off?'disabled':''}>${l}</button>`).join('')}<button data-sigo="off" aria-pressed="${o.off}">Инкогнито</button></div>`;}
-window.__klappStory={draw:drawStory,data:id=>recData(id),styles:()=>Object.keys(CARD_ST),style:cardStyle,tip:()=>TIP&&{tpl:TIP.tpl,data:tipData()},rec:(id,o)=>recCanvas(id,o),ask:t=>tipAsk(t),tipCanvas:()=>tipCanvas(),items:re=>Object.keys(itemById).filter(k=>new RegExp(re).test(k))};
+window.__klappStory={draw:drawStory,story:(id,o)=>storyFromRec(id,o||{}),data:id=>recData(id),styles:()=>Object.keys(CARD_ST),style:cardStyle,tip:()=>TIP&&{tpl:TIP.tpl,data:tipData()},rec:(id,o)=>recCanvas(id,o),ask:t=>tipAsk(t),tipCanvas:()=>tipCanvas(),items:re=>Object.keys(itemById).filter(k=>new RegExp(re).test(k))};
 let PROPH=(()=>{try{return JSON.parse(localStorage.getItem('klapp-pro-photo')||'""')||'';}catch(e){return '';}})(),PROPH_IMG=null;
 async function proPhotoImg(){if(!PROPH)return null;if(PROPH_IMG&&PROPH_IMG._src===PROPH)return PROPH_IMG;try{const im=new Image();im.src=PROPH;await im.decode();im._src=PROPH;PROPH_IMG=im;return im;}catch(e){return null;}}
 function proPhotoSet(f){if(!f)return;const u=URL.createObjectURL(f);const im=new Image();
@@ -5665,6 +5761,8 @@ const careNeutral=c=>hasMy((c.plans||[]).filter(x=>x.status==='active').map(x=>x
 const visitNeutral=(c,v)=>{const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;return careNeutral(c)||hasMy(v.proc||[])||!!(pr&&protoHasMy(pr));};
 /* 4.41: клиенту — только имя; состояние кожи и заметки остаются в карте */
 const firstName=n=>String(n||'').trim().split(/\s+/)[0]||'';
+/* 4.59: в итогах визита — имя и фамилия (переключатель «Фамилия» в окне отправки); отчество не печатаем */
+const fullName=n=>String(n||'').trim().split(/\s+/).slice(0,2).join(' ');
 function careJob(c){const nt=careNeutral(c);return {doc:1,title:'Назначение для клиента',file:(nt?'uhod-':'klapp-uhod-')+todayS(),text:shareText(c),short:nt?'Ваш домашний уход':'Ваш домашний уход KLAPP',
   canvas:()=>drawSheet({neutral:nt,kicker:'Ваш домашний уход',title:firstName(c.name),sub:'Средства подобраны под состояние вашей кожи. Вводите новые средства постепенно, днём используйте SPF.',sections:careSections(c),foot:proFoot('Если появится дискомфорт — напишите мне.')})};}
 const vqLine=q=>q?[q.n?q.n+(q.u?' '+q.u:''):'',q.z].filter(Boolean).join(' · '):'';
@@ -5678,13 +5776,15 @@ function visitNext(v){const nx=v.nx;if(!nx)return null;const dt=vNxDate(v.date,n
 function visitJob(c,v){
   const pr=v.proto?PROTOS.find(x=>x.id===v.proto):null;
   const nt=visitNeutral(c,v),done=visitDone(c,v),care=careSections(c),hasCare=care.some(s=>s.items.length),nx=visitNext(v);
-  const parts=[['done','Выполнено',done.length]].concat(hasCare?[['care','Домашний уход',care.reduce((n,s)=>n+s.items.length,0)]]:[]).concat(nx?[['next','Следующий визит',1]]:[]);
+  const recL=String(v.rec||'').split(/\n+/).map(x=>x.replace(/^[\s•·\-–—*]+/,'').trim()).filter(Boolean),memos=(v.memo||[]).filter(m=>m&&m.x);
+  const parts=[['done','Выполнено',done.length]].concat(recL.length?[['rec','Рекомендации',recL.length]]:[]).concat(hasCare?[['care','Домашний уход',care.reduce((n,s)=>n+s.items.length,0)]]:[]).concat(memos.length?[['memo','Памятка',memos.length]]:[]).concat(nx?[['next','Следующий визит',1]]:[]).concat(fullName(c.name)!==firstName(c.name)?[['fam','Фамилия',0]]:[]);
   const job={doc:1,title:'Итоги визита',file:(nt?'vizit-':'klapp-vizit-')+v.date,short:'Итоги визита',parts,off:{}};
   const on=k=>!job.off[k];
   const careOn=()=>hasCare&&on('care');
-  job.textf=()=>`${firstName(c.name)}, итоги визита ${fD(v.date)}:\n${on('done')&&done.length?'Выполнено:\n'+done.map(i=>'• '+i.t+(i.s?' — '+i.s:'')).join('\n')+'\n':''}${on('next')&&nx?'\nСледующий визит: '+nx.t+(nx.s?', '+nx.s:'')+'\n':''}${careOn()?'\n'+shareText(c):''}`;
+  const memoLines=m=>memoItems(m.x).map(i=>'• '+i.t).join('\n');
+  job.textf=()=>`${firstName(c.name)}, итоги визита ${fD(v.date)}:\n${on('done')&&done.length?'Выполнено:\n'+done.map(i=>'• '+i.t+(i.s?' — '+i.s:'')).join('\n')+'\n':''}${on('rec')&&recL.length?'\nРекомендации:\n'+recL.map(t=>'• '+t).join('\n')+'\n':''}${on('memo')?memos.map(m=>'\nПамятка · '+m.t+':\n'+memoLines(m)+'\n').join(''):''}${on('next')&&nx?'\nСледующий визит: '+nx.t+(nx.s?', '+nx.s:'')+'\n':''}${careOn()?'\n'+shareText(c):''}`;
   Object.defineProperty(job,'text',{get:job.textf,enumerable:true});
-  job.canvas=()=>drawSheet({neutral:nt,kicker:'Итоги визита · '+fD(v.date),title:firstName(c.name),sub:'',sections:[{h:'Выполнено',items:on('done')?done:[]}].concat(careOn()?care.map(s=>({h:'Домашний уход · '+s.h.toLowerCase(),items:s.items})):[]).concat(on('next')&&nx?[{h:'Следующий визит',items:[nx]}]:[]),
+  job.canvas=()=>drawSheet({neutral:nt,kicker:'Итоги визита · '+fD(v.date),title:on('fam')?fullName(c.name):firstName(c.name),sub:'',sections:[{h:'Выполнено',items:on('done')?done:[]}].concat(on('rec')?[{h:'Рекомендации',items:recL.map(t=>({t,p:1}))}]:[]).concat(careOn()?care.map(s=>({h:'Домашний уход · '+s.h.toLowerCase(),items:s.items})):[]).concat(on('memo')?memos.map(m=>({h:'Памятка · '+m.t,items:memoItems(m.x)})):[]).concat(on('next')&&nx?[{h:'Следующий визит',items:[nx]}]:[]),
       foot:proFoot(careOn()?'Если появится дискомфорт — напишите мне.':'Сохраните эту памятку и покажите её на следующем визите.')});
   return job;
 }
@@ -6047,7 +6147,7 @@ VIEWS.home=function(){
    <div class="grp">Академия</div>
    <button class="ocard alt" data-tab="academy"><span class="tx"><b>${esc(xpInfo().level)} · ${xpInfo().xp} XP</b><span>${(()=>{try{const n=fcQueue().length;return (n?n+' '+plural(n,'карточка','карточки','карточек')+' на сегодня':'Карточки на сегодня повторены')+(bg!==null?' · большой тест '+bg+'%':' · большой тест ждёт вас');}catch(e){return 'Тесты, карточки, награды и семинары';}})()}</span></span>${I.go}</button>
    <div class="hfoot"><button data-open="settings">${I.gear}<span>Настройки</span></button><button data-open="help">${I.bulb}<span>Как пользоваться</span></button></div>
-   <p class="foot">KLAPP Pro · версия 4.58</p>`;
+   <p class="foot">KLAPP Pro · версия 4.59</p>`;
 };
 VIEWS.vpick=function(){setTop('Новый визит',true);
   return `<section class="intro" style="padding-bottom:6px"><h1>Чей визит?</h1><p>Выберите клиента или заведите новую карту.</p></section>
@@ -7355,7 +7455,7 @@ let OTA_BUSY=false;
 const otaRoot=()=>{const c=cUrl();return c?c.replace(/content\/?$/,''):'';};
 const otaGet=()=>{try{return JSON.parse(localStorage.getItem('klapp-ota')||'null');}catch(e){return null;}};
 const otaPut=o=>{try{localStorage.setItem('klapp-ota',JSON.stringify(o));}catch(e){}};
-const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.58';}catch(e){return '4.58';}};
+const apkVer=()=>{try{return localStorage.getItem('klapp-apk-ver')||'4.59';}catch(e){return '4.59';}};
 async function otaVerify(text,sigB64){
   const key=await crypto.subtle.importKey('jwk',OTA_PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
   const sig=Uint8Array.from(atob(sigB64),c=>c.charCodeAt(0));
@@ -7373,7 +7473,7 @@ async function codeCheck(manual){
     const r=await fetch(root+'code/manifest.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('manifest '+r.status);
     const m=await r.json();LSset('klapp-code-check',Date.now());
     if(!m||!m.ver||!m.file||!m.sha256||!m.sig)throw new Error('manifest');
-    if(verCmp(m.ver,'4.58')<=0){if(manual)toast('Код приложения — последней версии');return;}
+    if(verCmp(m.ver,'4.59')<=0){if(manual)toast('Код приложения — последней версии');return;}
     if(m.apk_min&&verCmp(apkVer(),m.apk_min)<0){if(manual)toast('Для версии '+m.ver+' нужен новый APK — попросите его у менеджера');return;}
     const o=otaGet();
     if(o&&o.ver===m.ver){if(o.state==='bad'){if(manual)toast('Версия '+m.ver+' не запустилась на этом телефоне — ждём исправления');return;}otaBanner(m.ver);return;}
@@ -7405,7 +7505,7 @@ async function codeCheck(manual){
 if(window.androidBridge){setTimeout(()=>codeCheck(false),6000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')codeCheck(false);});
   setInterval(()=>{if(document.visibilityState==='visible')codeCheck(false);},3*60*1000);}   /* 4.28: и пока приложение просто открыто */
 /* ---------- 3.8: знакомство, «Что нового», подсказки, настройки, помощь ---------- */
-const VERMIN='4.58'.split('.').slice(0,2).join('.');
+const VERMIN='4.59'.split('.').slice(0,2).join('.');
 let HINTS=LS('klapp-hints',{});
 function hint(id,title,text){if(HINTS[id])return '';return `<div class="hint" data-hintbox="${id}"><span class="hic">${I.bulb}</span><span class="tx"><b>${title}</b><span>${text}</span></span><button class="hx" data-hint="${id}">Понятно</button></div>`;}
 function hintWrap(view,id,title,text){const f=VIEWS[view];VIEWS[view]=function(s){const h=f.apply(this,arguments);return hint(id,title,text)+h;};}
@@ -7423,7 +7523,7 @@ hintWrap('myl','myl','Мои препараты','Добавьте средст�
 hintWrap('honors','honors','Награды','Медали — за тесты по линиям, кубки — за категории, корона — за большой тест. Ниже — коллекция линий: линия собрана, когда вы открыли все её препараты и наборы и сдали тест по ней на 75% и выше.');
 hintWrap('run','run','Процедура по шагам','На каждом этапе — препарат, техника и таймер. Экран не гаснет, пока идёт процедура. «Следующий этап» — переход дальше.');
 hintWrap('cclient','client','Карта клиента','Полоса у назначения показывает, сколько средства осталось. «В заказ» добавит его в список для менеджера, «Докупил» начнёт отсчёт заново.');
-const WHATSNEW={'4.58':[['Контакты и чат с менеджером','«Из контактов» выбирает клиента из телефонной книги, а заказ менеджеру в Telegram открывается сразу в его чате.'],['Аккуратный текст','Короткие слова, буквы и знак ₽ больше не остаются одни на строке.']],
+const WHATSNEW={'4.59':[['Итоги визита полнее','Имя и фамилия клиента, свои рекомендации своими словами и несколько зон через запятую.'],['Памятки после процедуры','Шесть готовых памяток — после чистки, пилинга, инъекций и других процедур — и свои: выберите в конце визита, и они войдут в итоги.'],['Заметки для себя','Большое поле в визите: клиент его не увидит.'],['Подпись в сторис','Над именем во всех стилях — «Ваш косметолог», как на карточках.']],'4.58':[['Контакты и чат с менеджером','«Из контактов» выбирает клиента из телефонной книги, а заказ менеджеру в Telegram открывается сразу в его чате.'],['Аккуратный текст','Короткие слова, буквы и знак ₽ больше не остаются одни на строке.']],
  '4.57':[['«Рекомендация» в Подборе','Схемы ухода и «Моя рекомендация» теперь в одном месте: Подбор → Дом → «Рекомендация» — схема или один препарат. Схема уходит клиенту под заголовком «Моя рекомендация».']],
  '4.56':[['«Как пользоваться» — для вашей роли','В подсказках — то, что нужно именно вам: запись клиента, «Сегодня», а у тренера и куратора — свои разделы.']],
  '4.55':[['Игра в новом стекле','Препараты в «Лаборатории Клаппа» — в стеклянных каплях цвета своей линии, соседние ступени легко различить. Обновлена цепочка — от очищения к лифтингу, корона — Exo|Gen.']],
@@ -7440,7 +7540,7 @@ function wnItems(from){const ks=WN_KEYS().filter(k=>from?vNum(k)>vNum(from):true
    первым — исправления и мелкие доработки, последним — тёплая строка */
   return [WN_FIRST,...L.slice(0,4),WN_LAST];}
 const WN_FIRST=['Исправления и доработки','Поправили ошибки и мелкие недочёты — приложение работает стабильнее.'],WN_LAST=['Ещё больше заботы о вас','И ещё больше удобных функций — уже в работе. Спасибо, что вы с KLAPP.'];
-function whatsNew(from){const L=wnItems(from);if(!L.length)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.58</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
+function whatsNew(from){const L=wnItems(from);if(!L.length)return;sheet(`<p class="wnk">KLAPP Pro · версия 4.59</p><b class="wnt">Что нового</b><div class="wnl">${L.map(([t,d],i)=>`<div><span class="wnn">${i+1}</span><span><b>${t}</b><small>${d}</small></span></div>`).join('')}</div><button class="btn red" data-sheetx>Отлично</button>`);}
 const ONB_C=[
  {ic:'brand',t:'KLAPP Pro',d:'Рабочий инструмент косметолога: ассортимент, клиенты и заказы — в одном приложении. Работает без интернета.',ch:['145 препаратов','13 наборов','без интернета']},
  {ic:'lines',t:'Ответ на любой вопрос',d:'Каталог, составы INCI и подбор по состоянию кожи. Поиск понимает опечатки и неправильную раскладку.',ch:['Каталог','Подбор','Поиск']},
@@ -7492,7 +7592,7 @@ function firstRun(){if(accStart(firstRun))return;if(isDemo())return;const used=C
   if(!LS('klapp-onb','')){if(used){LSset('klapp-onb',VERMIN);}else{onbShow();return;}}
   if(LS('klapp-seen-ver','')!==VERMIN){const was=LS('klapp-seen-ver','');LSset('klapp-seen-ver',VERMIN);if(used&&wnItems(was).length&&WN_KEYS().some(k=>vNum(k)>vNum(was||'0')))whatsNew(was);}}
 VIEWS.settings=function(){setTop('Настройки',true);
-  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.58</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
+  if(isDemo())return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.59</p></section>${accSettings()}${lookHTML()}${fontHTML()}`;
   const MRo=typeof setMgrRole==='function'&&setMgrRole(),R=accRole();
   const nameF=`<label class="vf" style="padding:0 20px"><span>Как к вам обращаться</span><input id="setname" value="${esc(QZS.name||'')}" placeholder="Имя и фамилия" autocomplete="name"></label><p class="snote" style="padding:2px 20px 0">${MRo?(R==='b'?'Имя появится на карточках и сторис.':'Имя появится в подписи сообщений '+(R==='r'?'дистрибьюторам':'косметологам')+'.'):'Имя появится в заказе менеджеру и на доске почёта.'}</p>`;
   /* 4.53: настройки — карточка «кто я» и свёрнутые группы (решение 18.11); «Карточки и сторис» убраны — стиль выбирается при отправке */
@@ -7511,7 +7611,7 @@ VIEWS.settings=function(){setTop('Настройки',true);
   const bd=typeof bkDays==='function'?bkDays():null,uiN=((typeof UIS!=='undefined'?UIS:[]).find(x=>x[0]===UIX)||[0,'Классика'])[1];
   const thN={auto:'как в системе',light:'светлая',dark:'тёмная'}[TH]||'',fsN=FS>1.2?'очень крупный текст':FS>1.05?'крупный текст':'';
   const mgrNeed=!!G.mgr&&!mgrOk();
-  return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.58${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
+  return `<section class="intro"><h1>Настройки</h1><p class="verline">KLAPP Pro · версия 4.59${window.__OTA&&window.__OTA.on?' · обновлена по сети (в APK — '+esc(window.__OTA.base||'')+')':''}${typeof CDATE_ON!=='undefined'&&CDATE_ON?' · база от '+esc(cDate(CDATE_ON)):''}</p></section>
   <div class="setme">${accSettings().replace('<div class="grp">Доступ</div>','')}</div>
   ${sgBox('prof',I.cam,'Профиль и контакты',[QZS.name,PRO.salon].filter(Boolean).join(' · ')||'Имя, фото и подпись для '+(MRo?'сообщений':'клиентов'),G.prof)}
   ${sgBox('mgr',I.share,R==='p'?'Мой региональный менеджер':'Мой менеджер',mgrOk()?(MGR.n||'Указан')+' · '+mgrCh():'Не указан — заказ уйдёт в одно касание',G.mgr,mgrNeed)}
@@ -7519,7 +7619,7 @@ VIEWS.settings=function(){setTop('Настройки',true);
   ${sgBox('data',I.safe,'Данные и копия',BK.last?'Копия '+(bd===0?'сегодня':bd+' '+plural(bd,'день','дня','дней')+' назад'):'Копию ещё не сохраняли',G.data,typeof bkNeed==='function'&&bkNeed())}
   ${sgBox('help',I.bulb,'Помощь и связь','Как пользоваться, что нового, ошибка, идея, отзыв',G.help)}
   ${sgBox('comm',I.tgm,'Сообщество и бренд','Telegram и всё о KLAPP',G.comm)}
-  <p class="foot">KLAPP Pro · версия 4.58</p>`;};
+  <p class="foot">KLAPP Pro · версия 4.59</p>`;};
 let SGOPEN='';
 const sgSplit=h=>{const out=[];String(h).split('<div class="grp">').forEach((p,i)=>{if(!i){if(p.trim())out.push(['',p]);return;}const j=p.indexOf('</div>');out.push([p.slice(0,j).replace(/<[^>]+>/g,'').trim(),'<div class="grp">'+p]);});return out;};
 function sgBox(id,ic,t,sb,html,dot){if(!String(html||'').trim())return '';
@@ -7675,6 +7775,8 @@ const inProgram=()=>{const r=accRole();return !!r&&(+ACC.st>=1&&+ACC.st<=4||+ACC
 const canSharePro=()=>'mtpkrb'.includes(accRole()||'x');
 const isBrand=()=>accRole()==='b';
 const signWho=()=>({m:'менеджер',r:'менеджер',p:'партнёр',t:'тренер',b:'бренд-менеджер'})[accRole()]||'косметолог';   /* 4.30: подпись на карточках и сторис по роли */
+/* 4.59: подпись роли — «Ваш косметолог»; у сотрудников и партнёров — с маркой: «Ваш менеджер KLAPP» (решение 21.11) */
+const signRole=()=>{const w=signWho();return 'Ваш '+w+(w==='косметолог'?'':' KLAPP');};
 const isCurator=()=>accRole()==='k';
 const roleTitle=()=>{const r=accRole();return r?ROLES[r].t:'';};
 /* подпись куратора — своя, редактируется в Настройках */
@@ -7815,7 +7917,7 @@ function statCount(k){if(!statOn())return;STS.cnt[k]=(STS.cnt[k]||0)+1;}
 function statEv(t,d){try{if(typeof sklOnEv==='function')sklOnEv(t,d);}catch(e){}if(!statOn())return;STQ.push([new Date().toISOString(),t,String(d==null?'':d).slice(0,200)]);if(STQ.length>400)STQ=STQ.slice(-400);LSset(STAT_Q,STQ);if(STQ.length>=25)statSend();}
 let statBusy=false;
 function statSend(beacon){if(!statOn()||!STQ.length||statBusy||navigator.onLine===false)return;
-  const batch=STQ.slice(0,200),body=JSON.stringify({k:STAT_KEY,u:{i:ACC.i,n:ACC.n||'',s:ACC.s||'',r:(typeof isViewerReal==='function'&&isViewerReal()?ACC0.r:typeof accRole==='function'&&accRole())||'',st:ACC.st||''},v:'4.58',pl:statPl(),ev:batch});
+  const batch=STQ.slice(0,200),body=JSON.stringify({k:STAT_KEY,u:{i:ACC.i,n:ACC.n||'',s:ACC.s||'',r:(typeof isViewerReal==='function'&&isViewerReal()?ACC0.r:typeof accRole==='function'&&accRole())||'',st:ACC.st||''},v:'4.59',pl:statPl(),ev:batch});
   const done=()=>{STQ=STQ.slice(batch.length);LSset(STAT_Q,STQ);LSset('klapp-stat-last',Date.now());};
   if(beacon&&navigator.sendBeacon){try{if(navigator.sendBeacon(STAT_URL,new Blob([body],{type:'text/plain'})))done();}catch(e){}return;}
   statBusy=true;fetch(STAT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body,keepalive:body.length<60000}).then(done).catch(()=>{}).finally(()=>{statBusy=false;});}
@@ -7952,7 +8054,7 @@ function openExt(url){const now=Date.now();if(now-EXT_T<1500)return;EXT_T=now;
 const DEV_MAIL='grudnyaks@gmail.com';
 function devInfo(){const ua=navigator.userAgent||'';const os=/iPhone|iPad/.test(ua)?'iOS '+((ua.match(/OS (\d+[_\d]*)/)||[])[1]||'').replace(/_/g,'.'):/Android/.test(ua)?'Android '+((ua.match(/Android ([\d.]+)/)||[])[1]||''):'браузер';
   const how=window.androidBridge?'приложение':(navigator.standalone||matchMedia('(display-mode: standalone)').matches)?'значок на экране':'вкладка браузера';
-  return `Версия приложения: 4.58\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
+  return `Версия приложения: 4.59\nУстройство: ${os} · ${how}\nКод доступа: ${ACC&&ACC.i?'№'+ACC.i:'нет'}`;}
 function devMail(subj,body){openExt('mailto:'+DEV_MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body));}
 let PRO=LS('klapp-pro',{salon:'',phone:'',link:''});
 const proSign=()=>[QZS.name?'Ваш '+signWho()+': '+QZS.name:'',PRO.salon,PRO.phone,PRO.link].map(x=>(x||'').trim()).filter(Boolean).join(' · ');
@@ -7962,7 +8064,7 @@ const proFoot=t=>{const s=proSign();return (s?s+'. ':'')+t;};
 const setRole=()=>{let r='';try{r=accRole();}catch(e){}return r;};
 const setMgrRole=()=>'mrpb'.includes(setRole()||'x');
 function settings39(){const R=setRole(),MR=setMgrRole(),ch=MGR.ch;const ph=ch==='tg'?'@username в Telegram':ch==='max'?'Ссылка на профиль, например https://max.ru/…':'Телефон с WhatsApp, например +7 916 123-45-67';
-  const bkTxt=R==='b'?'В копию входят ваши контакты, фото, избранное, тесты, награды и настройки вида.':MR?`В копию входят база (${R==='r'?'дистрибьюторы':'косметологи'}), заказы и история связи, ожидания поступления, ваши контакты, фото и настройки вида.`:'В копию входят карты клиентов (с отметками о согласии), протоколы, мои препараты, ваши правки схем ухода, заказ и сравнение, избранное, тесты, награды и рекорд игры, карточки и вопросы дня, ваши контакты, фото, менеджер и настройки вида.';
+  const bkTxt=R==='b'?'В копию входят ваши контакты, фото, избранное, тесты, награды и настройки вида.':MR?`В копию входят база (${R==='r'?'дистрибьюторы':'косметологи'}), заказы и история связи, ожидания поступления, ваши контакты, фото и настройки вида.`:'В копию входят карты клиентов (с отметками о согласии), протоколы, мои препараты, ваши правки схем ухода, свои памятки, заказ и сравнение, избранное, тесты, награды и рекорд игры, карточки и вопросы дня, ваши контакты, фото, менеджер и настройки вида.';
   const mgrBlock=(MR&&R!=='p')?'':`<div class="grp">${R==='p'?'Мой региональный менеджер':'Мой менеджер'}</div><p class="snote" style="padding:0 20px 8px">Укажите один раз — и «Мой заказ» будет уходить ${R==='p'?'региональному менеджеру':'менеджеру'} в одно касание.</p>`;
   const contTitle=R==='b'?'Мои контакты для подписи':MR?'Мои контакты для '+(R==='r'?'дистрибьюторов':'косметологов'):'Мои контакты для клиентов';
   const contNote=R==='b'?'Появятся внизу карточек препаратов и сторис.':MR?'Появятся внизу карточек препаратов и сторис, которые вы отправляете.':'Появятся внизу шпаргалки по уходу и итогов визита — клиент будет знать, куда написать.';
@@ -8143,7 +8245,7 @@ new MutationObserver(()=>{
 /* 3.11.4: плашка «Вышла новая версия» для сайта (window.klappNewVer — для проверок) */
 window.klappNewVer=function(){newVerBanner();};
 function newVerBanner(){if(document.getElementById('nvb'))return;
-  var cur='4.58';
+  var cur='4.59';
   function show(v){if(v&&v===cur)return;var b=document.createElement('div');b.id='nvb';b.className='nvb';b.setAttribute('role','status');
     b.innerHTML='<span class="tx"><b>Вышла новая версия'+(v?' '+v:'')+'</b><small>Обновление займёт секунду</small></span><button type="button" class="nvbgo">Обновить</button><button type="button" class="nvbx" aria-label="Позже">×</button>';
     b.querySelector('.nvbgo').onclick=function(){location.reload();};b.querySelector('.nvbx').onclick=function(){b.remove();};document.body.appendChild(b);}
